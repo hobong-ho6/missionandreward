@@ -1,4 +1,4 @@
-/* style.css (통합본: 홈, 일일 미션, 리워드 내역) */
+/* style.css (통합본: 홈, 일일 미션, 리워드 내역, 게임 상세) */
 
 :root {
   --brand-green: #4bd29e; 
@@ -41,10 +41,16 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .mt-10 { margin-top: 10px; } .mt-20 { margin-top: 20px; } .mt-30 { margin-top: 30px; } .mt-40 { margin-top: 40px; }
 .mb-10 { margin-bottom: 10px; } .mb-20 { margin-bottom: 20px; }
 .px-20 { padding-left: 20px; padding-right: 20px; }
-
 .red-dot { width: 6px; height: 6px; background-color: var(--highlight-red); border-radius: 50%; display: inline-block; vertical-align: top; }
 
-/* Buttons */
+/* --- 공통 버튼 및 펄스 애니메이션 --- */
+@keyframes pulse-soft {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); }
+  70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+}
+.pulse-anim, .btn-receive { animation: pulse-soft 1.5s infinite; }
+
 .btn-black { background-color: #111; color: #fff; border-radius: 20px; font-weight: 800; transition: transform 0.1s; text-align: center; }
 .btn-black:active { transform: scale(0.95); }
 .btn-play { background-color: #111; color: #fff; width: 100%; padding: 10px 0; border-radius: 20px; font-size: 14px; font-weight: 800; margin-top: auto; transition: background-color 0.2s, color 0.2s, transform 0.1s; position: relative; }
@@ -53,7 +59,7 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .btn-small { background-color: #111; color: #fff; padding: 8px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; border: none; transition: transform 0.1s; }
 .btn-small:active { transform: scale(0.95); }
 
-/* Home (index.html) Specifics */
+/* --- 홈 (index.html) 요소 --- */
 .header { padding: 16px 20px; position: sticky; top: 0; background-color: var(--app-bg); z-index: 10; }
 .header .logo { font-size: 24px; letter-spacing: -1px; }
 .header .icons { display: flex; gap: 16px; font-size: 24px; align-items: center; }
@@ -70,27 +76,15 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .daily-banner { background-color: var(--mint-bg); margin: 16px 20px; padding: 16px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; transition: opacity 0.1s; text-decoration: none;}
 .daily-banner:active { opacity: 0.8; }
 
-/* 롤링 텍스트 애니메이션 */
 .rolling-wrapper { height: 20px; overflow: hidden; display: inline-block; vertical-align: middle; }
 .rolling-list { display: flex; flex-direction: column; animation: rolling 4s cubic-bezier(0.175, 0.885, 0.32, 1) infinite; }
 .rolling-item { height: 20px; line-height: 20px; white-space: nowrap; }
-@keyframes rolling {
-  0%, 40% { transform: translateY(0); }
-  50%, 90% { transform: translateY(-20px); }
-  100% { transform: translateY(-40px); }
-}
+@keyframes rolling { 0%, 40% { transform: translateY(0); } 50%, 90% { transform: translateY(-20px); } 100% { transform: translateY(-40px); } }
 
 .game-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 20px 20px 20px; gap: 12px; -ms-overflow-style: none; scrollbar-width: none; flex-wrap: nowrap; }
 .game-carousel::-webkit-scrollbar { display: none; }
 .game-card { min-width: 140px; max-width: 140px; background-color: var(--gray-bg); border-radius: 16px; padding: 20px 16px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; box-sizing: border-box;}
 .game-img { width: 72px; height: 72px; min-height: 72px; border-radius: 50%; background-color: #ddd; margin-bottom: 12px; object-fit: cover; }
-
-.progress-container { width: 100%; height: 4px; background-color: #e0e0e0; border-radius: 2px; margin: 8px 0; overflow: hidden; }
-.progress-bar { height: 100%; background-color: var(--brand-green); border-radius: 2px; transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out; }
-
-.tooltip { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 1px solid #111; color: #111; padding: 6px 10px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 5; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; pointer-events: none;}
-.tooltip::before { content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background-color: #fff; border-top: 1px solid #111; border-left: 1px solid #111; }
-.btn-play:hover .tooltip, .btn-play:active .tooltip { opacity: 1; visibility: visible; }
 
 .edu-card { background-color: var(--mint-bg); border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin: 0 20px 12px 20px; cursor: pointer; }
 .edu-card.gray { background-color: var(--gray-bg); }
@@ -103,18 +97,12 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .nav-icon { font-size: 24px; }
 .nav-icon-green { font-size: 24px; color: var(--brand-green); }
 
-/* Daily Mission Specifics */
+/* --- 일일 미션 (daily_mission.html) --- */
 .bg-gradient-mint { background: linear-gradient(180deg, #eaf7f0 0%, #e0f9eb 40%, #cbf2d6 100%); min-height: 100vh; }
 .card { background-color: var(--card-bg); border-radius: 24px; padding: 24px 20px; margin: 0 20px 20px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
 .mission-header-area { padding: 20px 20px 10px 20px; }
-
 .badge-pill { background-color: rgba(255, 255, 255, 0.6); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 6px; transition: transform 0.2s ease, background-color 0.2s ease; cursor: pointer; text-decoration: none; }
 .badge-pill.highlight { transform: scale(1.1); background-color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-
-.tooltip-top { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 1px solid #111; color: #111; padding: 4px 8px; border-radius: 16px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 10;}
-.tooltip-top::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background-color: #fff; border-right: 1px solid #111; border-bottom: 1px solid #111; }
-.text-disabled { color: #a0a0a0; font-weight: 600; font-size: 13px; }
-
 .step-container { display: flex; justify-content: space-between; align-items: flex-end; position: relative; margin: 30px 0 24px 0; padding: 0 5px; }
 .step-item { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
 .step-circle { width: 44px; height: 44px; border-radius: 50%; background-color: #ffffff; border: 3px solid #e0e0e0; display: flex; justify-content: center; align-items: center; font-weight: bold; color: #ccc; margin-bottom: 8px; transition: all 0.3s ease; }
@@ -123,7 +111,6 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .step-circle.reward { background-color: #ffcc00; border-color: #ffcc00; color: #fff; font-size: 20px; }
 .step-circle.reward-big { width: 54px; height: 44px; border-radius: 14px; background-color: #ffcc00; border-color: #ffcc00; color: #fff; font-size: 22px; }
 .step-label { font-size: 13px; color: #a0a0a0; font-weight: 700; }
-
 .game-progress-container { position: relative; display: flex; justify-content: space-between; align-items: center; margin: 30px 10px 30px 10px; }
 .game-progress-line { position: absolute; top: 20px; left: 0; right: 0; height: 3px; background-color: #e0e0e0; z-index: 1; }
 .game-progress-fill { position: absolute; top: 20px; left: 0; height: 3px; background-color: var(--brand-green); width: 0%; z-index: 1; transition: width 0.5s ease; }
@@ -131,19 +118,47 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .game-step img { width: 40px; height: 40px; border-radius: 50%; border: 3px solid #e0e0e0; background-color: #eee; object-fit: cover; transition: border-color 0.3s; }
 .game-step img.active { border-color: var(--brand-green); }
 .game-step .reward-box { width: 48px; height: 40px; border-radius: 12px; background-color: #ffcc00; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 20px; transition: all 0.3s ease; }
-
 .game-list { display: flex; flex-direction: column; gap: 20px; margin-top: 10px; }
 .game-list-item { display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: inherit; position: relative; }
 .game-list-item img { width: 48px; height: 48px; border-radius: 50%; margin-right: 14px; object-fit: cover; }
 
-/* Test Panel & Buttons */
+/* --- 게임 상세 (game_detail.html) 요소 --- */
+.cover-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+.cover-header { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; z-index: 10; padding-top: max(20px, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; }
+.back-btn-white { color: #fff; font-size: 20px; font-weight: 900; text-decoration: none; display: flex; justify-content: center; align-items: center; width: 36px; height: 36px; background-color: rgba(0, 0, 0, 0.4); border-radius: 50%; backdrop-filter: blur(4px); }
+.game-info-container { background: var(--app-bg); border-radius: 24px 24px 0 0; position: relative; margin-top: -24px; padding: 30px 20px; padding-bottom: 120px; }
+.sub-banner { background-color: var(--mint-bg); border-radius: 16px; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.mission-card { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.mission-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.mission-item:last-child { margin-bottom: 0; }
+.mission-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--gray-bg); display: flex; justify-content: center; align-items: center; font-size: 24px; margin-right: 14px; position: relative; }
+.mission-icon .check-badge { display: none; }
+.mission-icon.is-done .check-badge { position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; background: var(--text-main); color: #fff; border-radius: 50%; font-size: 10px; display: flex; justify-content: center; align-items: center; font-weight: bold; border: 2px solid #fff; }
+.btn-status { padding: 8px 18px; border-radius: 16px; font-size: 13px; font-weight: 800; transition: transform 0.1s; cursor: pointer; }
+.btn-status:active { transform: scale(0.95); }
+.btn-status.start { background-color: var(--text-main); color: #fff; border: none; }
+.btn-status.ing { background-color: #fff; color: var(--text-main); border: 1px solid var(--border-color); }
+.btn-status.done { background-color: var(--gray-bg); color: #a0a0a0; border: none; cursor: default; pointer-events: none; }
+.bottom-fixed { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; padding: 12px 20px; padding-bottom: calc(12px + env(safe-area-inset-bottom)); display: flex; gap: 12px; box-sizing: border-box; border-top: 1px solid var(--border-color); z-index: 100; box-shadow: 0 -4px 15px rgba(0,0,0,0.03); }
+.btn-line { flex: 1; max-width: 140px; background: var(--gray-bg); color: var(--text-main); border-radius: 16px; font-weight: 800; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 6px; border: none; cursor: pointer; padding: 16px 0; transition: transform 0.1s; }
+.btn-line:active { transform: scale(0.95); }
+.btn-play-game { flex: 2; background: var(--text-main); color: #fff; border-radius: 16px; font-weight: 800; font-size: 16px; border: none; cursor: pointer; padding: 16px 0; transition: transform 0.1s; }
+.btn-play-game:active { transform: scale(0.95); }
+.tag-list { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.tag { font-size: 12px; font-weight: 600; color: var(--text-sub); background: var(--gray-bg); padding: 6px 10px; border-radius: 8px; }
+
+/* --- 툴팁, 팝업, 알림 오버레이 --- */
+.tooltip { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 1px solid #111; color: #111; padding: 6px 10px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 5; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; pointer-events: none;}
+.tooltip::before { content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background-color: #fff; border-top: 1px solid #111; border-left: 1px solid #111; }
+.btn-play:hover .tooltip, .btn-play:active .tooltip { opacity: 1; visibility: visible; }
+.tooltip-top { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 1px solid #111; color: #111; padding: 4px 8px; border-radius: 16px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 10;}
+.tooltip-top::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background-color: #fff; border-right: 1px solid #111; border-bottom: 1px solid #111; }
+
 .test-cycle-btn { background: rgba(0,0,0,0.05); color: #888; border-radius: 8px; font-size: 10px; font-weight: bold; padding: 4px 8px; margin-left: 8px; cursor: pointer; transition: background 0.1s; border:none; }
 .test-cycle-btn:active { background: rgba(0,0,0,0.1); }
 .test-panel { background-color: rgba(0,0,0,0.8); color: #fff; padding: 10px 20px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
 .test-btn { background: #333; color: white; border: 1px solid #555; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
-.test-btn:active { background: #555; }
 
-/* Overlay & Bottom Sheet */
 .dim-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .dim-bg.active { opacity: 1; pointer-events: auto; }
 .bottom-sheet { position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 480px; background: #ffffff; border-radius: 24px 24px 0 0; padding: 30px 20px 40px 20px; z-index: 1001; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1); box-sizing: border-box; text-align: center; }
@@ -152,7 +167,6 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .ticket-visual { width: 140px; height: 140px; margin: 30px auto; position: relative; background-color: #ffcc00; border-radius: 20px; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4); }
 .ticket-visual::before { content: '★'; font-size: 80px; color: #fff; opacity: 0.9; }
 .confetti { position: absolute; font-size: 24px; animation: float 3s infinite ease-in-out; }
-@keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
 
 .blur-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #d8f7e3 0%, #ffffff 60%); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
 .blur-overlay.active { opacity: 1; pointer-events: auto; }
@@ -161,7 +175,20 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .blur-overlay.active .usdt-glow-circle { transform: scale(1); opacity: 1; }
 .usdt-glow-circle span { color: white; font-size: 80px; font-weight: bold; }
 
-/* Reward History Specifics */
+/* 커스텀 하트 팝업 오버레이 */
+#heart-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+#heart-alert-overlay.active { opacity: 1; pointer-events: auto; }
+.alert-box { background: #fff; border-radius: 24px; padding: 30px 20px; width: 80%; max-width: 320px; text-align: center; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+#heart-alert-overlay.active .alert-box { transform: translateY(0); }
+
+/* LINE OA 메시지 알림 전용 스타일 */
+#line-notification { position: fixed; top: max(16px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%) translateY(-150%); width: calc(100% - 32px); max-width: 448px; z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1); }
+#line-notification.active { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.line-msg-box { background: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); padding: 16px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; border: 1px solid #f0f0f0; }
+.line-icon { width: 40px; height: 40px; border-radius: 50%; background-color: #06C755; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
+.line-icon svg { width: 24px; height: 24px; color: #fff; }
+
+/* 리워드 히스토리 (reward_history.html) */
 .history-list { display: flex; flex-direction: column; }
 .history-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border-color); }
 .history-item:last-child { border-bottom: none; }
