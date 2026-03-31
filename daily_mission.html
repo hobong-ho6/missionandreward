@@ -10,10 +10,18 @@
 
   <div class="app-container bg-gradient-mint">
     
+    <div class="test-panel">
+      <span>🛠 프로토타입 테스트</span>
+      <div>
+        <button class="test-btn" id="btn-reset-att">출석 초기화</button>
+        <button class="test-btn" id="btn-complete-all" style="margin-left: 4px;">모든 미션 완료</button>
+      </div>
+    </div>
     <div class="mission-header-area">
       <a href="index.html" style="font-size: 24px; color: var(--text-main); text-decoration: none; display: inline-block; margin-bottom: 20px;">&lt;</a>
       
-      <p class="text-sub font-semibold" style="font-size: 13px;">01:30:59 남음</p>
+      <p class="text-sub font-semibold" style="font-size: 13px;" id="countdown-timer">00:00:00 남음</p>
+      
       <div class="flex-between mt-10">
         <h1 class="font-black text-main" style="font-size: 28px;">일일 미션</h1>
         <div class="badge-pill">
@@ -27,31 +35,31 @@
       <h3 class="font-extrabold text-main" style="font-size: 18px;">출석 체크</h3>
       <p class="text-sub mt-10" style="font-size: 13px;">5일 연속 출석 체크하고 USDT 뽑기권 받아요</p>
       
-      <div class="step-container">
-        <div class="step-item">
+      <div class="step-container" id="attendance-steps">
+        <div class="step-item" data-day="1">
           <div class="step-circle checked">✓</div>
           <span class="step-label" style="color: var(--text-main);">1일</span>
         </div>
-        <div class="step-item">
+        <div class="step-item" data-day="2">
           <div class="step-circle current"></div>
           <span class="step-label">2일</span>
         </div>
-        <div class="step-item">
+        <div class="step-item" data-day="3">
           <div class="step-circle reward">★</div>
           <span class="step-label">3일</span>
         </div>
-        <div class="step-item">
+        <div class="step-item" data-day="4">
           <div class="step-circle"></div>
           <span class="step-label">4일</span>
         </div>
-        <div class="step-item">
+        <div class="step-item" data-day="5">
           <div class="tooltip-top">뽑기권 3개</div>
           <div class="step-circle reward-big">🎟️</div>
           <span class="step-label">5일</span>
         </div>
       </div>
 
-      <button class="btn btn-play" style="padding: 16px 0; font-size: 16px; border-radius: 24px;">출석하고 1 USDT 받기</button>
+      <button id="btn-attend" class="btn btn-play" style="padding: 16px 0; font-size: 16px; border-radius: 24px;">출석하고 1 USDT 받기</button>
     </div>
 
     <div class="card">
@@ -60,65 +68,93 @@
 
       <div class="game-progress-container">
         <div class="game-progress-line"></div>
-        <div class="game-progress-fill"></div>
+        <div class="game-progress-fill" id="game-progress-fill" style="width: 33%;"></div>
         
         <div class="game-step">
-          <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat">
-          <span class="step-label mt-10">게임 1개</span>
+          <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat" class="active">
+          <span class="step-label mt-10" style="color: var(--text-main);">게임 1개</span>
         </div>
         <div class="game-step">
-          <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello">
+          <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello" id="step-img-2">
           <span class="step-label mt-10">게임 2개</span>
         </div>
         <div class="game-step">
           <div class="tooltip-top">뽑기권 3개</div>
-          <div class="reward-box">★</div>
+          <div class="reward-box" id="step-reward-3">★</div>
           <span class="step-label mt-10">게임 3개</span>
         </div>
       </div>
 
-      <div class="game-list">
+      <div class="game-list" id="game-list-container">
         
-        <a href="game_detail.html" class="game-list-item" style="text-decoration: none;">
+        <a href="game_detail.html" class="game-list-item game-row">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat">
             <div class="flex-col">
               <span class="font-extrabold text-main" style="font-size: 15px;">Squishy Cat</span>
-              <span class="font-semibold mt-10" style="color: var(--brand-green); font-size: 12px;">미션 완료</span>
+              <span class="game-status font-semibold mt-10" style="color: var(--brand-green); font-size: 12px;">미션 완료</span>
             </div>
           </div>
-          <button class="btn btn-small">2 USDT 받기</button>
+          <div class="action-area">
+            <button class="btn btn-small btn-receive">2 USDT 받기</button>
+          </div>
         </a>
 
-        <a href="game_detail.html" class="game-list-item" style="text-decoration: none;">
+        <a href="game_detail.html" class="game-list-item game-row">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello">
             <div class="flex-col">
               <span class="font-extrabold text-main" style="font-size: 15px;">Tap Tap Jello</span>
-              <span class="font-semibold mt-10" style="color: var(--brand-green); font-size: 12px;">미션 완료</span>
+              <span class="game-status font-semibold mt-10" style="color: var(--brand-green); font-size: 12px;">미션 완료</span>
             </div>
           </div>
-          <span class="text-disabled">2 USDT 받음</span>
+          <div class="action-area">
+            <span class="text-disabled">2 USDT 받음</span>
+          </div>
         </a>
 
-        <a href="game_detail.html" class="game-list-item" style="text-decoration: none;">
+        <a href="game_detail.html" class="game-list-item game-row">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hmpC2SfwtMl9-Sy2JQ-5NCCYePC4SOitKB30gJwMOODNNKS4IQ38IUgQjbwsaExNACVImYBswMxNbKyp5QVYiWVMYDgRTGhB-AVILQVsbNwwSKD51QVEISQcbCW4V" alt="Merge Cat">
             <div class="flex-col">
               <span class="font-extrabold text-main" style="font-size: 15px;">Merge Cat</span>
-              <span class="font-semibold text-sub mt-10" style="font-size: 12px;">1/3 미션 진행 중</span>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">1/3 미션 진행 중</span>
             </div>
           </div>
+          <div class="action-area"></div>
         </a>
 
-        <a href="game_detail.html" class="game-list-item" style="text-decoration: none;">
+        <a href="game_detail.html" class="game-list-item game-row">
           <div class="flex-row">
-            <img src="https://ui-avatars.com/api/?name=Hook&background=ffb74d&color=fff&rounded=true&size=128" alt="Hook & Gold">
+            <img src="https://obs.line-scdn.net:443/0hmnTX50qRMkFpIS2cVbZNFjF0PDAFUCtUEBcgORRkOC1aQy4WEC8bfglzFRIeQi5OHDkEX09aMw1MQSpnVjwiR0RyDhpEcBBgFjghfhNJJygBQj5oFiw2VxBxCXAC" alt="Hook & Gold">
             <div class="flex-col">
               <span class="font-extrabold text-main" style="font-size: 15px;">Hook & Gold</span>
-              <span class="font-semibold text-sub mt-10" style="font-size: 12px;">1/3 미션 진행 중</span>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">1/3 미션 진행 중</span>
             </div>
           </div>
+          <div class="action-area"></div>
+        </a>
+
+        <a href="game_detail.html" class="game-list-item game-row">
+          <div class="flex-row">
+            <img src="https://ui-avatars.com/api/?name=Rich&background=4db6ac&color=fff&rounded=true&size=128" alt="Rich Match">
+            <div class="flex-col">
+              <span class="font-extrabold text-main" style="font-size: 15px;">Rich Match</span>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+            </div>
+          </div>
+          <div class="action-area"></div>
+        </a>
+
+        <a href="game_detail.html" class="game-list-item game-row">
+          <div class="flex-row">
+            <img src="https://ui-avatars.com/api/?name=Soda&background=ba68c8&color=fff&rounded=true&size=128" alt="Soda King">
+            <div class="flex-col">
+              <span class="font-extrabold text-main" style="font-size: 15px;">Soda King</span>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+            </div>
+          </div>
+          <div class="action-area"></div>
         </a>
 
       </div>
@@ -126,5 +162,135 @@
 
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // 1. 자정 카운트다운 타이머 로직
+      function updateTimer() {
+        const now = new Date();
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+        const diff = midnight - now;
+        
+        const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+        const m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0');
+        const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+        
+        document.getElementById('countdown-timer').innerText = `${h}:${m}:${s} 남음`;
+      }
+      setInterval(updateTimer, 1000);
+      updateTimer(); // 즉시 실행
+
+      // 2. 출석 체크 로직
+      let currentDay = 1;
+      const attBtn = document.getElementById('btn-attend');
+      const resetAttBtn = document.getElementById('btn-reset-att');
+      const stepItems = document.querySelectorAll('#attendance-steps .step-item');
+
+      function renderAttendance() {
+        stepItems.forEach((item, index) => {
+          const circle = item.querySelector('.step-circle');
+          const label = item.querySelector('.step-label');
+          const day = index + 1;
+
+          // 클래스 초기화
+          circle.className = 'step-circle';
+          label.style.color = 'var(--text-sub)';
+
+          if (day === 3) circle.classList.add('reward');
+          if (day === 5) circle.classList.add('reward-big');
+
+          if (day < currentDay) {
+            // 지나간 날 (완료)
+            circle.className = 'step-circle checked';
+            circle.innerHTML = '✓';
+            label.style.color = 'var(--text-main)';
+          } else if (day === currentDay) {
+            // 오늘 (활성화 대기)
+            circle.classList.add('current');
+            label.style.color = 'var(--text-main)';
+            circle.innerHTML = (day === 3 || day === 5) ? (day === 5 ? '🎟️' : '★') : '';
+          } else {
+            // 미래
+            circle.innerHTML = (day === 3 || day === 5) ? (day === 5 ? '🎟️' : '★') : '';
+          }
+        });
+
+        // 5일차 완료 시 버튼 비활성화
+        if (currentDay > 5) {
+          attBtn.disabled = true;
+          attBtn.innerText = '출석 완료';
+        } else {
+          attBtn.disabled = false;
+          attBtn.innerText = '출석하고 1 USDT 받기';
+        }
+      }
+
+      // 출석 버튼 클릭 이벤트
+      attBtn.addEventListener('click', () => {
+        if (currentDay <= 5) {
+          alert(`🎉 ${currentDay}일차 출석 완료! 보상을 받았습니다.`);
+          currentDay++;
+          renderAttendance();
+        }
+      });
+
+      // [테스트] 출석 초기화 버튼
+      resetAttBtn.addEventListener('click', () => {
+        currentDay = 1;
+        renderAttendance();
+        alert('출석이 1일차로 초기화되었습니다.');
+      });
+
+
+      // 3. 게임 미션 리워드 로직
+      const completeAllBtn = document.getElementById('btn-complete-all');
+      
+      // 단일 보상 수령 이벤트 바인딩 함수
+      function bindReceiveEvent(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault(); // 페이지 이동 방지
+          const actionArea = this.parentElement;
+          // 리워드 받음 텍스트로 교체
+          actionArea.innerHTML = '<span class="text-disabled">2 USDT 받음</span>';
+          alert('🎁 2 USDT 리워드를 받았습니다!');
+        });
+      }
+
+      // 초기 렌더링 된 받기 버튼에 이벤트 적용
+      document.querySelectorAll('.btn-receive').forEach(bindReceiveEvent);
+
+      // [테스트] 모든 미션 완료 버튼
+      completeAllBtn.addEventListener('click', () => {
+        const gameRows = document.querySelectorAll('.game-row');
+        
+        gameRows.forEach(row => {
+          const statusSpan = row.querySelector('.game-status');
+          const actionArea = row.querySelector('.action-area');
+          
+          // 아직 '받음' 상태가 아닌 모든 항목을 '완료' 상태로 변경
+          if (!actionArea.innerHTML.includes('text-disabled')) {
+            statusSpan.innerText = '미션 완료';
+            statusSpan.style.color = 'var(--brand-green)';
+            
+            // 버튼 생성 및 이벤트 바인딩
+            actionArea.innerHTML = '<button class="btn btn-small btn-receive" style="animation: pulse 1s infinite;">2 USDT 받기</button>';
+            bindReceiveEvent(actionArea.querySelector('.btn-receive'));
+          }
+        });
+
+        // 상단 게임 진행 상태바 100% 채우기
+        document.getElementById('game-progress-fill').style.width = '100%';
+        document.getElementById('step-img-2').classList.add('active');
+        
+        // 3번째 리워드 박스 활성화 효과
+        const rewardBox = document.getElementById('step-reward-3');
+        rewardBox.style.backgroundColor = 'var(--brand-green)';
+        rewardBox.innerHTML = '✓';
+
+        alert('모든 게임 미션이 완료 상태로 변경되었습니다!');
+      });
+
+    });
+  </script>
 </body>
 </html>
