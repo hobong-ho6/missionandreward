@@ -34,12 +34,13 @@
         /* 배경 그라데이션 */
         .bg-gradient-top { background: linear-gradient(180deg, #d1f4df 0%, #eaf8ee 40%, #f5f6f8 100%); flex: 1; padding-bottom: 50px; }
 
-        /* 가로 스크롤바 숨김 */
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
         /* 카드 공통 */
-        .mission-card { background: white; border-radius: 24px; padding: 24px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin: 0 20px 16px 20px; }
+        .mission-card { background: white; border-radius: 24px; padding: 24px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin: 0 20px 16px 20px; position: relative;}
+
+        /* 테스트 버튼 그룹 (우측 상단) */
+        .test-controls { position: absolute; top: 24px; right: 20px; display: flex; gap: 4px; }
+        .test-btn { background: #f0f0f0; color: #555; border: none; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor: pointer; transition: transform 0.1s; }
+        .test-btn:active { transform: scale(0.95); }
 
         /* 프로그레스 바 라인 */
         .progress-line-bg { position: absolute; top: 16px; left: 24px; right: 24px; height: 3px; background: #f0f0f0; z-index: 1; }
@@ -52,25 +53,20 @@
 
         /* 노드 상태별 속성 */
         .step.done .node-circle { background: var(--brand-green); border-color: var(--brand-green); color: white; }
-        .step.done .node-label { color: var(--text-main); }
-        
         .step.today .node-circle { background: white; border: 3px solid var(--brand-green); }
-        .step.today .node-label { color: var(--text-main); }
         
-        .step.ticket-future .node-circle { background: #fff8e1; border-color: #fff8e1; color: #ffb300; font-size: 18px; }
-        .step.ticket-future .node-label { color: #ffb300; }
-        
-        .step.ticket-ready .node-circle { background: #ffc107; border-color: #ffc107; color: white; font-size: 18px; box-shadow: 0 0 0 4px #fff8e1; animation: pulse 1.5s infinite; }
-        .step.ticket-ready .node-label { color: #ffc107; }
+        .step.ticket-future .node-circle { background: #fff8e1; border-color: #fff8e1; color: #ffb300; font-size: 16px; }
+        .step.ticket-ready .node-circle { background: #ffc107; border-color: #ffc107; color: white; font-size: 16px; box-shadow: 0 0 0 4px #fff8e1; animation: pulse 1.5s infinite; }
+        .step.ticket-done .node-circle { background: #ffc107; border-color: #ffc107; color: white; font-size: 16px; }
 
-        /* 툴팁 뱃지 (뽑기권 3개 등) */
+        /* 툴팁 뱃지 */
         .ticket-badge { position: absolute; top: -32px; left: 50%; transform: translateX(-50%); background: white; border: 1.5px solid #111; color: #111; font-size: 11px; font-weight: 900; padding: 3px 8px; border-radius: 12px; white-space: nowrap; z-index: 10; }
         .ticket-badge::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); border-width: 4px 4px 0; border-style: solid; border-color: #111 transparent transparent transparent; }
 
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(255, 193, 7, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); } }
 
         /* 하단 게임 리스트 */
-        .game-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid transparent; cursor: pointer; transition: active 0.1s; }
+        .game-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; cursor: pointer; transition: active 0.1s; }
         .game-row:active { transform: scale(0.98); }
 
         /* 모달 */
@@ -102,7 +98,7 @@
                 <div class="flex items-center gap-3 bg-[#eaf8ee] px-3 py-1.5 rounded-full shadow-sm border border-brand-green/20">
                     <div class="flex items-center gap-1.5">
                         <div class="w-5 h-5 rounded-full border-2 border-[#111] flex items-center justify-center text-[10px] font-black text-[#111]">₮</div>
-                        <span id="topUsdt" class="font-extrabold text-[13px] text-[#111]">5 USDT</span>
+                        <span id="topUsdt" class="font-extrabold text-[13px] text-[#111]">5.00 USDT</span>
                     </div>
                     <div class="w-[1px] h-3 bg-gray-300"></div>
                     <div class="flex items-center gap-1.5">
@@ -114,29 +110,40 @@
         </div>
 
         <div class="mission-card">
+            <div class="test-controls">
+                <button onclick="testAttReset()" class="test-btn">초기화</button>
+                <button onclick="testAtt3()" class="test-btn">3일 완료</button>
+                <button onclick="testAtt5()" class="test-btn">5일 완료</button>
+            </div>
+
             <h2 class="text-[18px] font-black text-text-main mb-1">출석 체크</h2>
-            <p class="text-[13px] font-semibold text-text-sub mb-8">5일 연속 출석 체크하고 USDT 뽑기권 받아요</p>
+            <p class="text-[13px] font-semibold text-text-sub mb-8 mt-1">5일 연속 출석 체크하고 USDT 뽑기권 받아요</p>
 
             <div class="relative flex justify-between px-2 mb-8" id="attStepsContainer">
                 <div class="progress-line-bg"></div>
                 <div class="progress-line-fill" id="attLineFill" style="width: 0%;"></div>
                 </div>
 
-            <button id="btnAttendAction" class="w-full bg-black text-white font-extrabold text-[15px] py-4 rounded-[16px] transition active:scale-95">
+            <button id="btnAttendAction" class="w-full bg-black text-white font-extrabold text-[15px] py-4 rounded-[16px] transition active:scale-95 disabled:bg-[#f5f6f8] disabled:text-[#a0a0a0] disabled:active:scale-100">
                 출석하고 1 USDT 받기
             </button>
         </div>
 
         <div class="mission-card">
-            <h2 class="text-[18px] font-black text-text-main mb-1">게임 미션</h2>
-            <p class="text-[13px] font-semibold text-text-sub mb-8">게임 3개 미션 완료하고 USDT 뽑기권 받아요</p>
+            <div class="test-controls">
+                <button onclick="testGameReset()" class="test-btn">초기화</button>
+                <button onclick="testGame3()" class="test-btn">3개 완료</button>
+            </div>
 
-            <div class="relative flex justify-between px-2 mb-8" id="gameStepsContainer">
-                <div class="progress-line-bg"></div>
-                <div class="progress-line-fill" id="gameLineFill" style="width: 0%;"></div>
+            <h2 class="text-[18px] font-black text-text-main mb-1">게임 미션</h2>
+            <p class="text-[13px] font-semibold text-text-sub mb-8 mt-1">게임 3개 미션 완료하고 USDT 뽑기권 받아요</p>
+
+            <div class="relative flex justify-between px-6 mb-6" id="gameStepsContainer">
+                <div class="progress-line-bg" style="left:40px; right:40px;"></div>
+                <div class="progress-line-fill" id="gameLineFill" style="left:40px; width: 0%;"></div>
                 </div>
 
-            <div id="gameListContainer" class="flex flex-col">
+            <div id="gameListContainer" class="flex flex-col mt-2">
                 </div>
         </div>
 
@@ -153,14 +160,14 @@
 </div>
 
 <script>
-    // 테스트용 초기 상태 (스크린샷과 비슷하게 세팅)
+    // 전역 상태
     let state = {
         totalUsdt: 5.00,
         luckyTickets: 3,
-        attendance: { days: 1, todayChecked: false }, // 1일 완료, 2일차 대기 중
+        attendance: { days: 0, todayChecked: false }, // 초기: 0일 (출석 전)
         miniGames: [
-            { id: 1, name: "Squishy Cat", done: true, claimed: false, img: "https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" },
-            { id: 2, name: "Tap Tap Jello", done: true, claimed: true, img: "https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" },
+            { id: 1, name: "Squishy Cat", done: false, claimed: false, img: "https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" },
+            { id: 2, name: "Tap Tap Jello", done: false, claimed: false, img: "https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" },
             { id: 3, name: "Merge Cat", done: false, claimed: false, img: "https://obs.line-scdn.net:443/0hmpC2SfwtMl9-Sy2JQ-5NCCYePC4SOitKB30gJwMOODNNKS4IQ38IUgQjbwsaExNACVImYBswMxNbKyp5QVYiWVMYDgRTGhB-AVILQVsbNwwSKD51QVEISQcbCW4V" },
             { id: 4, name: "Hook & Gold", done: false, claimed: false, img: "https://obs.line-scdn.net:443/0hDl60raRTG0MLSQRmOMlkFFEcFTJnOAJWcn8JO3YMES84KwcUclNWVmg2PBAmBSoQfkQITmUiDRhtGDpUcVAMTi8oI3J6LDkUfn8PfysiMBR-ETocNnwxVWgyGSkuBSw" },
             { id: 5, name: "Rich Match", done: false, claimed: false, img: "https://obs.line-scdn.net:443/0hxTE3b46CJ3t4SjiRKiFYLCIfKQoUOz5uAXw1AwUPLRdLKDssAVAORBsYegoNKWMsDH4eHR4aGyAeGwZsAlMwdlwrH0oJLwUsDXw3Zh0iEDgVETwkRURrTxQxJRFdBhA" },
@@ -180,39 +187,35 @@
         const now = new Date();
         const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
         const diff = tomorrow - now;
-        
         const h = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
         const m = Math.floor((diff / 1000 / 60) % 60).toString().padStart(2, '0');
         const s = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-        
         document.getElementById('countdownTimer').innerText = `${h}:${m}:${s} 남음`;
     }
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // 2. 출석체크 렌더링 (5일)
+    // 2. 출석체크 렌더링 (5일 기준)
     function renderAttendance() {
         const att = state.attendance;
-        document.getElementById('attLineFill').style.width = `${(att.days / 4) * 100}%`;
+        document.getElementById('attLineFill').style.width = `${(Math.min(att.days, 5) / 4) * 100}%`;
         
         let stepsHtml = '';
         for (let i = 1; i <= 5; i++) {
+            let isDone = i <= att.days;
+            let isToday = i === att.days + 1 && !att.todayChecked;
             let sC = '', cC = '', badge = '';
             
-            if (i === 5) {
-                badge = `<div class="ticket-badge">뽑기권 3개</div>`;
-                if (att.days >= 5) { sC = 'ticket-done'; cC = '★'; } 
-                else if (att.days === 4 && !att.todayChecked) { sC = 'ticket-ready'; cC = '★'; } 
+            if (i === 3 || i === 5) {
+                if (i === 5) badge = `<div class="ticket-badge">뽑기권 3개</div>`;
+                if (isDone) { sC = 'ticket-done'; cC = '★'; }
+                else if (isToday) { sC = 'ticket-ready'; cC = '★'; }
                 else { sC = 'ticket-future'; cC = '★'; }
-            } else if (i === 3) {
-                // 3일차 디자인상 노란색 뱃지로 처리된 모습
-                sC = (i <= att.days) ? 'done' : 'ticket-future';
-                cC = (i <= att.days) ? '✓' : '★';
             } else {
-                if (i <= att.days) {
+                if (isDone) {
                     sC = 'done'; 
                     cC = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
-                } else if (i === att.days + 1 && !att.todayChecked) {
+                } else if (isToday) {
                     sC = 'today'; cC = '';
                 } else {
                     sC = ''; cC = '';
@@ -223,22 +226,22 @@
                 <div class="step ${sC} flex flex-col items-center relative z-10 w-[40px]">
                     ${badge}
                     <div class="node-circle">${cC}</div>
-                    <div class="node-label">${i}일</div>
+                    <div class="node-label font-extrabold ${isDone ? 'text-text-main' : 'text-gray-300'}">${i}일</div>
                 </div>
             `;
         }
         document.getElementById('attStepsContainer').innerHTML = stepsHtml;
 
         const btn = document.getElementById('btnAttendAction');
-        if (att.todayChecked) {
-            btn.style.backgroundColor = '#f0f0f0';
-            btn.style.color = '#999';
-            btn.innerHTML = '오늘 출석 완료';
-            btn.onclick = null;
+        if (att.todayChecked || att.days >= 5) {
+            btn.disabled = true;
+            btn.innerHTML = '오늘의 출석 완료 👏';
         } else {
-            btn.style.backgroundColor = '#111';
-            btn.style.color = '#fff';
-            btn.innerHTML = att.days === 4 ? '출석하고 뽑기권 3개 받기' : '출석하고 1 USDT 받기';
+            btn.disabled = false;
+            let rewardText = '1 USDT';
+            if (att.days + 1 === 3) rewardText = '뽑기권 1개';
+            if (att.days + 1 === 5) rewardText = '뽑기권 3개';
+            btn.innerHTML = `출석하고 ${rewardText} 받기`;
             btn.onclick = handleAttendance;
         }
     }
@@ -246,46 +249,54 @@
     function handleAttendance() {
         state.attendance.todayChecked = true;
         state.attendance.days += 1;
+        let d = state.attendance.days;
         
-        if (state.attendance.days === 5) {
+        if (d === 3) {
+            state.luckyTickets += 1;
+            showCommonModal('🎁 출석 완료!', `3일 연속 출석 달성!<br><strong style="color:var(--brand-green); font-size:18px;">뽑기권 1개</strong>를 획득했습니다.`);
+        } else if (d === 5) {
             state.luckyTickets += 3;
             showCommonModal('🎁 출석 완료!', `5일 연속 출석 달성!<br><strong style="color:var(--brand-green); font-size:18px;">뽑기권 3개</strong>를 획득했습니다.`);
         } else {
-            state.totalUsdt += 1; // 1 USDT 받기 (임의)
+            state.totalUsdt += 1; 
             showCommonModal('🪙 출석 완료!', `오늘 출석 완료.<br><strong style="color:var(--brand-green); font-size:18px;">1 USDT</strong>를 획득했습니다.`);
         }
         renderAssets();
         renderAttendance();
     }
 
+    // 출석체크 테스트 버튼 함수
+    window.testAttReset = function() { state.attendance = {days:0, todayChecked:false}; renderAttendance(); };
+    window.testAtt3 = function() { state.attendance = {days:3, todayChecked:true}; renderAttendance(); };
+    window.testAtt5 = function() { state.attendance = {days:5, todayChecked:true}; renderAttendance(); };
+
     // 3. 게임 미션 렌더링
     function renderGames() {
-        const completedGames = state.miniGames.filter(g => g.done);
-        let doneCount = completedGames.length;
-        if (doneCount > 3) doneCount = 3; // 3개까지만 카운트
+        // [보상을 받은] 미션 기준으로 상단 게이지 바 작동
+        const claimedGames = state.miniGames.filter(g => g.claimed);
+        let claimedCount = claimedGames.length;
+        if (claimedCount > 3) claimedCount = 3; 
         
-        // 프로그레스 바 라인
-        document.getElementById('gameLineFill').style.width = `${(doneCount / 2) * 100}%`;
+        document.getElementById('gameLineFill').style.width = `${(claimedCount / 2) * 100}%`;
 
         // 3개 노드 렌더링
         let gameStepsHtml = '';
         for (let i = 0; i < 3; i++) {
             let nodeContent = '';
-            let label = `게임 ${i+1}개`;
             let badge = '';
 
             if (i === 2) {
                 badge = `<div class="ticket-badge">뽑기권 3개</div>`;
-                if (doneCount >= 3) {
-                    nodeContent = `<div class="node-circle" style="background:var(--brand-green); color:white; border-color:var(--brand-green); font-size:18px;">★</div>`;
-                } else if (doneCount === 2) {
+                if (claimedCount >= 3) {
+                    nodeContent = `<div class="node-circle" style="background:#ffc107; color:white; border-color:#ffc107; font-size:18px;">★</div>`;
+                } else if (claimedCount === 2) {
                     nodeContent = `<div class="node-circle" style="background:#ffc107; border-color:#ffc107; color:white; font-size:18px; box-shadow: 0 0 0 4px #fff8e1; animation: pulse 1.5s infinite;">★</div>`;
                 } else {
                     nodeContent = `<div class="node-circle" style="background:#fff8e1; border-color:#fff8e1; color:#ffb300; font-size:18px;">★</div>`;
                 }
             } else {
-                if (i < doneCount) {
-                    nodeContent = `<img src="${completedGames[i].img}" class="node-img">`;
+                if (i < claimedCount) {
+                    nodeContent = `<img src="${claimedGames[i].img}" class="node-img">`;
                 } else {
                     nodeContent = `<div class="node-circle"></div>`;
                 }
@@ -295,14 +306,14 @@
                 <div class="flex flex-col items-center relative z-10 w-[50px]">
                     ${badge}
                     ${nodeContent}
-                    <div class="node-label" style="color: ${i < doneCount ? 'var(--text-main)' : '#bbb'};">${label}</div>
+                    <div class="node-label font-extrabold ${i < claimedCount ? 'text-text-main' : 'text-gray-300'}">게임 ${i+1}개</div>
                 </div>
             `;
         }
         document.getElementById('gameStepsContainer').innerHTML = gameStepsHtml;
 
-        // 3개 달성 시 전체 보상 자동 팝업
-        if (doneCount === 3 && !state.gameMasterClaimed) {
+        // 3개 수령 완료 시 팝업
+        if (claimedCount === 3 && !state.gameMasterClaimed) {
             state.gameMasterClaimed = true;
             state.luckyTickets += 3;
             renderAssets();
@@ -319,22 +330,21 @@
                 statusText = '미션 완료';
                 statusColor = 'text-brand-green';
                 if (!mg.claimed) {
-                    rightUI = `<button onclick="claimGameReward(event, ${i})" class="bg-black text-white px-4 py-2 rounded-full font-extrabold text-[12px] shadow-sm transition active:scale-95">2 USDT 받기</button>`;
+                    rightUI = `<button onclick="claimGameReward(event, ${i})" class="bg-black text-white px-5 py-2.5 rounded-full font-extrabold text-[13px] shadow-sm transition active:scale-95">2 USDT 받기</button>`;
                 } else {
-                    rightUI = `<span class="text-gray-400 font-bold text-[12px] px-2">2 USDT 받음</span>`;
+                    rightUI = `<span class="text-gray-400 font-extrabold text-[13px] px-3">2 USDT 받음</span>`;
                 }
             } else {
-                statusText = '0/3 미션 진행 전'; // 이미지와 동일한 텍스트로 단순화
+                statusText = '0/3 미션 진행 전'; 
                 statusColor = 'text-gray-400';
-                rightUI = ``; // 미완료시 우측 비움
             }
 
             return `
                 <div class="game-row" onclick="toggleGameDone(${i})">
                     <div class="flex items-center gap-3">
-                        <img src="${mg.img}" class="w-12 h-12 rounded-full object-cover shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-gray-50">
-                        <div class="flex flex-col">
-                            <span class="text-[15px] font-black text-text-main">${mg.name}</span>
+                        <img src="${mg.img}" class="w-[46px] h-[46px] rounded-full object-cover shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-gray-50">
+                        <div class="flex flex-col gap-0.5">
+                            <span class="text-[15px] font-black text-text-main tracking-tight">${mg.name}</span>
                             <span class="text-[12px] font-extrabold ${statusColor}">${statusText}</span>
                         </div>
                     </div>
@@ -344,9 +354,9 @@
         }).join('');
     }
 
-    // 게임 로우 클릭 시 완료 처리 토글 (테스트용)
+    // 게임 로우 클릭 시 완료 처리 (테스트용 인터랙션)
     window.toggleGameDone = function(i) {
-        if (state.miniGames[i].done && state.miniGames[i].claimed) return; // 수령완료시 반응 없음
+        if (state.miniGames[i].done && state.miniGames[i].claimed) return; 
         if (!state.miniGames[i].done) {
             state.miniGames[i].done = true;
         }
@@ -355,12 +365,27 @@
 
     // 2 USDT 받기 버튼 클릭
     window.claimGameReward = function(e, i) {
-        e.stopPropagation(); // 로우 클릭 이벤트 버블링 방지
+        e.stopPropagation(); 
         state.miniGames[i].claimed = true;
         state.totalUsdt += 2;
         renderAssets();
         renderGames();
         showCommonModal('💸 보상 수령!', `<strong>${state.miniGames[i].name}</strong> 완료 보상으로<br><strong style="color:var(--brand-green); font-size:18px;">2 USDT</strong>를 획득했습니다.`);
+    };
+
+    // 게임 테스트 버튼 함수
+    window.testGameReset = function() { 
+        state.miniGames.forEach(g => {g.done=false; g.claimed=false;}); 
+        state.gameMasterClaimed = false; 
+        renderGames(); 
+    };
+    window.testGame3 = function() { 
+        state.miniGames.forEach((g,i) => {
+            if(i<3) { g.done=true; g.claimed=true; } 
+            else { g.done=false; g.claimed=false; }
+        });
+        state.gameMasterClaimed = false; // 팝업 노출을 위해 false 상태에서 리렌더링
+        renderGames(); 
     };
 
     function showCommonModal(title, desc, icon = '🎉') { 
@@ -372,7 +397,6 @@
     }
     function closeCommonModal() { document.getElementById('commonModal').style.display = 'none'; }
 
-    // 초기화
     window.onload = () => { 
         renderAssets();
         renderAttendance(); 
