@@ -198,7 +198,7 @@
       const currentTotal = baseUsdt + state.usdt;
       document.getElementById('val-usdt-home').innerText = currentTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-      // 0: 진행 전, 1: 1/3 진행, 2: 2/3 진행, 3: 미션 완료(수령 대기), 4: 수령 완료(텍스트만)
+      // 상태별 텍스트 및 프로그레스바 설정
       const stateConfigs = [
         { text: "0/3 미션 진행 전", color: "var(--text-sub)", bar: "0%" },
         { text: "1/3 미션 진행 중", color: "var(--text-sub)", bar: "33%" },
@@ -224,15 +224,16 @@
             progressBar.style.width = config.bar;
         }
         
+        // 상태에 따른 버튼 렌더링 (툴팁 제거됨, 수령 완료 시에도 게임하기 버튼 노출)
         if(btnWrap) {
             if (gState === 4) {
-              // 수령 완료 상태 (버튼 사라지고 회색 텍스트 노출)
-              btnWrap.innerHTML = `<span class="text-disabled" style="display:block; width:100%; text-align:center; padding-top:10px; padding-bottom: 10px;">2 USDT 받음</span>`;
+              // 수령 완료 상태: 텍스트는 미션 완료, 버튼은 다시 '게임하기'
+              btnWrap.innerHTML = `<button class="btn-play" data-index="${idx}">게임하기</button>`;
             } else if (gState === 3) {
-              // 미션 완료, 수령 대기 상태 (툴팁 위치 top: calc(100% + 12px)로 겹침 방지)
-              btnWrap.innerHTML = `<button class="btn-play btn-receive" data-index="${idx}" style="background-color:#111; animation: pulse-soft 1.5s infinite;">2 USDT 받기<div class="tooltip" style="opacity: 1; visibility: visible; top: calc(100% + 12px); z-index: 10;">2 USDT 받기</div></button>`;
+              // 미션 완료(수령 대기): 펄스 효과 있는 '2 USDT 받기' 버튼
+              btnWrap.innerHTML = `<button class="btn-play btn-receive" data-index="${idx}" style="background-color:#111; animation: pulse-soft 1.5s infinite;">2 USDT 받기</button>`;
             } else {
-              // 진행 중 상태
+              // 진행 중 상태: 일반 '게임하기' 버튼 (상태를 전진시킴)
               btnWrap.innerHTML = `<button class="btn-play btn-progress" data-index="${idx}">게임하기</button>`;
             }
         }
@@ -268,12 +269,12 @@
           }
         }
         
-        // [2 USDT 받기] 버튼: 보상 수령 및 상태 4로 전환
+        // [2 USDT 받기] 버튼: 보상 수령 및 상태 4로 전환 (4 상태일 때 버튼이 다시 '게임하기'로 변경됨)
         if (e.target.classList.contains('btn-receive')) {
           let idx = parseInt(e.target.getAttribute('data-index'));
           let state = getGlobalState();
           
-          state.gameStates[idx] = 4; // 4 = 수령완료
+          state.gameStates[idx] = 4; // 4 = 보상 수령 완료
           saveGlobalState(state);
           
           addReward('usdt', 2, '게임 미션 완료 보상');
