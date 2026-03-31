@@ -84,7 +84,7 @@
     <p class="text-sub font-semibold mt-10" id="reward-sub-text" style="z-index: 10; margin-bottom: 20px;">게임 미션 보상을 받았습니다</p>
   </div>
 
-  <script>
+ <script>
     // ★ 주의: 각 페이지에 맞게 GAME_INDEX 숫자를 변경해주세요!
     // (Squishy Cat: 0, Tab Tab Jello: 1, Merge Cat: 2, Hook & Gold: 3, Rich Match: 4, Soda King: 5)
     const GAME_INDEX = 2; 
@@ -147,3 +147,5 @@
       function updateTimer() { const now = new Date(); const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); const diff = midnight - now; const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0'); const m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0'); const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0'); const timerEl = document.getElementById('countdown-timer'); if(timerEl) timerEl.innerText = `${h}:${m}:${s} 남음`; } setInterval(updateTimer, 1000); updateTimer();
     });
   </script>
+</body>
+</html>
