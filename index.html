@@ -6,19 +6,25 @@
   <title>Unifi - Home</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* 버튼 펄스 애니메이션 */
+    /* 보상 수령 버튼 펄스 애니메이션 */
     @keyframes pulse-soft {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.4); }
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); }
       70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
       100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
     }
-    .btn-receive { animation: pulse-soft 1.5s infinite; }
   </style>
 </head>
 <body>
 
   <div class="app-container">
     
+    <div class="test-panel">
+      <span>🛠 프로토타입 테스트</span>
+      <div>
+        <button class="test-btn" id="btn-reset-home">상태 초기화</button>
+      </div>
+    </div>
+
     <header class="header flex-between">
       <div class="logo font-black">unifi</div>
       <div class="icons">
@@ -158,7 +164,7 @@
       const stored = localStorage.getItem('unifi_state'); 
       let state = stored ? JSON.parse(stored) : null;
       
-      // 과거 구조의 데이터로 인해 발생하는 에러 방지 (자동 병합 복구 로직)
+      // 데이터가 꼬이거나 없을 경우 안전하게 초기화
       if (!state || !state.gameStates) {
         state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0] }, state || {});
         localStorage.setItem('unifi_state', JSON.stringify(state));
@@ -183,16 +189,16 @@
       return state;
     }
 
-    // --- 2. 홈 화면 렌더링 (게임 버튼 및 자산 동기화) ---
+    // --- 2. 홈 화면 렌더링 ---
     function renderHome() {
       const state = getGlobalState();
       
-      // 상단 보유 자산 업데이트
+      // 상단 자산 동기화
       const baseUsdt = 2353.55; 
       const currentTotal = baseUsdt + state.usdt;
       document.getElementById('val-usdt-home').innerText = currentTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-      // 게임 상태 배열 (0: 진행전, 1: 1/3, 2: 2/3, 3: 완료대기, 4: 수령완료)
+      // 0: 진행 전, 1: 1/3 진행, 2: 2/3 진행, 3: 미션 완료(수령 대기), 4: 수령 완료(텍스트만)
       const stateConfigs = [
         { text: "0/3 미션 진행 전", color: "var(--text-sub)", bar: "0%" },
         { text: "1/3 미션 진행 중", color: "var(--text-sub)", bar: "33%" },
@@ -201,10 +207,9 @@
         { text: "미션 완료", color: "var(--brand-green)", bar: "100%" }
       ];
 
-      // 각 카드 상태 업데이트
       document.querySelectorAll('.game-card').forEach((card) => {
         let idx = parseInt(card.getAttribute('data-index'));
-        let gState = state.gameStates[idx];
+        let gState = state.gameStates[idx] || 0;
         const config = stateConfigs[gState];
 
         const statusText = card.querySelector('.status-text');
@@ -219,13 +224,15 @@
             progressBar.style.width = config.bar;
         }
         
-        // 상태에 따른 버튼 동적 렌더링
         if(btnWrap) {
             if (gState === 4) {
-              btnWrap.innerHTML = `<span class="text-disabled" style="display:block; width:100%; text-align:center; padding-top:10px;">2 USDT 받음</span>`;
+              // 수령 완료 상태 (버튼 사라지고 회색 텍스트 노출)
+              btnWrap.innerHTML = `<span class="text-disabled" style="display:block; width:100%; text-align:center; padding-top:10px; padding-bottom: 10px;">2 USDT 받음</span>`;
             } else if (gState === 3) {
-              btnWrap.innerHTML = `<button class="btn-play btn-receive" data-index="${idx}" style="background-color:#111;">2 USDT 받기<div class="tooltip" style="opacity: 1; visibility: visible; bottom: calc(100% + 6px);">2 USDT 받기</div></button>`;
+              // 미션 완료, 수령 대기 상태 (툴팁 위치 top: calc(100% + 12px)로 겹침 방지)
+              btnWrap.innerHTML = `<button class="btn-play btn-receive" data-index="${idx}" style="background-color:#111; animation: pulse-soft 1.5s infinite;">2 USDT 받기<div class="tooltip" style="opacity: 1; visibility: visible; top: calc(100% + 12px); z-index: 10;">2 USDT 받기</div></button>`;
             } else {
+              // 진행 중 상태
               btnWrap.innerHTML = `<button class="btn-play btn-progress" data-index="${idx}">게임하기</button>`;
             }
         }
@@ -242,10 +249,16 @@
       function closeOverlay() { usdtOverlay.classList.remove('active'); }
       btnOverlayX.addEventListener('click', closeOverlay);
 
-      // 동적으로 렌더링된 버튼들의 이벤트 위임 처리
+      // [테스트] 홈 화면 상태 초기화 버튼
+      document.getElementById('btn-reset-home').addEventListener('click', () => {
+        let state = getGlobalState();
+        state.gameStates = [0, 0, 0, 0, 0, 0];
+        saveGlobalState(state);
+      });
+
       document.addEventListener('click', (e) => {
         
-        // [게임하기] 버튼 클릭 시 상태 전진 (0 -> 1 -> 2 -> 3)
+        // [게임하기] 버튼: 미션 진행도 올리기 (0->1->2->3)
         if (e.target.classList.contains('btn-progress')) {
           let idx = parseInt(e.target.getAttribute('data-index'));
           let state = getGlobalState();
@@ -255,7 +268,7 @@
           }
         }
         
-        // [2 USDT 받기] 버튼 클릭 시 보상 수령 및 상태 변경 (3 -> 4)
+        // [2 USDT 받기] 버튼: 보상 수령 및 상태 4로 전환
         if (e.target.classList.contains('btn-receive')) {
           let idx = parseInt(e.target.getAttribute('data-index'));
           let state = getGlobalState();
@@ -263,9 +276,9 @@
           state.gameStates[idx] = 4; // 4 = 수령완료
           saveGlobalState(state);
           
-          // 보상 추가 및 오버레이 노출
           addReward('usdt', 2, '게임 미션 완료 보상');
           
+          // 오버레이 노출
           usdtOverlay.classList.add('active');
           usdtOverlay.onclick = closeOverlay;
           
