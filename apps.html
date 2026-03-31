@@ -33,12 +33,38 @@
             position: relative; 
             box-shadow: 0 0 30px rgba(0,0,0,0.1); 
             overflow: hidden; 
-            
-            /* 이미지가 잘리지 않고 원본 비율을 완벽히 유지하도록 변경 */
             background-size: contain; 
             background-position: center; 
             background-repeat: no-repeat;
-            background-color: #111111; /* 비율 차이로 남는 여백은 어둡게 처리하여 게임 화면처럼 연출 */
+            background-color: #111111;
+        }
+
+        /* 뒤로가기 버튼 시인성 강화를 위한 스타일 (디자인 가이드 준수) */
+        .back-btn-container {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 50;
+        }
+        
+        .back-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            backdrop-filter: blur(4px);
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            transition: all 0.2s;
+        }
+
+        .back-btn:active {
+            transform: scale(0.9);
+            background-color: rgba(0, 0, 0, 0.6);
         }
     </style>
 </head>
@@ -46,9 +72,11 @@
 
     <div class="app-wrapper" style="background-image: url('./image_d1b24b.jpeg');">
         
-        <button onclick="window.location.href='mission_detail.html'" class="absolute top-4 left-4 z-40 bg-black/40 text-white p-2.5 rounded-full backdrop-blur-md hover:bg-black/60 transition transform active:scale-90">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        </button>
+        <div class="back-btn-container">
+            <button onclick="window.history.back()" class="back-btn" aria-label="뒤로가기">
+                &lt;
+            </button>
+        </div>
 
         <div id="line-notification" class="absolute top-4 left-4 right-4 z-50 transition-all duration-500 transform -translate-y-32 opacity-0 pointer-events-none">
             <div class="bg-white rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.15)] p-4 flex items-start gap-3 border border-gray-100 cursor-pointer" onclick="closeLineMessage()">
