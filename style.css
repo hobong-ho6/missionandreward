@@ -2,7 +2,7 @@
 
 /* --- 1. Design System Variables --- */
 :root {
-  --brand-green: #4bd29e; /* 이미지에 맞춰 약간 더 부드러운 초록색으로 조정 */
+  --brand-green: #4bd29e; 
   --brand-blue: #3b82f6;
   --mint-bg: #eaf7f0;
   --highlight-red: #ff3b30;
@@ -223,9 +223,7 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 .badge-pill.highlight {
-  transform: scale(1.1);
-  background-color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transform: scale(1.1); background-color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .step-container {
@@ -265,7 +263,7 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 
 .tooltip-top {
   position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-  background-color: #fff; border: 1px solid #111; color: #111; padding: 6px 10px; border-radius: 16px;
+  background-color: #fff; border: 1px solid #111; color: #111; padding: 4px 8px; border-radius: 16px;
   font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .tooltip-top::after {
@@ -279,15 +277,60 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .btn-small { background-color: #111; color: #fff; padding: 8px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; border: none; }
 .text-disabled { color: #a0a0a0; font-weight: 600; font-size: 13px; }
 
-/* 테스트용 패널 스타일 */
 .test-panel {
-  background-color: rgba(0,0,0,0.8); color: #fff;
-  padding: 10px 20px; font-size: 12px;
-  display: flex; justify-content: space-between; align-items: center;
-  position: sticky; top: 0; z-index: 100;
+  background-color: rgba(0,0,0,0.8); color: #fff; padding: 10px 20px; font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100;
 }
-.test-btn {
-  background: #333; color: white; border: 1px solid #555;
-  padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer;
-}
+.test-btn { background: #333; color: white; border: 1px solid #555; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
 .test-btn:active { background: #555; }
+
+/* --- 6. Interaction Elements (Blur Overlay & Bottom Sheet) --- */
+
+/* 딤(Dim) 배경 */
+.dim-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6); z-index: 1000;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.dim-bg.active { opacity: 1; pointer-events: auto; }
+
+/* 팝업 바텀 시트 (뽑기권 수령 시) */
+.bottom-sheet {
+  position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%);
+  width: 100%; max-width: 480px; background: #ffffff;
+  border-radius: 24px 24px 0 0; padding: 30px 20px 40px 20px;
+  z-index: 1001; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+  box-sizing: border-box; text-align: center;
+}
+.bottom-sheet.active { transform: translate(-50%, 0); }
+.sheet-close { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; color: #111; }
+
+.ticket-visual {
+  width: 140px; height: 140px; margin: 30px auto; position: relative;
+  background-color: #ffcc00; border-radius: 20px;
+  display: flex; justify-content: center; align-items: center;
+  box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4);
+}
+.ticket-visual::before { content: '★'; font-size: 80px; color: #fff; opacity: 0.9; }
+.confetti { position: absolute; font-size: 24px; animation: float 3s infinite ease-in-out; }
+@keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+
+/* Blur.png 스타일 풀스크린 오버레이 (USDT 수령 시) */
+.blur-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  /* CSS 방사형 그라데이션으로 Blur 이미지 완벽 재현 */
+  background: radial-gradient(circle at center, #d8f7e3 0%, #ffffff 60%);
+  z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+}
+.blur-overlay.active { opacity: 1; pointer-events: auto; }
+
+.usdt-glow-circle {
+  width: 140px; height: 140px; border-radius: 50%; background: #1dbb85;
+  box-shadow: 0 0 80px 30px rgba(29, 187, 133, 0.4);
+  display: flex; justify-content: center; align-items: center;
+  margin-bottom: 40px;
+  transform: scale(0.5); opacity: 0; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1), opacity 0.5s;
+}
+.blur-overlay.active .usdt-glow-circle { transform: scale(1); opacity: 1; }
+.usdt-glow-circle span { color: white; font-size: 80px; font-weight: bold; }
