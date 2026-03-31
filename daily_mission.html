@@ -64,76 +64,76 @@
         
         <div class="game-step">
           <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat" id="game-step-1">
-          <span class="step-label mt-10" style="color: var(--text-main);">게임 1개</span>
+          <span class="step-label mt-10" id="game-label-1" style="color: var(--text-main);">게임 1개</span>
         </div>
         <div class="game-step">
           <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello" id="game-step-2">
-          <span class="step-label mt-10">게임 2개</span>
+          <span class="step-label mt-10" id="game-label-2">게임 2개</span>
         </div>
         <div class="game-step">
           <div class="tooltip-top">뽑기권 3개</div>
           <div class="reward-box" id="game-step-3">★</div>
-          <span class="step-label mt-10">게임 3개</span>
+          <span class="step-label mt-10" id="game-label-3">게임 3개</span>
         </div>
       </div>
 
       <div class="game-list" id="game-list-container">
-        <a href="game_detail.html" class="game-list-item game-row" data-state="0">
+        <a href="#" class="game-list-item game-row" data-index="0">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Squishy Cat</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Squishy Cat</span><button class="test-cycle-btn">상태변경</button></div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
             </div>
           </div>
           <div class="action-area"></div>
         </a>
-        <a href="game_detail.html" class="game-list-item game-row" data-state="0">
+        <a href="#" class="game-list-item game-row" data-index="1">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Tap Tap Jello</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Tab Tab Jello</span><button class="test-cycle-btn">상태변경</button></div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
             </div>
           </div>
           <div class="action-area"></div>
         </a>
-        <a href="game_detail.html" class="game-list-item game-row" data-state="0">
+        <a href="#" class="game-list-item game-row" data-index="2">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hmpC2SfwtMl9-Sy2JQ-5NCCYePC4SOitKB30gJwMOODNNKS4IQ38IUgQjbwsaExNACVImYBswMxNbKyp5QVYiWVMYDgRTGhB-AVILQVsbNwwSKD51QVEISQcbCW4V" alt="Merge Cat">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Merge Cat</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Merge Cat</span><button class="test-cycle-btn">상태변경</button></div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
             </div>
           </div>
           <div class="action-area"></div>
         </a>
-        <a href="game_detail.html" class="game-list-item game-row" data-state="0">
+        <a href="#" class="game-list-item game-row" data-index="3">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hmnTX50qRMkFpIS2cVbZNFjF0PDAFUCtUEBcgORRkOC1aQy4WEC8bfglzFRIeQi5OHDkEX09aMw1MQSpnVjwiR0RyDhpEcBBgFjghfhNJJygBQj5oFiw2VxBxCXAC" alt="Hook & Gold">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Hook & Gold</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Hook & Gold</span><button class="test-cycle-btn">상태변경</button></div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
             </div>
           </div>
           <div class="action-area"></div>
         </a>
-        <a href="game_detail.html" class="game-list-item game-row" data-state="0">
+        <a href="#" class="game-list-item game-row" data-index="4">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0hNXPmjfYCEXdtFA6qUZ5uIDdBHwYBZQhiFCIDDxBRGxtedg0gFA5dWEtEKiwFTAlCEiJdeQ5oFywLRTBgFw0Gekl1KUYccTMgGCIVehZ_TCwGWx1BGiJdQw5vEx1IWCY" alt="Rich Match">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Rich Match</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Rich Match</span><button class="test-cycle-btn">상태변경</button></div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
             </div>
           </div>
           <div class="action-area"></div>
         </a>
-        <a href="game_detail.html" class="game-list-item game-row" data-state="0">
+        <a href="#" class="game-list-item game-row" data-index="5">
           <div class="flex-row">
             <img src="https://obs.line-scdn.net:443/0h8Ve2YmoXZ3lYS3ikZLwYLgIeaQg0On5sIX11ASUObRVrKXsuIVEraCA3UDYqE39TZ35BfH4bcSI-GkZuIlJwdHwqX0gpLkUuLX1jdCMgch9xEEYmL39zbzswZRN9B1A" alt="Soda King">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Soda King</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Soda King</span><button class="test-cycle-btn">상태변경</button></div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
             </div>
           </div>
           <div class="action-area"></div>
@@ -158,22 +158,23 @@
 
   <div id="usdt-reward-overlay" class="blur-overlay">
     <div class="overlay-close" id="btn-overlay-x">&times;</div>
-    
     <div class="usdt-glow-circle"><span>₮</span></div>
     <h1 class="font-black text-main" id="reward-amount-text" style="font-size: 32px; z-index: 10;">1 USDT 받았어요</h1>
     <p class="text-sub font-semibold mt-10" id="reward-sub-text" style="z-index: 10; margin-bottom: 20px;">내일도 출석 체크하고 보상 받으세요</p>
-    
-    <div id="draw-again-container" style="display: none; position: relative; z-index: 10; margin-top: 40px; width: 100%; max-width: 320px;">
-       <div class="tooltip-top" id="draw-again-tooltip" style="bottom: 100%; margin-bottom: 8px;">X번 더 뽑을 수 있어요!</div>
-       <button id="btn-draw-again" class="btn-black" style="width: 100%; padding: 18px; font-size: 16px;">더 뽑기</button>
-    </div>
-    <button id="btn-overlay-close" class="btn-black" style="display: none; z-index: 10; margin-top: 40px; width: 100%; max-width: 320px; padding: 18px; font-size: 16px;">확인</button>
   </div>
 
   <script>
-    const DEFAULT_STATE = { usdt: 5.5, tickets: 3, history: [] };
-    function getGlobalState() { const stored = localStorage.getItem('unifi_state'); return stored ? JSON.parse(stored) : DEFAULT_STATE; }
-    function saveGlobalState(state) { localStorage.setItem('unifi_state', JSON.stringify(state)); renderBalances(); }
+    const DEFAULT_STATE = { usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0], ticketClaimed: false };
+    
+    function getGlobalState() { 
+      const stored = localStorage.getItem('unifi_state'); 
+      return stored ? JSON.parse(stored) : DEFAULT_STATE; 
+    }
+    
+    function saveGlobalState(state) { 
+      localStorage.setItem('unifi_state', JSON.stringify(state)); 
+      renderPage(); 
+    }
     
     function addReward(type, amount, title) {
       let state = getGlobalState();
@@ -188,128 +189,165 @@
       saveGlobalState(state); return state;
     }
 
-    function renderBalances() {
+    const gameConfig = [
+        { text: "0/3 미션 진행 전", color: "var(--text-sub)" },
+        { text: "1/3 미션 진행 중", color: "var(--text-sub)" },
+        { text: "2/3 미션 진행 중", color: "var(--text-sub)" },
+        { text: "미션 완료", color: "var(--brand-green)" }, 
+        { text: "미션 완료", color: "var(--brand-green)" } // 수령 후 상태
+    ];
+
+    function renderPage() {
       const state = getGlobalState();
+      
+      // 상단 배지 동기화
       document.getElementById('val-usdt').innerText = state.usdt.toFixed(2).replace(/\.00$/, '');
       document.getElementById('val-tickets').innerText = state.tickets;
       const badgeEl = document.getElementById('reward-badge');
       badgeEl.classList.add('highlight');
       setTimeout(() => badgeEl.classList.remove('highlight'), 300);
-    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      renderBalances();
-      
-      document.getElementById('btn-reset-storage').addEventListener('click', () => {
-        localStorage.removeItem('unifi_state'); renderBalances(); location.reload();
+      // 게임 리스트 동기화
+      let claimedCount = 0;
+      document.querySelectorAll('.game-row').forEach(row => {
+        let idx = parseInt(row.getAttribute('data-index'));
+        let gState = state.gameStates[idx] || 0;
+        const config = gameConfig[gState];
+
+        row.querySelector('.game-status').innerText = config.text;
+        row.querySelector('.game-status').style.color = config.color;
+        
+        const actionArea = row.querySelector('.action-area');
+        if(gState === 4) {
+          actionArea.innerHTML = `<span class="text-disabled">2 USDT 받음</span>`;
+          claimedCount++;
+        } else if (gState === 3) {
+          actionArea.innerHTML = `<button class="btn btn-small btn-receive" data-index="${idx}" style="animation: pulse 1s infinite;">2 USDT 받기</button>`;
+        } else {
+          actionArea.innerHTML = ``;
+        }
       });
 
-      const usdtOverlay = document.getElementById('usdt-reward-overlay');
-      const drawAgainContainer = document.getElementById('draw-again-container');
-      const btnCloseOverlay = document.getElementById('btn-overlay-close');
-      const btnOverlayX = document.getElementById('btn-overlay-x');
-      const dimBg = document.getElementById('dim-bg');
-      const ticketSheet = document.getElementById('ticket-bottom-sheet');
+      // 상단 프로그레스 바 연동
+      const fillBar = document.getElementById('game-progress-fill');
+      const step1 = document.getElementById('game-step-1');
+      const step2 = document.getElementById('game-step-2');
+      const step3 = document.getElementById('game-step-3');
+      const lbl1 = document.getElementById('game-label-1');
+      const lbl2 = document.getElementById('game-label-2');
+      const lbl3 = document.getElementById('game-label-3');
 
-      function closeOverlay() { usdtOverlay.classList.remove('active'); }
+      step1.classList.remove('active'); step2.classList.remove('active');
+      step3.style.backgroundColor = '#ffcc00'; step3.style.borderColor = '#ffcc00'; step3.innerHTML = '★';
+      lbl1.style.color = 'var(--text-sub)'; lbl2.style.color = 'var(--text-sub)'; lbl3.style.color = 'var(--text-sub)';
 
-      function showUsdtReward(amount, subtext, isTicketDraw = false) {
-        document.getElementById('reward-amount-text').innerText = `${amount} USDT 받았어요`;
-        document.getElementById('reward-sub-text').innerText = subtext;
-        usdtOverlay.classList.add('active');
-
-        usdtOverlay.onclick = null;
-        if(window.overlayTimer) clearTimeout(window.overlayTimer);
-
-        if (isTicketDraw) {
-          let state = getGlobalState();
-          if (state.tickets > 0) {
-             drawAgainContainer.style.display = 'block';
-             btnCloseOverlay.style.display = 'none';
-             document.getElementById('draw-again-tooltip').innerText = `${state.tickets}번 더 뽑을 수 있어요!`;
-          } else {
-             drawAgainContainer.style.display = 'none';
-             btnCloseOverlay.style.display = 'block';
-          }
-        } else {
-          drawAgainContainer.style.display = 'none';
-          btnCloseOverlay.style.display = 'none';
-          usdtOverlay.onclick = closeOverlay;
-          window.overlayTimer = setTimeout(closeOverlay, 2500);
+      if (claimedCount === 0) { fillBar.style.width = '0%'; lbl1.style.color = 'var(--text-main)'; }
+      else if (claimedCount === 1) { fillBar.style.width = '33%'; step1.classList.add('active'); lbl2.style.color = 'var(--text-main)'; }
+      else if (claimedCount === 2) { fillBar.style.width = '66%'; step1.classList.add('active'); step2.classList.add('active'); lbl3.style.color = 'var(--text-main)'; }
+      else if (claimedCount >= 3) {
+        fillBar.style.width = '100%'; 
+        step1.classList.add('active'); step2.classList.add('active'); 
+        step3.style.backgroundColor = 'var(--brand-green)'; step3.style.borderColor = 'var(--brand-green)'; step3.innerHTML = '✓';
+        lbl3.style.color = 'var(--text-main)';
+        
+        if(!state.ticketClaimed) {
+          state.ticketClaimed = true;
+          saveGlobalState(state);
+          setTimeout(() => { addReward('ticket', 3, ''); showTicketReward(3); }, 600);
         }
       }
+    }
 
-      function showTicketReward(amount) {
-        document.getElementById('sheet-ticket-amount').innerText = amount;
-        dimBg.classList.add('active'); ticketSheet.classList.add('active');
-      }
+    // --- 오버레이 로직 ---
+    const usdtOverlay = document.getElementById('usdt-reward-overlay');
+    const btnOverlayX = document.getElementById('btn-overlay-x');
+    const dimBg = document.getElementById('dim-bg');
+    const ticketSheet = document.getElementById('ticket-bottom-sheet');
 
-      function closeBottomSheet() { dimBg.classList.remove('active'); ticketSheet.classList.remove('active'); }
-      document.getElementById('btn-close-sheet').addEventListener('click', closeBottomSheet);
-      dimBg.addEventListener('click', closeBottomSheet);
-      btnCloseOverlay.addEventListener('click', closeOverlay);
-      btnOverlayX.addEventListener('click', closeOverlay); // 도중 닫기 연동
+    function closeOverlay() { usdtOverlay.classList.remove('active'); }
+    function closeBottomSheet() { dimBg.classList.remove('active'); ticketSheet.classList.remove('active'); }
 
-      function executeDraw() {
+    function showTicketReward(amount) {
+      document.getElementById('sheet-ticket-amount').innerText = amount;
+      dimBg.classList.add('active'); ticketSheet.classList.add('active');
+    }
+
+    document.getElementById('btn-close-sheet').addEventListener('click', closeBottomSheet);
+    dimBg.addEventListener('click', closeBottomSheet);
+    btnOverlayX.addEventListener('click', closeOverlay);
+
+    // 뽑기 버튼 연동
+    document.getElementById('btn-draw-ticket').addEventListener('click', () => { 
+      closeBottomSheet(); 
+      setTimeout(() => {
         let state = getGlobalState();
         if(state.tickets > 0) {
           addReward('ticket', -1, ''); 
           const randomReward = Math.floor(Math.random() * 3) + 1;
           addReward('usdt', randomReward, 'USDT 뽑기 보상');
-          state = getGlobalState();
-          showUsdtReward(randomReward, `USDT 뽑기권 ${state.tickets}개 남았어요`, true);
-        } else { alert('보유한 뽑기권이 없습니다!'); }
-      }
-
-      document.getElementById('btn-draw-ticket').addEventListener('click', () => { closeBottomSheet(); setTimeout(executeDraw, 400); });
-      document.getElementById('btn-draw-again').addEventListener('click', () => { closeOverlay(); setTimeout(executeDraw, 300); });
-
-      const gameStates = [
-        { text: "0/3 미션 진행 전", color: "var(--text-sub)", hasBtn: false },
-        { text: "1/3 미션 진행 중", color: "var(--text-sub)", hasBtn: false },
-        { text: "2/3 미션 진행 중", color: "var(--text-sub)", hasBtn: false },
-        { text: "미션 완료", color: "var(--brand-green)", hasBtn: true } 
-      ];
-      let completedGameCount = 0; let gameMissionTicketClaimed = false; 
-
-      window.cycleGameState = function(btn, event) {
-        event.preventDefault(); const row = btn.closest('.game-row');
-        let currentState = parseInt(row.getAttribute('data-state'));
-        if(currentState >= 3 && row.querySelector('.action-area').innerText.includes('받음')) return;
-        currentState = (currentState + 1) % 4; row.setAttribute('data-state', currentState);
-        const stateObj = gameStates[currentState];
-        row.querySelector('.game-status').innerText = stateObj.text; row.querySelector('.game-status').style.color = stateObj.color;
-        row.querySelector('.action-area').innerHTML = stateObj.hasBtn ? '<button class="btn btn-small btn-receive" data-reward="2" onclick="claimGameReward(this, event)">2 USDT 받기</button>' : '';
-      };
-
-      window.claimGameReward = function(btn, event) {
-        event.preventDefault(); const rewardAmount = parseInt(btn.getAttribute('data-reward')) || 2;
-        addReward('usdt', rewardAmount, '게임 미션 완료 보상');
-        showUsdtReward(rewardAmount, "게임 미션 보상을 받았습니다", false);
-        btn.parentElement.innerHTML = `<span class="text-disabled">${rewardAmount} USDT 받음</span>`;
-        
-        completedGameCount++;
-        const fillBar = document.getElementById('game-progress-fill');
-        if (completedGameCount === 1) { fillBar.style.width = '33%'; document.getElementById('game-step-1').classList.add('active'); }
-        else if (completedGameCount === 2) { fillBar.style.width = '66%'; document.getElementById('game-step-2').classList.add('active'); }
-        else if (completedGameCount >= 3) {
-          fillBar.style.width = '100%'; document.getElementById('game-step-3').style.backgroundColor = 'var(--brand-green)'; document.getElementById('game-step-3').innerHTML = '✓';
-          if(!gameMissionTicketClaimed) {
-            gameMissionTicketClaimed = true;
-            setTimeout(() => { addReward('ticket', 3, ''); showTicketReward(3); }, 600);
-          }
+          
+          document.getElementById('reward-amount-text').innerText = `${randomReward} USDT 받았어요`;
+          document.getElementById('reward-sub-text').innerText = `USDT 뽑기권 ${state.tickets - 1}개 남았어요`;
+          usdtOverlay.classList.add('active');
+          
+          usdtOverlay.onclick = closeOverlay;
+          if(window.overlayTimer) clearTimeout(window.overlayTimer);
+          window.overlayTimer = setTimeout(closeOverlay, 2500);
         }
-      };
+      }, 400); 
+    });
 
-      document.getElementById('btn-complete-all').addEventListener('click', () => {
-        document.querySelectorAll('.game-row').forEach(row => {
-          if (!row.querySelector('.action-area').innerHTML.includes('text-disabled') && !row.querySelector('.action-area').innerHTML.includes('btn-receive')) {
-            row.querySelector('.game-status').innerText = '미션 완료'; row.querySelector('.game-status').style.color = 'var(--brand-green)';
-            row.querySelector('.action-area').innerHTML = '<button class="btn btn-small btn-receive" data-reward="2" onclick="claimGameReward(this, event)" style="animation: pulse 1s infinite;">2 USDT 받기</button>';
-          }
-        });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPage();
+      
+      document.getElementById('btn-reset-storage').addEventListener('click', () => {
+        localStorage.removeItem('unifi_state'); renderPage(); location.reload();
       });
 
+      // 이벤트 위임
+      document.addEventListener('click', (e) => {
+        // [테스트] 상태 변경 버튼
+        if (e.target.classList.contains('test-cycle-btn')) {
+          e.preventDefault(); 
+          let idx = parseInt(e.target.closest('.game-row').getAttribute('data-index'));
+          let state = getGlobalState();
+          if (state.gameStates[idx] >= 4) return;
+          state.gameStates[idx]++;
+          saveGlobalState(state);
+        }
+
+        // 게임 보상 2 USDT 받기 버튼
+        if (e.target.classList.contains('btn-receive')) {
+          e.preventDefault(); 
+          let idx = parseInt(e.target.getAttribute('data-index'));
+          let state = getGlobalState();
+          
+          state.gameStates[idx] = 4; // 4 = 수령완료
+          saveGlobalState(state);
+          
+          addReward('usdt', 2, '게임 미션 완료 보상');
+          
+          document.getElementById('reward-amount-text').innerText = `2 USDT 받았어요`;
+          document.getElementById('reward-sub-text').innerText = "게임 미션 보상을 받았습니다";
+          usdtOverlay.classList.add('active');
+          
+          usdtOverlay.onclick = closeOverlay;
+          if(window.overlayTimer) clearTimeout(window.overlayTimer);
+          window.overlayTimer = setTimeout(closeOverlay, 2500);
+        }
+      });
+
+      // [테스트] 모든 미션 완료 처리
+      document.getElementById('btn-complete-all').addEventListener('click', () => {
+        let state = getGlobalState();
+        for(let i=0; i<6; i++) {
+          if(state.gameStates[i] < 3) state.gameStates[i] = 3;
+        }
+        saveGlobalState(state);
+      });
+
+      // --- 출석체크 로직 ---
       function updateTimer() {
         const now = new Date(), midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0), diff = midnight - now;
         const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0'), m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0'), s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
@@ -345,8 +383,19 @@
       attBtn.addEventListener('click', () => {
         if (!canAttend || currentDay > 5) return;
         const reward = rewards[currentDay];
-        if (reward.type === 'usdt') { addReward('usdt', reward.amount, '출석 체크 보상'); showUsdtReward(reward.amount, "내일도 출석 체크하고 보상 받으세요", false); } 
-        else if (reward.type === 'ticket') { addReward('ticket', reward.amount, ''); showTicketReward(reward.amount); }
+        if (reward.type === 'usdt') { 
+          addReward('usdt', reward.amount, '출석 체크 보상'); 
+          document.getElementById('reward-amount-text').innerText = `${reward.amount} USDT 받았어요`;
+          document.getElementById('reward-sub-text').innerText = "내일도 출석 체크하고 보상 받으세요";
+          usdtOverlay.classList.add('active');
+          usdtOverlay.onclick = closeOverlay;
+          if(window.overlayTimer) clearTimeout(window.overlayTimer);
+          window.overlayTimer = setTimeout(closeOverlay, 2500);
+        } 
+        else if (reward.type === 'ticket') { 
+          addReward('ticket', reward.amount, ''); 
+          showTicketReward(reward.amount); 
+        }
         canAttend = false; renderAttendance();
       });
 
