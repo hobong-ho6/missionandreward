@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>일일 미션</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 프로그레스 스텝 UI 요소 */
+    .step-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--gray-bg); display: flex;
+      justify-content: center; align-items: center;
+      font-weight: bold; color: #ccc;
+    }
+    .step-circle.active { background: var(--brand-green); color: #fff; }
+    .step-circle.reward { background: #ffb300; color: #fff; }
+  </style>
+</head>
+<body style="background-color: var(--mint-bg);">
+  <div class="app-container" style="background-color: transparent;">
+    
+    <div class="header">
+      <a href="index.html" class="back-btn">&lt;</a>
+    </div>
+
+    <div style="padding: 0 20px;">
+      <p class="text-sub">01:30:59 남음</p>
+      <div class="flex-between mt-10">
+        <h1 class="font-black text-main">일일 미션</h1>
+        <p class="font-semibold text-sub">🪙 5 USDT &nbsp; 🎟️ 3개</p>
+      </div>
+    </div>
+
+    <div class="card mt-20">
+      <h3 class="font-extrabold text-main">출석 체크</h3>
+      <p class="text-sub mt-10">5일 연속 출석 체크하고 USDT 뽑기권 받아요</p>
+      
+      <div class="flex-between mt-20" style="margin-bottom: 24px;">
+        <div class="step-circle active">✓</div>
+        <div class="step-circle"></div>
+        <div class="step-circle reward">★</div>
+        <div class="step-circle"></div>
+        <div class="step-circle reward" style="border-radius: 8px; width: 48px;">★</div>
+      </div>
+
+      <button class="btn btn-black">출석하고 1 USDT 받기</button>
+    </div>
+
+    <div class="card mt-20">
+      <h3 class="font-extrabold text-main">게임 미션</h3>
+      <p class="text-sub mt-10">게임 3개 미션 완료하고 USDT 뽑기권 받아요</p>
+
+      <div style="margin-top: 30px;">
+        <a href="game_detail.html" style="text-decoration: none; display: block; margin-bottom: 20px;">
+          <div class="flex-between">
+            <div class="flex-row">
+              <div style="width: 48px; height: 48px; background: #ffe4e1; border-radius: 50%; margin-right: 12px;"></div>
+              <div>
+                <h4 class="font-extrabold text-main">Merge Cat</h4>
+                <p class="text-sub font-semibold" style="color: var(--highlight-red); font-size: 12px;">1/3 미션 진행 중</p>
+              </div>
+            </div>
+            <div class="text-sub font-semibold">></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
