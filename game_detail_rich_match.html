@@ -32,6 +32,10 @@
     .tag { font-size: 12px; font-weight: 600; color: var(--text-sub); background: var(--gray-bg); padding: 6px 10px; border-radius: 8px; }
     @keyframes pulse-soft { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); } 70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); } }
     .pulse-anim { animation: pulse-soft 1.5s infinite; }
+    #heart-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    #heart-alert-overlay.active { opacity: 1; pointer-events: auto; }
+    .alert-box { background: #fff; border-radius: 24px; padding: 30px 20px; width: 80%; max-width: 320px; text-align: center; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    #heart-alert-overlay.active .alert-box { transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -40,9 +44,7 @@
     <div class="test-panel"><span>🛠 프로토타입 테스트</span><div><button class="test-btn" id="btn-reset-game">이 게임 초기화</button></div></div>
     
     <div style="position: relative;">
-      <div class="cover-header">
-  <a href="javascript:void(0);" onclick="history.back();" class="back-btn-white">&lt;</a>
-</div>
+      <div class="cover-header"><a href="javascript:void(0);" onclick="history.back();" class="back-btn-white">&lt;</a></div>
       <img src="https://obs.line-scdn.net:443/0hw2VzBuiOKB1rAzdgChpXSjNWJmwHcjEIEjU6ZRZGInFYYTRKHg1lDE5oD14eYwYrUg08BAZ4KVFOYzA7VB44G0ZQFEZGUgo8FjA7LUpTE01DYCQ0CxkSCxJTEywA" alt="Rich Match Cover" class="cover-img">
     </div>
 
@@ -80,14 +82,18 @@
   </div>
 
   <div class="bottom-fixed">
-  <button class="btn-line" onclick="location.href='https://line.me/R/ti/p/@045hipdc'">
-    <span style="color:#00c300; font-size: 18px; line-height: 1;">💬</span> 공식 계정
-  </button>
-  
-  <a href="apps.html" style="flex: 2; text-decoration: none;">
-    <button class="btn-play-game" style="width: 100%;">플레이</button>
-  </a>
-</div>
+    <button class="btn-line" onclick="location.href='https://line.me/R/ti/p/@045hipdc'"><span style="color:#00c300; font-size: 18px; line-height: 1;">💬</span> 공식 계정</button>
+    <a href="apps.html" style="flex: 2; text-decoration: none;"><button class="btn-play-game" style="width: 100%;">플레이</button></a>
+  </div>
+
+  <div id="heart-alert-overlay">
+    <div class="alert-box">
+      <div style="font-size: 44px; margin-bottom: 12px;">❤️</div>
+      <h3 class="font-black text-main" style="font-size: 18px; margin-bottom: 8px;">하트 10개를 받았습니다!</h3>
+      <p class="text-sub font-semibold" style="font-size: 13px; margin-bottom: 24px;">게임에서 확인해 주세요.</p>
+      <button id="btn-close-heart-alert" class="btn-black" style="width: 100%; padding: 14px 0; font-size: 15px;">확인</button>
+    </div>
+  </div>
 
   <div id="usdt-reward-overlay" class="blur-overlay">
     <div class="overlay-close" id="btn-overlay-x">&times;</div><div class="usdt-glow-circle"><span>₮</span></div>
@@ -96,9 +102,8 @@
   </div>
 
   <script>
-    document.getElementById('btn-receive-heart').addEventListener('click', () => { alert('하트 10개를 받았습니다.\n게임에서 확인해주세요.'); });
     const GAME_INDEX = 4; 
-    function getGlobalState() { const stored = localStorage.getItem('unifi_state'); let state = stored ? JSON.parse(stored) : null; if (!state || !state.gameStates) { state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0] }, state || {}); localStorage.setItem('unifi_state', JSON.stringify(state)); } return state; }
+    function getGlobalState() { const stored = localStorage.getItem('unifi_state'); let state = stored ? JSON.parse(stored) : null; if (!state || !state.gameStates) { state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0], heartStates: [false, false, false, false, false, false] }, state || {}); localStorage.setItem('unifi_state', JSON.stringify(state)); } if (!state.heartStates) { state.heartStates = [false, false, false, false, false, false]; localStorage.setItem('unifi_state', JSON.stringify(state)); } return state; }
     function saveGlobalState(state) { localStorage.setItem('unifi_state', JSON.stringify(state)); renderDetail(); }
     function addReward(amount) { let state = getGlobalState(); state.usdt += amount; const now = new Date(); const pad = n => n.toString().padStart(2, '0'); const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`; state.history.unshift({ title: '게임 미션 완료 보상', date: dateStr, amount: amount }); saveGlobalState(state); }
     
@@ -111,11 +116,15 @@
     };
 
     function applyMissionUI(elementId, configData) { const el = document.getElementById(elementId); const icon = el.querySelector('.mission-icon'); const progressTxt = el.querySelector('.progress-txt'); const btn = el.querySelector('.sub-action-btn'); progressTxt.innerText = configData.txt; btn.className = `btn-status sub-action-btn ${configData.cls}`; btn.innerText = configData.btnTxt; if(configData.done) { icon.classList.add('is-done'); } else { icon.classList.remove('is-done'); } }
-    function renderDetail() { const state = getGlobalState(); let gState = state.gameStates[GAME_INDEX]; const config = uiConfig[gState]; applyMissionUI('mission-1', config.m1); applyMissionUI('mission-2', config.m2); applyMissionUI('mission-3', config.m3); const mainBtn = document.getElementById('main-reward-btn'); mainBtn.innerText = config.reward.text; mainBtn.style.backgroundColor = config.reward.bg; mainBtn.style.color = config.reward.color; mainBtn.disabled = config.reward.disabled; mainBtn.style.cursor = config.reward.disabled ? 'not-allowed' : 'pointer'; if(config.reward.pulse) { mainBtn.classList.add('pulse-anim'); } else { mainBtn.classList.remove('pulse-anim'); } }
+    function renderDetail() { const state = getGlobalState(); let gState = state.gameStates[GAME_INDEX]; const config = uiConfig[gState]; applyMissionUI('mission-1', config.m1); applyMissionUI('mission-2', config.m2); applyMissionUI('mission-3', config.m3); const mainBtn = document.getElementById('main-reward-btn'); mainBtn.innerText = config.reward.text; mainBtn.style.backgroundColor = config.reward.bg; mainBtn.style.color = config.reward.color; mainBtn.disabled = config.reward.disabled; mainBtn.style.cursor = config.reward.disabled ? 'not-allowed' : 'pointer'; if(config.reward.pulse) { mainBtn.classList.add('pulse-anim'); } else { mainBtn.classList.remove('pulse-anim'); } 
+      const heartBtn = document.getElementById('btn-receive-heart'); if(state.heartStates[GAME_INDEX]) { heartBtn.style.backgroundColor = "var(--gray-bg)"; heartBtn.style.color = "#a0a0a0"; heartBtn.innerText = "받음"; heartBtn.disabled = true; heartBtn.style.cursor = "not-allowed"; } else { heartBtn.style.backgroundColor = "#111"; heartBtn.style.color = "#fff"; heartBtn.innerText = "받기"; heartBtn.disabled = false; heartBtn.style.cursor = "pointer"; } }
 
     document.addEventListener('DOMContentLoaded', () => {
       renderDetail();
-      document.getElementById('btn-reset-game').addEventListener('click', () => { let state = getGlobalState(); state.gameStates[GAME_INDEX] = 0; saveGlobalState(state); });
+      const heartAlertOverlay = document.getElementById('heart-alert-overlay');
+      document.getElementById('btn-receive-heart').addEventListener('click', () => { let state = getGlobalState(); if(!state.heartStates[GAME_INDEX]) { state.heartStates[GAME_INDEX] = true; saveGlobalState(state); heartAlertOverlay.classList.add('active'); } });
+      document.getElementById('btn-close-heart-alert').addEventListener('click', () => { heartAlertOverlay.classList.remove('active'); });
+      document.getElementById('btn-reset-game').addEventListener('click', () => { let state = getGlobalState(); state.gameStates[GAME_INDEX] = 0; state.heartStates[GAME_INDEX] = false; saveGlobalState(state); });
       document.querySelectorAll('.sub-action-btn').forEach(btn => { btn.addEventListener('click', () => { let state = getGlobalState(); if(state.gameStates[GAME_INDEX] < 3) { state.gameStates[GAME_INDEX]++; saveGlobalState(state); } }); });
       
       const mainBtn = document.getElementById('main-reward-btn'); const usdtOverlay = document.getElementById('usdt-reward-overlay'); const btnOverlayX = document.getElementById('btn-overlay-x');
