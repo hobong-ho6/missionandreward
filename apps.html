@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Game Play</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#3b82f6',
+                        'line': '#06C755', // LINE 공식 색상
+                        'text-main': '#111111',
+                        'text-sub': '#666666'
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f5f6f8; margin: 0; padding: 0; }
+        
+        .app-wrapper { 
+            width: 100%; 
+            max-width: 480px; 
+            margin: 0 auto; 
+            height: 100dvh; 
+            position: relative; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+            
+            /* 이미지가 잘리지 않고 원본 비율을 완벽히 유지하도록 변경 */
+            background-size: contain; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-color: #111111; /* 비율 차이로 남는 여백은 어둡게 처리하여 게임 화면처럼 연출 */
+        }
+    </style>
+</head>
+<body class="m-0 p-0 text-text-main bg-[#f5f6f8]">
+
+    <div class="app-wrapper" style="background-image: url('./image_d1b24b.jpeg');">
+        
+        <button onclick="window.location.href='mission_detail.html'" class="absolute top-4 left-4 z-40 bg-black/40 text-white p-2.5 rounded-full backdrop-blur-md hover:bg-black/60 transition transform active:scale-90">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+
+        <div id="line-notification" class="absolute top-4 left-4 right-4 z-50 transition-all duration-500 transform -translate-y-32 opacity-0 pointer-events-none">
+            <div class="bg-white rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.15)] p-4 flex items-start gap-3 border border-gray-100 cursor-pointer" onclick="closeLineMessage()">
+                <div class="w-10 h-10 rounded-full bg-line flex items-center justify-center shrink-0">
+                    <svg class="text-white w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                </div>
+                <div class="flex-1 pt-0.5">
+                    <p class="text-[11px] text-line font-extrabold mb-0.5 tracking-tight">LINE Official Account</p>
+                    <p id="line-title" class="text-[14px] font-black text-text-main leading-tight tracking-tight">미션 달성!</p>
+                    <p id="line-desc" class="text-[12px] text-text-sub font-semibold mt-1 leading-snug">첫 플레이 미션을 완료했습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-12 left-0 right-0 flex justify-center z-40 px-6">
+            <button onclick="simulateMissionComplete()" class="w-full max-w-[300px] bg-white/95 backdrop-blur-md text-brand-blue px-6 py-4 rounded-[16px] font-extrabold shadow-[0_10px_25px_rgba(0,0,0,0.1)] border border-blue-50 hover:bg-white transform transition active:scale-95 flex items-center justify-center gap-2">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-blue"></span>
+                </span>
+                테스트: 미션 완료하기
+            </button>
+        </div>
+        
+    </div>
+
+    <script>
+        const lineNotification = document.getElementById('line-notification');
+        const lineTitle = document.getElementById('line-title');
+        const lineDesc = document.getElementById('line-desc');
+        let lineMessageTimer = null;
+
+        window.simulateMissionComplete = function() {
+            const randomRewards = ['3 USDT', '1 USDT', '뽑기권 1개', '뽑기권 3개'];
+            const reward = randomRewards[Math.floor(Math.random() * randomRewards.length)];
+            
+            showLineMessage(
+                '미션 보상 도착!', 
+                `축하합니다! 미션 완료 되었습니다. [${reward}]를 받아보세요.`
+            );
+        };
+
+        function showLineMessage(title, desc) {
+            lineTitle.textContent = title;
+            lineDesc.textContent = desc;
+
+            // 푸시 알림 내려오기
+            lineNotification.classList.remove('-translate-y-32', 'opacity-0', 'pointer-events-none');
+            lineNotification.classList.add('translate-y-0', 'opacity-100');
+
+            if (lineMessageTimer) clearTimeout(lineMessageTimer);
+
+            // 3.5초 후 자동 숨김
+            lineMessageTimer = setTimeout(() => {
+                closeLineMessage();
+            }, 3500);
+        }
+
+        window.closeLineMessage = function() {
+            lineNotification.classList.remove('translate-y-0', 'opacity-100');
+            lineNotification.classList.add('-translate-y-32', 'opacity-0', 'pointer-events-none');
+        };
+    </script>
+</body>
+</html>
