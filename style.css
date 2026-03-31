@@ -16,11 +16,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #e0e0e0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  -webkit-font-smoothing: antialiased;
+  background-color: #e0e0e0; margin: 0; display: flex; justify-content: center; -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, p { margin: 0; }
@@ -64,28 +60,28 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 
 .balance-card { background-color: var(--lime-bg); border-radius: 20px; padding: 24px 20px 20px 20px; margin: 0 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
 .btn-deposit { background-color: #111; color: #fff; padding: 10px 18px; border-radius: 20px; font-size: 14px; font-weight: 800; transition: transform 0.1s; }
-.btn-deposit:active { transform: scale(0.95); }
-.interest-banner { background-color: rgba(255,255,255,0.4); padding: 12px 16px; border-radius: 12px; margin-top: 24px; font-size: 14px; }
+.interest-banner { background-color: rgba(255,255,255,0.4); padding: 12px 16px; border-radius: 12px; margin-top: 24px; font-size: 14px; cursor: pointer;}
 .usdt-icon { background: var(--brand-green); color: #fff; width: 18px; height: 18px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; margin-right: 8px; }
 
 .action-list { margin: 24px 20px; display: flex; flex-direction: column; gap: 12px; }
 .action-item { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px; border-radius: 16px; border: 1px solid var(--border-color); background-color: var(--card-bg); box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
 .action-icon { width: 40px; height: 40px; border-radius: 50%; background-color: var(--gray-bg); display: flex; justify-content: center; align-items: center; font-size: 20px; margin-right: 12px; }
 
-.daily-banner { background-color: var(--mint-bg); margin: 16px 20px; padding: 16px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; transition: opacity 0.1s; }
+.daily-banner { background-color: var(--mint-bg); margin: 16px 20px; padding: 16px 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; transition: opacity 0.1s; text-decoration: none;}
 .daily-banner:active { opacity: 0.8; }
 
-.game-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 20px 20px 20px; gap: 12px; -ms-overflow-style: none; scrollbar-width: none; }
+/* 캐러셀 레이아웃 강제 고정 */
+.game-carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 20px 20px 20px; gap: 12px; -ms-overflow-style: none; scrollbar-width: none; flex-wrap: nowrap; }
 .game-carousel::-webkit-scrollbar { display: none; }
-.game-card { min-width: 140px; background-color: var(--gray-bg); border-radius: 16px; padding: 20px 16px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; }
-.game-img { width: 72px; height: 72px; border-radius: 50%; background-color: #ddd; margin-bottom: 12px; object-fit: cover; }
+.game-card { min-width: 140px; max-width: 140px; background-color: var(--gray-bg); border-radius: 16px; padding: 20px 16px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; box-sizing: border-box;}
+.game-img { width: 72px; height: 72px; min-height: 72px; border-radius: 50%; background-color: #ddd; margin-bottom: 12px; object-fit: cover; }
 
 .progress-container { width: 100%; height: 4px; background-color: #e0e0e0; border-radius: 2px; margin: 8px 0; overflow: hidden; }
 .progress-bar { height: 100%; background-color: var(--brand-green); border-radius: 2px; transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out; }
 
-.tooltip { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 1px solid #111; color: #111; padding: 6px 10px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 5; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; }
+.tooltip { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 1px solid #111; color: #111; padding: 6px 10px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 5; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; pointer-events: none;}
 .tooltip::before { content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background-color: #fff; border-top: 1px solid #111; border-left: 1px solid #111; }
-.btn-play:hover .tooltip, .btn-play:active .tooltip, .game-card:hover .tooltip { opacity: 1; visibility: visible; }
+.btn-play:hover .tooltip, .btn-play:active .tooltip { opacity: 1; visibility: visible; }
 
 .edu-card { background-color: var(--mint-bg); border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin: 0 20px 12px 20px; cursor: pointer; }
 .edu-card.gray { background-color: var(--gray-bg); }
@@ -108,7 +104,6 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 
 .tooltip-top { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 1px solid #111; color: #111; padding: 4px 8px; border-radius: 16px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 10;}
 .tooltip-top::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background-color: #fff; border-right: 1px solid #111; border-bottom: 1px solid #111; }
-
 .text-disabled { color: #a0a0a0; font-weight: 600; font-size: 13px; }
 
 .step-container { display: flex; justify-content: space-between; align-items: flex-end; position: relative; margin: 30px 0 24px 0; padding: 0 5px; }
@@ -132,8 +127,7 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .game-list-item { display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: inherit; position: relative; }
 .game-list-item img { width: 48px; height: 48px; border-radius: 50%; margin-right: 14px; object-fit: cover; }
 
-/* Test Panel & Buttons */
-.test-cycle-btn { background: rgba(0,0,0,0.05); color: #888; border-radius: 8px; font-size: 10px; font-weight: bold; padding: 4px 8px; margin-left: 8px; cursor: pointer; transition: background 0.1s; }
+.test-cycle-btn { background: rgba(0,0,0,0.05); color: #888; border-radius: 8px; font-size: 10px; font-weight: bold; padding: 4px 8px; margin-left: 8px; cursor: pointer; transition: background 0.1s; border:none; }
 .test-cycle-btn:active { background: rgba(0,0,0,0.1); }
 .test-panel { background-color: rgba(0,0,0,0.8); color: #fff; padding: 10px 20px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
 .test-btn { background: #333; color: white; border: 1px solid #555; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
@@ -142,7 +136,6 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 /* Overlay & Bottom Sheet */
 .dim-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .dim-bg.active { opacity: 1; pointer-events: auto; }
-
 .bottom-sheet { position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 480px; background: #ffffff; border-radius: 24px 24px 0 0; padding: 30px 20px 40px 20px; z-index: 1001; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1); box-sizing: border-box; text-align: center; }
 .bottom-sheet.active { transform: translate(-50%, 0); }
 .sheet-close { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; color: #111; }
