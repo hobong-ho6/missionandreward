@@ -13,8 +13,8 @@
     <div class="mission-header-area" style="padding-top: 20px;">
       <a href="daily_mission.html" style="font-size: 24px; color: var(--text-main); text-decoration: none; display: inline-block; margin-bottom: 20px;">&lt;</a>
       <p class="font-semibold text-main" style="font-size: 16px;">리워드</p>
-      <h1 class="font-black text-main mt-10" style="font-size: 32px;">3.52 USDT</h1>
-      <p class="text-sub mt-10" style="font-size: 13px;">≈₩4,520.03</p>
+      <h1 class="font-black text-main mt-10" style="font-size: 32px;"><span id="val-usdt">0</span> USDT</h1>
+      <p class="text-sub mt-10" style="font-size: 13px;" id="val-krw">≈₩0</p>
     </div>
 
     <div class="card mt-20" style="box-shadow: none; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 16px 20px;">
@@ -22,94 +22,156 @@
         <div style="width: 40px; height: 40px; background-color: #fff8e1; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 20px; margin-right: 12px;">🎟️</div>
         <div class="flex-col">
           <span class="text-sub font-semibold" style="font-size: 12px;">USDT 뽑기권</span>
-          <span class="font-extrabold text-main mt-10" style="font-size: 15px;">3개</span>
+          <span class="font-extrabold text-main mt-10" style="font-size: 15px;"><span id="val-tickets">0</span>개</span>
         </div>
       </div>
-      <button class="btn btn-black" style="padding: 8px 16px; width: auto; font-size: 13px; border-radius: 20px;">뽑기</button>
+      <button id="btn-draw-direct" class="btn btn-black" style="padding: 8px 16px; width: auto; font-size: 13px; border-radius: 20px;">뽑기</button>
     </div>
 
     <hr style="border: none; border-top: 8px solid var(--gray-bg); margin: 30px 0;">
 
     <div style="padding: 0 20px;">
-      <h3 class="font-extrabold text-main" style="font-size: 16px;">나의 리워드 내역</h3>
-      <p class="text-sub mt-10" style="font-size: 12px;">3개월 • 최신순 ∨</p>
-
-      <div class="history-list mt-20">
-        
-        <div class="history-item">
-          <div class="flex-row">
-            <div class="icon-down">↓</div>
-            <div class="flex-col">
-              <span class="font-extrabold text-main" style="font-size: 14px;">USDT 리워드 지급</span>
-              <span class="text-sub" style="font-size: 11px; margin-top: 4px;">2026-03-31 15:00</span>
-            </div>
-          </div>
-          <div class="flex-col" style="text-align: right;">
-            <span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">1 USDT</span>
-            <span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩1,500.03</span>
-          </div>
-        </div>
-
-        <div class="history-item">
-          <div class="flex-row">
-            <div class="icon-down">↓</div>
-            <div class="flex-col">
-              <span class="font-extrabold text-main" style="font-size: 14px;">USDT 리워드 지급</span>
-              <span class="text-sub" style="font-size: 11px; margin-top: 4px;">2026-03-30 13:00</span>
-            </div>
-          </div>
-          <div class="flex-col" style="text-align: right;">
-            <span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">0.48 USDT</span>
-            <span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩752.02</span>
-          </div>
-        </div>
-
-        <div class="history-item">
-          <div class="flex-row">
-            <div class="icon-down">↓</div>
-            <div class="flex-col">
-              <span class="font-extrabold text-main" style="font-size: 14px;">USDT 리워드 지급</span>
-              <span class="text-sub" style="font-size: 11px; margin-top: 4px;">2026-03-30 12:00</span>
-            </div>
-          </div>
-          <div class="flex-col" style="text-align: right;">
-            <span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">1 USDT</span>
-            <span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩1,500.03</span>
-          </div>
-        </div>
-
-        <div class="history-item">
-          <div class="flex-row">
-            <div class="icon-down">↓</div>
-            <div class="flex-col">
-              <span class="font-extrabold text-main" style="font-size: 14px;">USDT 리워드 지급</span>
-              <span class="text-sub" style="font-size: 11px; margin-top: 4px;">2026-03-30 10:00</span>
-            </div>
-          </div>
-          <div class="flex-col" style="text-align: right;">
-            <span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">0.52 USDT</span>
-            <span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩753.02</span>
-          </div>
-        </div>
-
-        <div class="history-item">
-          <div class="flex-row">
-            <div class="icon-down">↓</div>
-            <div class="flex-col">
-              <span class="font-extrabold text-main" style="font-size: 14px;">USDT 리워드 지급</span>
-              <span class="text-sub" style="font-size: 11px; margin-top: 4px;">2026-03-29 18:00</span>
-            </div>
-          </div>
-          <div class="flex-col" style="text-align: right;">
-            <span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">1 USDT</span>
-            <span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩1,500.03</span>
-          </div>
-        </div>
-
+      <div class="flex-between">
+        <h3 class="font-extrabold text-main" style="font-size: 16px;">나의 리워드 내역</h3>
+        <button id="btn-clear-history" style="font-size: 11px; color: #999; text-decoration: underline;">내역 지우기</button>
       </div>
+      <p class="text-sub mt-10" style="font-size: 12px;">최근 내역 ∨</p>
+
+      <div class="history-list mt-20" id="history-container">
+        </div>
     </div>
 
   </div>
 
+  <div id="usdt-reward-overlay" class="blur-overlay">
+    <div class="usdt-glow-circle"><span>₮</span></div>
+    <h1 class="font-black text-main" id="reward-amount-text" style="font-size: 32px; z-index: 10;">1 USDT 받았어요</h1>
+    <p class="text-sub font-semibold mt-10" id="reward-sub-text" style="z-index: 10; margin-bottom: 20px;">USDT 뽑기권 X개 남았어요</p>
+    
+    <div id="draw-again-container" style="display: none; position: relative; z-index: 10; margin-top: 40px; width: 100%; max-width: 320px;">
+       <div class="tooltip-top" id="draw-again-tooltip" style="bottom: 100%; margin-bottom: 8px;">X번 더 뽑을 수 있어요!</div>
+       <button id="btn-draw-again" class="btn-black" style="width: 100%; padding: 18px; font-size: 16px;">더 뽑기</button>
+    </div>
+    <button id="btn-overlay-close" class="btn-black" style="display: none; z-index: 10; margin-top: 40px; width: 100%; max-width: 320px; padding: 18px; font-size: 16px;">확인</button>
+  </div>
+
+  <script>
+    const DEFAULT_STATE = { usdt: 5.5, tickets: 3, history: [] };
+
+    function getGlobalState() {
+      const stored = localStorage.getItem('unifi_state');
+      return stored ? JSON.parse(stored) : DEFAULT_STATE;
+    }
+
+    function saveGlobalState(state) {
+      localStorage.setItem('unifi_state', JSON.stringify(state));
+      renderPage();
+    }
+
+    function addReward(type, amount, title) {
+      let state = getGlobalState();
+      if (type === 'usdt') state.usdt += amount;
+      if (type === 'ticket') state.tickets += amount;
+
+      if (amount > 0 && type === 'usdt') {
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+        state.history.unshift({ title: title, date: dateStr, amount: amount });
+      }
+      saveGlobalState(state);
+      return state;
+    }
+
+    function renderPage() {
+      const state = getGlobalState();
+      document.getElementById('val-usdt').innerText = state.usdt.toFixed(2).replace(/\.00$/, '');
+      document.getElementById('val-krw').innerText = `≈₩${(state.usdt * 1350).toLocaleString('ko-KR', {maximumFractionDigits: 0})}`;
+      document.getElementById('val-tickets').innerText = state.tickets;
+      
+      const historyContainer = document.getElementById('history-container');
+      historyContainer.innerHTML = '';
+
+      if(state.history.length === 0) {
+        historyContainer.innerHTML = '<p class="text-sub" style="text-align: center; padding: 20px 0;">아직 리워드 내역이 없습니다.</p>';
+        return;
+      }
+
+      state.history.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'history-item';
+        row.innerHTML = `
+          <div class="flex-row">
+            <div class="icon-down" style="background-color:#e0f9eb;">↓</div>
+            <div class="flex-col">
+              <span class="font-extrabold text-main" style="font-size: 14px;">${item.title}</span>
+              <span class="text-sub" style="font-size: 11px; margin-top: 4px;">${item.date}</span>
+            </div>
+          </div>
+          <div class="flex-col" style="text-align: right;">
+            <span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">${item.amount} USDT</span>
+            <span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩${(item.amount * 1350).toLocaleString('ko-KR', {maximumFractionDigits: 0})}</span>
+          </div>
+        `;
+        historyContainer.appendChild(row);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPage();
+
+      document.getElementById('btn-clear-history').addEventListener('click', () => {
+        let state = getGlobalState();
+        state.history = [];
+        saveGlobalState(state);
+      });
+
+      // --- 오버레이 및 연속 뽑기 제어 ---
+      const usdtOverlay = document.getElementById('usdt-reward-overlay');
+      const drawAgainContainer = document.getElementById('draw-again-container');
+      const btnCloseOverlay = document.getElementById('btn-overlay-close');
+
+      function closeOverlay() { usdtOverlay.classList.remove('active'); }
+
+      function showUsdtReward(amount) {
+        let state = getGlobalState();
+        document.getElementById('reward-amount-text').innerText = `${amount} USDT 받았어요`;
+        document.getElementById('reward-sub-text').innerText = `USDT 뽑기권 ${state.tickets}개 남았어요`;
+        usdtOverlay.classList.add('active');
+
+        if (state.tickets > 0) {
+            drawAgainContainer.style.display = 'block';
+            btnCloseOverlay.style.display = 'none';
+            document.getElementById('draw-again-tooltip').innerText = `${state.tickets}번 더 뽑을 수 있어요!`;
+        } else {
+            drawAgainContainer.style.display = 'none';
+            btnCloseOverlay.style.display = 'block';
+        }
+      }
+
+      function executeDraw() {
+        let state = getGlobalState();
+        if(state.tickets > 0) {
+          addReward('ticket', -1, ''); 
+          const randomReward = Math.floor(Math.random() * 3) + 1; // 1~3 랜덤 USDT
+          addReward('usdt', randomReward, 'USDT 뽑기 리워드');
+          
+          showUsdtReward(randomReward);
+        } else {
+          alert('보유한 뽑기권이 없습니다!');
+        }
+      }
+
+      // 내역 상세페이지에서는 바텀 시트 없이 바로 뽑기 실행
+      document.getElementById('btn-draw-direct').addEventListener('click', executeDraw);
+      
+      document.getElementById('btn-draw-again').addEventListener('click', () => {
+        closeOverlay();
+        setTimeout(executeDraw, 300);
+      });
+
+      btnCloseOverlay.addEventListener('click', closeOverlay);
+    });
+  </script>
 </body>
 </html>
