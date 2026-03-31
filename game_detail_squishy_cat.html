@@ -6,111 +6,53 @@
   <title>게임 상세 - Squishy Cat</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* 개별 게임 상세 전용 스타일 */
     body { background-color: var(--e0e0e0); margin: 0; display: flex; justify-content: center; }
-    
     .cover-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+    .cover-header { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; z-index: 10; padding-top: max(20px, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; }
     
-    /* 뒤로가기 버튼이 포함된 헤더 영역 */
-    .cover-header { 
-      position: absolute; top: 0; left: 0; width: 100%; padding: 20px; z-index: 10; 
-      padding-top: max(20px, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; 
-    }
+    /* 뒤로가기 버튼 시인성 강화 (반투명 검은색 배경 + 굵은 폰트) */
     .back-btn-white { 
-      color: #fff; font-size: 28px; font-weight: 300; text-decoration: none; text-shadow: 0 2px 4px rgba(0,0,0,0.3); 
+      color: #fff; font-size: 20px; font-weight: 900; text-decoration: none; 
+      display: flex; justify-content: center; align-items: center;
+      width: 36px; height: 36px; background-color: rgba(0, 0, 0, 0.4); 
+      border-radius: 50%; backdrop-filter: blur(4px);
     }
     
-    /* 콘텐츠 컨테이너 */
-    .game-info-container { 
-      background: var(--app-bg); border-radius: 24px 24px 0 0; 
-      position: relative; margin-top: -24px; padding: 30px 20px; padding-bottom: 120px; 
-    }
-    
-    /* 보조 배너 (하트 받기) */
-    .sub-banner {
-      background-color: var(--mint-bg); border-radius: 16px; padding: 14px 20px; 
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
-    }
-
-    /* 미션 리스트 카드 */
+    .game-info-container { background: var(--app-bg); border-radius: 24px 24px 0 0; position: relative; margin-top: -24px; padding: 30px 20px; padding-bottom: 120px; }
+    .sub-banner { background-color: var(--mint-bg); border-radius: 16px; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
     .mission-card { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
     .mission-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
     .mission-item:last-child { margin-bottom: 0; }
-    
-    /* 아이콘 영역 및 체크 배지 */
-    .mission-icon { 
-      width: 48px; height: 48px; border-radius: 50%; background: var(--gray-bg); 
-      display: flex; justify-content: center; align-items: center; font-size: 24px; margin-right: 14px; position: relative; 
-    }
+    .mission-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--gray-bg); display: flex; justify-content: center; align-items: center; font-size: 24px; margin-right: 14px; position: relative; }
     .mission-icon .check-badge { display: none; }
-    .mission-icon.is-done .check-badge { 
-      position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; 
-      background: var(--text-main); color: #fff; border-radius: 50%; font-size: 10px; 
-      display: flex; justify-content: center; align-items: center; font-weight: bold; border: 2px solid #fff; 
-    }
-    
-    /* 상태별 둥근 버튼 디자인 */
+    .mission-icon.is-done .check-badge { position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; background: var(--text-main); color: #fff; border-radius: 50%; font-size: 10px; display: flex; justify-content: center; align-items: center; font-weight: bold; border: 2px solid #fff; }
     .btn-status { padding: 8px 18px; border-radius: 16px; font-size: 13px; font-weight: 800; transition: transform 0.1s; cursor: pointer; }
     .btn-status:active { transform: scale(0.95); }
-    
     .btn-status.start { background-color: var(--text-main); color: #fff; border: none; }
     .btn-status.ing { background-color: #fff; color: var(--text-main); border: 1px solid var(--border-color); }
     .btn-status.done { background-color: var(--gray-bg); color: #a0a0a0; border: none; cursor: default; pointer-events: none; }
-    
-    /* 하단 고정 바 */
-    .bottom-fixed { 
-      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); 
-      width: 100%; max-width: 480px; background: #fff; 
-      padding: 12px 20px; padding-bottom: calc(12px + env(safe-area-inset-bottom)); 
-      display: flex; gap: 12px; box-sizing: border-box; 
-      border-top: 1px solid var(--border-color); z-index: 100; 
-      box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
-    }
-    .btn-line { 
-      flex: 1; max-width: 140px; background: var(--gray-bg); color: var(--text-main); 
-      border-radius: 16px; font-weight: 800; font-size: 15px; 
-      display: flex; justify-content: center; align-items: center; gap: 6px; border: none; cursor: pointer; padding: 16px 0; transition: transform 0.1s;
-    }
+    .bottom-fixed { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; padding: 12px 20px; padding-bottom: calc(12px + env(safe-area-inset-bottom)); display: flex; gap: 12px; box-sizing: border-box; border-top: 1px solid var(--border-color); z-index: 100; box-shadow: 0 -4px 15px rgba(0,0,0,0.03); }
+    .btn-line { flex: 1; max-width: 140px; background: var(--gray-bg); color: var(--text-main); border-radius: 16px; font-weight: 800; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 6px; border: none; cursor: pointer; padding: 16px 0; transition: transform 0.1s; }
     .btn-line:active { transform: scale(0.95); }
-    .btn-play-game { 
-      flex: 2; background: var(--text-main); color: #fff; border-radius: 16px; 
-      font-weight: 800; font-size: 16px; border: none; cursor: pointer; padding: 16px 0; transition: transform 0.1s;
-    }
+    .btn-play-game { flex: 2; background: var(--text-main); color: #fff; border-radius: 16px; font-weight: 800; font-size: 16px; border: none; cursor: pointer; padding: 16px 0; transition: transform 0.1s; }
     .btn-play-game:active { transform: scale(0.95); }
-
-    /* 게임 소개 태그 */
     .tag-list { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
     .tag { font-size: 12px; font-weight: 600; color: var(--text-sub); background: var(--gray-bg); padding: 6px 10px; border-radius: 8px; }
-
-    /* 버튼 펄스 애니메이션 */
-    @keyframes pulse-soft {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); }
-      70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-    }
+    @keyframes pulse-soft { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); } 70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); } }
     .pulse-anim { animation: pulse-soft 1.5s infinite; }
   </style>
 </head>
 <body>
   
   <div class="app-container" style="padding-bottom: 0; min-height: auto;">
+    <div class="test-panel"><span>🛠 프로토타입 테스트</span><div><button class="test-btn" id="btn-reset-game">이 게임 초기화</button></div></div>
     
-    <div class="test-panel">
-      <span>🛠 프로토타입 테스트</span>
-      <div>
-        <button class="test-btn" id="btn-reset-game">이 게임 초기화</button>
-      </div>
-    </div>
-
     <div style="position: relative;">
-      <div class="cover-header">
-        <a href="daily_mission.html" class="back-btn-white">&lt;</a>
-      </div>
+      <div class="cover-header"><a href="daily_mission.html" class="back-btn-white">&lt;</a></div>
       <img src="https://obs.line-scdn.net:443/0hVsh0TmebCVxVSRag5O52Cw8cBy05OBBJLH8bJCgMAzBmKxULLFAae3E3Pgt7KjhUIlEwTnAiHwczGChLL1AeUXEoMW0kLCsLIH8ZUjsZMjE-KgVcaH0jSjYyCzZwBT4" alt="Squishy Cat Cover" class="cover-img">
     </div>
 
     <div class="game-info-container">
-      
       <div class="flex-between">
         <h1 class="font-black text-main" style="font-size: 28px;">Squishy Cat</h1>
         <span style="font-size: 24px; color: #ddd; cursor: pointer;">♡</span>
@@ -128,40 +70,9 @@
       </div>
 
       <div class="mission-card">
-        
-        <div class="mission-item" id="mission-1">
-          <div class="flex-row">
-            <div class="mission-icon" style="background:#fff3e0;">🐱<div class="check-badge">✓</div></div>
-            <div class="flex-col">
-              <span class="font-semibold text-main" style="font-size: 14px;">고양이 합치기</span>
-              <span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/30</span>
-            </div>
-          </div>
-          <button class="btn-status sub-action-btn">진행 중</button>
-        </div>
-
-        <div class="mission-item" id="mission-2">
-          <div class="flex-row">
-            <div class="mission-icon" style="background:#e0f2f1;">🐟<div class="check-badge">✓</div></div>
-            <div class="flex-col">
-              <span class="font-semibold text-main" style="font-size: 14px;">물고기 먹이기</span>
-              <span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/50</span>
-            </div>
-          </div>
-          <button class="btn-status sub-action-btn">시작</button>
-        </div>
-
-        <div class="mission-item" id="mission-3">
-          <div class="flex-row">
-            <div class="mission-icon" style="background:#fce4ec;">📦<div class="check-badge">✓</div></div>
-            <div class="flex-col">
-              <span class="font-semibold text-main" style="font-size: 14px;">박스 파괴하기</span>
-              <span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/100</span>
-            </div>
-          </div>
-          <button class="btn-status sub-action-btn">시작</button>
-        </div>
-
+        <div class="mission-item" id="mission-1"><div class="flex-row"><div class="mission-icon" style="background:#fff3e0;">🐱<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">고양이 합치기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/30</span></div></div><button class="btn-status sub-action-btn">진행 중</button></div>
+        <div class="mission-item" id="mission-2"><div class="flex-row"><div class="mission-icon" style="background:#e0f2f1;">🐟<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">물고기 먹이기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/50</span></div></div><button class="btn-status sub-action-btn">시작</button></div>
+        <div class="mission-item" id="mission-3"><div class="flex-row"><div class="mission-icon" style="background:#fce4ec;">📦<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">박스 파괴하기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/100</span></div></div><button class="btn-status sub-action-btn">시작</button></div>
         <button id="main-reward-btn" class="btn-play" style="margin-top: 24px; padding: 16px 0; border-radius: 20px; font-size: 15px; font-weight: 800; transition: all 0.2s;">2 USDT 받기</button>
       </div>
 
@@ -169,198 +80,47 @@
       <div class="mission-card" style="box-shadow: none; border: 1px solid var(--border-color);">
         <h4 class="font-extrabold text-main" style="font-size: 16px; margin-bottom: 12px; line-height: 1.4;">귀여운 고양이를 합칠수록<br>점점 더 커지는 재미!</h4>
         <p class="text-sub" style="font-size: 13px; line-height: 1.6;">귀여운 캐릭터를 하나씩 합쳐보세요! 점점 더 특별한 모습으로 변해가는 재미를 느낄 수 있어요. 누구나 쉽게 즐길 수 있는 힐링 게임입니다.</p>
-        
-        <div class="tag-list">
-          <span class="tag">#캐주얼</span>
-          <span class="tag">#심플</span>
-          <span class="tag">#큐트</span>
-        </div>
+        <div class="tag-list"><span class="tag">#캐주얼</span><span class="tag">#심플</span><span class="tag">#큐트</span></div>
       </div>
-
     </div>
   </div>
 
-  <div class="bottom-fixed">
-    <button class="btn-line">
-      <span style="color:#00c300; font-size: 18px; line-height: 1;">💬</span> 공식 계정
-    </button>
-    <button class="btn-play-game">플레이</button>
-  </div>
+  <div class="bottom-fixed"><button class="btn-line"><span style="color:#00c300; font-size: 18px; line-height: 1;">💬</span> 공식 계정</button><button class="btn-play-game">플레이</button></div>
 
   <div id="usdt-reward-overlay" class="blur-overlay">
-    <div class="overlay-close" id="btn-overlay-x">&times;</div>
-    <div class="usdt-glow-circle"><span>₮</span></div>
+    <div class="overlay-close" id="btn-overlay-x">&times;</div><div class="usdt-glow-circle"><span>₮</span></div>
     <h1 class="font-black text-main" id="reward-amount-text" style="font-size: 32px; z-index: 10;">2 USDT 받았어요</h1>
     <p class="text-sub font-semibold mt-10" id="reward-sub-text" style="z-index: 10; margin-bottom: 20px;">게임 미션 보상을 받았습니다</p>
   </div>
 
   <script>
-    // --- 1. 하트 받기 팝업 로직 ---
-    document.getElementById('btn-receive-heart').addEventListener('click', () => {
-      alert('하트 10개를 받았습니다.\n게임에서 확인해주세요.');
-    });
-
-    // --- 2. 글로벌 상태 로드 (index/daily_mission 연동) ---
-    const GAME_INDEX = 0; // Squishy Cat은 0번째 게임
+    document.getElementById('btn-receive-heart').addEventListener('click', () => { alert('하트 10개를 받았습니다.\n게임에서 확인해주세요.'); });
+    const GAME_INDEX = 0; 
+    function getGlobalState() { const stored = localStorage.getItem('unifi_state'); let state = stored ? JSON.parse(stored) : null; if (!state || !state.gameStates) { state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0] }, state || {}); localStorage.setItem('unifi_state', JSON.stringify(state)); } return state; }
+    function saveGlobalState(state) { localStorage.setItem('unifi_state', JSON.stringify(state)); renderDetail(); }
+    function addReward(amount) { let state = getGlobalState(); state.usdt += amount; const now = new Date(); const pad = n => n.toString().padStart(2, '0'); const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`; state.history.unshift({ title: '게임 미션 완료 보상', date: dateStr, amount: amount }); saveGlobalState(state); }
     
-    function getGlobalState() { 
-      const stored = localStorage.getItem('unifi_state'); 
-      let state = stored ? JSON.parse(stored) : null;
-      if (!state || !state.gameStates) {
-        state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0] }, state || {});
-        localStorage.setItem('unifi_state', JSON.stringify(state));
-      }
-      return state; 
-    }
-    
-    function saveGlobalState(state) { 
-      localStorage.setItem('unifi_state', JSON.stringify(state)); 
-      renderDetail(); 
-    }
-
-    function addReward(amount) {
-      let state = getGlobalState();
-      state.usdt += amount;
-      const now = new Date(); const pad = n => n.toString().padStart(2, '0');
-      const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-      state.history.unshift({ title: '게임 미션 완료 보상', date: dateStr, amount: amount });
-      saveGlobalState(state);
-    }
-
-    // --- 3. 상태에 따른 화면 렌더링 로직 ---
     const uiConfig = {
-      0: {
-        m1: { txt: "0/30", cls: "ing", btnTxt: "진행 중", done: false },
-        m2: { txt: "0/50", cls: "start", btnTxt: "시작", done: false },
-        m3: { txt: "0/100", cls: "start", btnTxt: "시작", done: false },
-        reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }
-      },
-      1: {
-        m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true },
-        m2: { txt: "15/50", cls: "ing", btnTxt: "진행 중", done: false },
-        m3: { txt: "0/100", cls: "start", btnTxt: "시작", done: false },
-        reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }
-      },
-      2: {
-        m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true },
-        m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true },
-        m3: { txt: "45/100", cls: "ing", btnTxt: "진행 중", done: false },
-        reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }
-      },
-      3: {
-        m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true },
-        m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true },
-        m3: { txt: "100/100", cls: "done", btnTxt: "완료", done: true },
-        reward: { disabled: false, text: "2 USDT 받기", pulse: true, bg: "#111", color: "#fff" }
-      },
-      4: {
-        m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true },
-        m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true },
-        m3: { txt: "100/100", cls: "done", btnTxt: "완료", done: true },
-        reward: { disabled: true, text: "2 USDT 받음", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }
-      }
+      0: { m1: { txt: "0/30", cls: "ing", btnTxt: "진행 중", done: false }, m2: { txt: "0/50", cls: "start", btnTxt: "시작", done: false }, m3: { txt: "0/100", cls: "start", btnTxt: "시작", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
+      1: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "15/50", cls: "ing", btnTxt: "진행 중", done: false }, m3: { txt: "0/100", cls: "start", btnTxt: "시작", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
+      2: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "45/100", cls: "ing", btnTxt: "진행 중", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
+      3: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "100/100", cls: "done", btnTxt: "완료", done: true }, reward: { disabled: false, text: "2 USDT 받기", pulse: true, bg: "#111", color: "#fff" }},
+      4: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "100/100", cls: "done", btnTxt: "완료", done: true }, reward: { disabled: true, text: "2 USDT 받음", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }}
     };
 
-    function applyMissionUI(elementId, configData) {
-      const el = document.getElementById(elementId);
-      const icon = el.querySelector('.mission-icon');
-      const progressTxt = el.querySelector('.progress-txt');
-      const btn = el.querySelector('.sub-action-btn');
+    function applyMissionUI(elementId, configData) { const el = document.getElementById(elementId); const icon = el.querySelector('.mission-icon'); const progressTxt = el.querySelector('.progress-txt'); const btn = el.querySelector('.sub-action-btn'); progressTxt.innerText = configData.txt; btn.className = `btn-status sub-action-btn ${configData.cls}`; btn.innerText = configData.btnTxt; if(configData.done) { icon.classList.add('is-done'); } else { icon.classList.remove('is-done'); } }
+    function renderDetail() { const state = getGlobalState(); let gState = state.gameStates[GAME_INDEX]; const config = uiConfig[gState]; applyMissionUI('mission-1', config.m1); applyMissionUI('mission-2', config.m2); applyMissionUI('mission-3', config.m3); const mainBtn = document.getElementById('main-reward-btn'); mainBtn.innerText = config.reward.text; mainBtn.style.backgroundColor = config.reward.bg; mainBtn.style.color = config.reward.color; mainBtn.disabled = config.reward.disabled; mainBtn.style.cursor = config.reward.disabled ? 'not-allowed' : 'pointer'; if(config.reward.pulse) { mainBtn.classList.add('pulse-anim'); } else { mainBtn.classList.remove('pulse-anim'); } }
 
-      progressTxt.innerText = configData.txt;
-      btn.className = `btn-status sub-action-btn ${configData.cls}`;
-      btn.innerText = configData.btnTxt;
-
-      if(configData.done) {
-        icon.classList.add('is-done');
-      } else {
-        icon.classList.remove('is-done');
-      }
-    }
-
-    function renderDetail() {
-      const state = getGlobalState();
-      let gState = state.gameStates[GAME_INDEX];
-      const config = uiConfig[gState];
-
-      applyMissionUI('mission-1', config.m1);
-      applyMissionUI('mission-2', config.m2);
-      applyMissionUI('mission-3', config.m3);
-
-      const mainBtn = document.getElementById('main-reward-btn');
-      mainBtn.innerText = config.reward.text;
-      mainBtn.style.backgroundColor = config.reward.bg;
-      mainBtn.style.color = config.reward.color;
-      mainBtn.disabled = config.reward.disabled;
-      mainBtn.style.cursor = config.reward.disabled ? 'not-allowed' : 'pointer';
-
-      if(config.reward.pulse) {
-        mainBtn.classList.add('pulse-anim');
-      } else {
-        mainBtn.classList.remove('pulse-anim');
-      }
-    }
-
-    // --- 4. 이벤트 바인딩 ---
     document.addEventListener('DOMContentLoaded', () => {
       renderDetail();
+      document.getElementById('btn-reset-game').addEventListener('click', () => { let state = getGlobalState(); state.gameStates[GAME_INDEX] = 0; saveGlobalState(state); });
+      document.querySelectorAll('.sub-action-btn').forEach(btn => { btn.addEventListener('click', () => { let state = getGlobalState(); if(state.gameStates[GAME_INDEX] < 3) { state.gameStates[GAME_INDEX]++; saveGlobalState(state); } }); });
+      
+      const mainBtn = document.getElementById('main-reward-btn'); const usdtOverlay = document.getElementById('usdt-reward-overlay'); const btnOverlayX = document.getElementById('btn-overlay-x');
+      function closeOverlay() { usdtOverlay.classList.remove('active'); } btnOverlayX.addEventListener('click', closeOverlay);
+      mainBtn.addEventListener('click', () => { let state = getGlobalState(); if(state.gameStates[GAME_INDEX] === 3) { state.gameStates[GAME_INDEX] = 4; saveGlobalState(state); addReward(2); usdtOverlay.classList.add('active'); usdtOverlay.onclick = closeOverlay; if(window.overlayTimer) clearTimeout(window.overlayTimer); window.overlayTimer = setTimeout(closeOverlay, 2500); } });
 
-      // [테스트] 상태 초기화
-      document.getElementById('btn-reset-game').addEventListener('click', () => {
-        let state = getGlobalState();
-        state.gameStates[GAME_INDEX] = 0;
-        saveGlobalState(state);
-      });
-
-      // 개별 미션 버튼 클릭 (진행도 1씩 증가 연출)
-      document.querySelectorAll('.sub-action-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          let state = getGlobalState();
-          if(state.gameStates[GAME_INDEX] < 3) {
-            state.gameStates[GAME_INDEX]++;
-            saveGlobalState(state);
-          }
-        });
-      });
-
-      // 최종 보상 받기 버튼 클릭
-      const mainBtn = document.getElementById('main-reward-btn');
-      const usdtOverlay = document.getElementById('usdt-reward-overlay');
-      const btnOverlayX = document.getElementById('btn-overlay-x');
-
-      function closeOverlay() { usdtOverlay.classList.remove('active'); }
-      btnOverlayX.addEventListener('click', closeOverlay);
-
-      mainBtn.addEventListener('click', () => {
-        let state = getGlobalState();
-        if(state.gameStates[GAME_INDEX] === 3) {
-          state.gameStates[GAME_INDEX] = 4; // 수령완료 상태로
-          saveGlobalState(state);
-          addReward(2);
-          
-          usdtOverlay.classList.add('active');
-          usdtOverlay.onclick = closeOverlay;
-          
-          if(window.overlayTimer) clearTimeout(window.overlayTimer);
-          window.overlayTimer = setTimeout(closeOverlay, 2500);
-        }
-      });
-
-      // 동적 타이머 (자정 기준)
-      function updateTimer() {
-        const now = new Date();
-        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-        const diff = midnight - now;
-        
-        const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-        const m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0');
-        const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
-        
-        const timerEl = document.getElementById('countdown-timer');
-        if(timerEl) timerEl.innerText = `${h}:${m}:${s} 남음`;
-      }
-      setInterval(updateTimer, 1000);
-      updateTimer();
+      function updateTimer() { const now = new Date(); const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); const diff = midnight - now; const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0'); const m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0'); const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0'); const timerEl = document.getElementById('countdown-timer'); if(timerEl) timerEl.innerText = `${h}:${m}:${s} 남음`; } setInterval(updateTimer, 1000); updateTimer();
     });
   </script>
 </body>
