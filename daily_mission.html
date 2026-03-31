@@ -13,8 +13,7 @@
     <div class="test-panel">
       <span>🛠 프로토타입 테스트</span>
       <div>
-        <button class="test-btn" id="btn-reset-att">출석 초기화</button>
-        <button class="test-btn" id="btn-complete-all" style="margin-left: 4px;">모든 미션 완료</button>
+        <button class="test-btn" id="btn-complete-all">게임 미션 모두 완료</button>
       </div>
     </div>
     <div class="mission-header-area">
@@ -24,28 +23,33 @@
       
       <div class="flex-between mt-10">
         <h1 class="font-black text-main" style="font-size: 28px;">일일 미션</h1>
-        <div class="badge-pill">
-          <span style="color: #4a6b2c;">₮ 5 USDT</span>
-          <span style="color: #d1a300;">🎟️ 3개</span>
+        <div class="badge-pill" id="reward-badge">
+          <span style="color: #4a6b2c;">₮ <span id="val-usdt">5</span> USDT</span>
+          <span style="color: #d1a300;">🎟️ <span id="val-tickets">3</span>개</span>
         </div>
       </div>
     </div>
 
     <div class="card mt-20">
-      <h3 class="font-extrabold text-main" style="font-size: 18px;">출석 체크</h3>
-      <p class="text-sub mt-10" style="font-size: 13px;">5일 연속 출석 체크하고 USDT 뽑기권 받아요</p>
+      <div class="flex-between">
+        <div>
+          <h3 class="font-extrabold text-main" style="font-size: 18px;">출석 체크</h3>
+          <p class="text-sub mt-10" style="font-size: 13px;">5일 연속 출석 체크하고 USDT 뽑기권 받아요</p>
+        </div>
+        <button id="btn-activate-att" style="background: var(--mint-bg); color: var(--brand-green); font-size: 11px; font-weight: bold; padding: 6px 10px; border-radius: 12px; white-space: nowrap;">[테스트] 내일로</button>
+      </div>
       
       <div class="step-container" id="attendance-steps">
         <div class="step-item" data-day="1">
-          <div class="step-circle checked">✓</div>
+          <div class="step-circle current"></div>
           <span class="step-label" style="color: var(--text-main);">1일</span>
         </div>
         <div class="step-item" data-day="2">
-          <div class="step-circle current"></div>
+          <div class="step-circle"></div>
           <span class="step-label">2일</span>
         </div>
         <div class="step-item" data-day="3">
-          <div class="step-circle reward">★</div>
+          <div class="step-circle">★</div>
           <span class="step-label">3일</span>
         </div>
         <div class="step-item" data-day="4">
@@ -54,7 +58,7 @@
         </div>
         <div class="step-item" data-day="5">
           <div class="tooltip-top">뽑기권 3개</div>
-          <div class="step-circle reward-big">🎟️</div>
+          <div class="step-circle reward-big" style="background-color: #ffcc00; border-color: #ffcc00; color: #fff;">🎟️</div>
           <span class="step-label">5일</span>
         </div>
       </div>
@@ -96,7 +100,7 @@
             </div>
           </div>
           <div class="action-area">
-            <button class="btn btn-small btn-receive">2 USDT 받기</button>
+            <button class="btn btn-small btn-receive" data-reward="2">2 USDT 받기</button>
           </div>
         </a>
 
@@ -165,7 +169,28 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      // 1. 자정 카운트다운 타이머 로직
+      // --- 사용자 보유 자산 전역 변수 ---
+      let userUsdt = 5;
+      let userTickets = 3;
+
+      const usdtEl = document.getElementById('val-usdt');
+      const ticketEl = document.getElementById('val-tickets');
+      const badgeEl = document.getElementById('reward-badge');
+
+      // 상단 배지 업데이트 애니메이션 함수
+      function updateBalances(addUsdt = 0, addTickets = 0) {
+        userUsdt += addUsdt;
+        userTickets += addTickets;
+        
+        usdtEl.innerText = userUsdt;
+        ticketEl.innerText = userTickets;
+
+        // 시각적 강조 효과 (팝핑)
+        badgeEl.classList.add('highlight');
+        setTimeout(() => badgeEl.classList.remove('highlight'), 300);
+      }
+
+      // --- 1. 자정 카운트다운 타이머 로직 ---
       function updateTimer() {
         const now = new Date();
         const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
@@ -178,13 +203,24 @@
         document.getElementById('countdown-timer').innerText = `${h}:${m}:${s} 남음`;
       }
       setInterval(updateTimer, 1000);
-      updateTimer(); // 즉시 실행
+      updateTimer();
 
-      // 2. 출석 체크 로직
-      let currentDay = 1;
+      // --- 2. 출석 체크 로직 ---
+      let currentDay = 1;      // 현재 사용자가 찍어야 할 출석 일차
+      let canAttend = true;    // 오늘 출석 가능 여부 (테스트 초기화 버튼으로 제어)
+
       const attBtn = document.getElementById('btn-attend');
-      const resetAttBtn = document.getElementById('btn-reset-att');
+      const activateAttBtn = document.getElementById('btn-activate-att');
       const stepItems = document.querySelectorAll('#attendance-steps .step-item');
+
+      // 날짜별 보상 정의
+      const rewards = {
+        1: { type: 'usdt', amount: 1, text: '1 USDT' },
+        2: { type: 'usdt', amount: 1, text: '1 USDT' },
+        3: { type: 'ticket', amount: 1, text: '뽑기권 1개' },
+        4: { type: 'usdt', amount: 1, text: '1 USDT' },
+        5: { type: 'ticket', amount: 3, text: '뽑기권 3개' }
+      };
 
       function renderAttendance() {
         stepItems.forEach((item, index) => {
@@ -196,70 +232,118 @@
           circle.className = 'step-circle';
           label.style.color = 'var(--text-sub)';
 
-          if (day === 3) circle.classList.add('reward');
-          if (day === 5) circle.classList.add('reward-big');
+          // 기본 모양 세팅
+          let baseContent = '';
+          if (day === 3) baseContent = '★';
+          if (day === 5) baseContent = '🎟️';
+          circle.innerHTML = baseContent;
 
-          if (day < currentDay) {
+          if (day === 5) {
+            circle.style.backgroundColor = '#ffcc00';
+            circle.style.borderColor = '#ffcc00';
+            circle.style.color = '#fff';
+            circle.classList.add('reward-big');
+          }
+
+          if (day < currentDay || (day === currentDay && !canAttend)) {
             // 지나간 날 (완료)
             circle.className = 'step-circle checked';
             circle.innerHTML = '✓';
+            circle.style.backgroundColor = 'var(--brand-green)';
+            circle.style.borderColor = 'var(--brand-green)';
+            circle.style.color = '#fff';
             label.style.color = 'var(--text-main)';
-          } else if (day === currentDay) {
+          } else if (day === currentDay && canAttend) {
             // 오늘 (활성화 대기)
             circle.classList.add('current');
             label.style.color = 'var(--text-main)';
-            circle.innerHTML = (day === 3 || day === 5) ? (day === 5 ? '🎟️' : '★') : '';
+            // 5일차는 특수 스타일 유지
+            if(day !== 5) {
+              circle.style.backgroundColor = '#fff';
+              circle.style.borderColor = 'var(--brand-green)';
+              circle.style.color = (day === 3) ? '#ffcc00' : '#ccc';
+            }
           } else {
             // 미래
-            circle.innerHTML = (day === 3 || day === 5) ? (day === 5 ? '🎟️' : '★') : '';
+            if(day !== 5) {
+              circle.style.backgroundColor = '#fff';
+              circle.style.borderColor = '#e0e0e0';
+              circle.style.color = (day === 3) ? '#ffcc00' : '#ccc';
+            }
           }
         });
 
-        // 5일차 완료 시 버튼 비활성화
-        if (currentDay > 5) {
+        // 버튼 상태 렌더링
+        if (!canAttend) {
           attBtn.disabled = true;
           attBtn.innerText = '출석 완료';
-        } else {
+        } else if (currentDay <= 5) {
           attBtn.disabled = false;
-          attBtn.innerText = '출석하고 1 USDT 받기';
+          attBtn.innerText = `출석하고 ${rewards[currentDay].text} 받기`;
+        } else {
+          attBtn.disabled = true;
+          attBtn.innerText = '모든 출석 완료';
         }
       }
 
-      // 출석 버튼 클릭 이벤트
+      // 초기 렌더링
+      renderAttendance();
+
+      // [출석하기] 버튼 클릭 이벤트
       attBtn.addEventListener('click', () => {
-        if (currentDay <= 5) {
-          alert(`🎉 ${currentDay}일차 출석 완료! 보상을 받았습니다.`);
-          currentDay++;
-          renderAttendance();
-        }
-      });
+        if (!canAttend || currentDay > 5) return;
 
-      // [테스트] 출석 초기화 버튼
-      resetAttBtn.addEventListener('click', () => {
-        currentDay = 1;
+        const reward = rewards[currentDay];
+        
+        // 보상 지급
+        if (reward.type === 'usdt') updateBalances(reward.amount, 0);
+        if (reward.type === 'ticket') updateBalances(0, reward.amount);
+
+        alert(`🎉 ${currentDay}일차 출석 완료! [${reward.text}] 보상을 받았습니다.`);
+        
+        canAttend = false; // 오늘 출석 완료 처리
         renderAttendance();
-        alert('출석이 1일차로 초기화되었습니다.');
+      });
+
+      // [테스트용: 내일로] 버튼 클릭 시
+      activateAttBtn.addEventListener('click', () => {
+        if (canAttend) {
+          alert("아직 오늘의 출석을 하지 않았습니다!");
+          return;
+        }
+        if (currentDay >= 5) {
+          alert("5일차까지 모두 완료되었습니다! 테스트를 위해 1일차로 리셋합니다.");
+          currentDay = 1;
+        } else {
+          currentDay++;
+        }
+        canAttend = true; // 활성화
+        renderAttendance();
       });
 
 
-      // 3. 게임 미션 리워드 로직
+      // --- 3. 게임 미션 리워드 로직 ---
       const completeAllBtn = document.getElementById('btn-complete-all');
       
       // 단일 보상 수령 이벤트 바인딩 함수
       function bindReceiveEvent(btn) {
         btn.addEventListener('click', function(e) {
-          e.preventDefault(); // 페이지 이동 방지
+          e.preventDefault(); 
+          const rewardAmount = parseInt(this.getAttribute('data-reward')) || 2;
+          
+          // 상단 보유량 업데이트
+          updateBalances(rewardAmount, 0);
+
           const actionArea = this.parentElement;
           // 리워드 받음 텍스트로 교체
-          actionArea.innerHTML = '<span class="text-disabled">2 USDT 받음</span>';
-          alert('🎁 2 USDT 리워드를 받았습니다!');
+          actionArea.innerHTML = `<span class="text-disabled">${rewardAmount} USDT 받음</span>`;
         });
       }
 
       // 초기 렌더링 된 받기 버튼에 이벤트 적용
       document.querySelectorAll('.btn-receive').forEach(bindReceiveEvent);
 
-      // [테스트] 모든 미션 완료 버튼
+      // [테스트] 게임 미션 모두 완료 버튼
       completeAllBtn.addEventListener('click', () => {
         const gameRows = document.querySelectorAll('.game-row');
         
@@ -267,13 +351,11 @@
           const statusSpan = row.querySelector('.game-status');
           const actionArea = row.querySelector('.action-area');
           
-          // 아직 '받음' 상태가 아닌 모든 항목을 '완료' 상태로 변경
-          if (!actionArea.innerHTML.includes('text-disabled')) {
+          if (!actionArea.innerHTML.includes('text-disabled') && !actionArea.innerHTML.includes('btn-receive')) {
             statusSpan.innerText = '미션 완료';
             statusSpan.style.color = 'var(--brand-green)';
             
-            // 버튼 생성 및 이벤트 바인딩
-            actionArea.innerHTML = '<button class="btn btn-small btn-receive" style="animation: pulse 1s infinite;">2 USDT 받기</button>';
+            actionArea.innerHTML = '<button class="btn btn-small btn-receive" data-reward="2" style="animation: pulse 1s infinite;">2 USDT 받기</button>';
             bindReceiveEvent(actionArea.querySelector('.btn-receive'));
           }
         });
@@ -282,12 +364,9 @@
         document.getElementById('game-progress-fill').style.width = '100%';
         document.getElementById('step-img-2').classList.add('active');
         
-        // 3번째 리워드 박스 활성화 효과
         const rewardBox = document.getElementById('step-reward-3');
         rewardBox.style.backgroundColor = 'var(--brand-green)';
         rewardBox.innerHTML = '✓';
-
-        alert('모든 게임 미션이 완료 상태로 변경되었습니다!');
       });
 
     });
