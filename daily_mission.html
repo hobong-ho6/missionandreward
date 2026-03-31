@@ -51,7 +51,6 @@
           <span class="step-label">5일</span>
         </div>
       </div>
-
       <button id="btn-attend" class="btn btn-play" style="padding: 16px 0; font-size: 16px; border-radius: 24px;">출석하고 1 USDT 받기</button>
     </div>
 
@@ -205,7 +204,6 @@
         localStorage.removeItem('unifi_state'); renderBalances(); location.reload();
       });
 
-      // --- 오버레이 로직 ---
       const usdtOverlay = document.getElementById('usdt-reward-overlay');
       const drawAgainContainer = document.getElementById('draw-again-container');
       const btnCloseOverlay = document.getElementById('btn-overlay-close');
@@ -250,7 +248,7 @@
       document.getElementById('btn-close-sheet').addEventListener('click', closeBottomSheet);
       dimBg.addEventListener('click', closeBottomSheet);
       btnCloseOverlay.addEventListener('click', closeOverlay);
-      btnOverlayX.addEventListener('click', closeOverlay); // 도중 닫기 X 버튼
+      btnOverlayX.addEventListener('click', closeOverlay); // 도중 닫기 버튼 이벤트
 
       function executeDraw() {
         let state = getGlobalState();
@@ -266,7 +264,6 @@
       document.getElementById('btn-draw-ticket').addEventListener('click', () => { closeBottomSheet(); setTimeout(executeDraw, 400); });
       document.getElementById('btn-draw-again').addEventListener('click', () => { closeOverlay(); setTimeout(executeDraw, 300); });
 
-      // --- 게임 상태 및 진행바 로직 ---
       const gameStates = [
         { text: "0/3 미션 진행 전", color: "var(--text-sub)", hasBtn: false },
         { text: "1/3 미션 진행 중", color: "var(--text-sub)", hasBtn: false },
@@ -313,7 +310,6 @@
         });
       });
 
-      // --- 출석체크 로직 ---
       function updateTimer() {
         const now = new Date(), midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0), diff = midnight - now;
         const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0'), m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0'), s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
