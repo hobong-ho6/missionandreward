@@ -233,6 +233,24 @@ button { border: none; outline: none; background: none; cursor: pointer; font-fa
 .game-list-item { display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: inherit; position: relative; }
 .game-list-item img { width: 48px; height: 48px; border-radius: 50%; margin-right: 14px; object-fit: cover; }
 
+/* --- 게임 카드 프로그레스 바 --- */
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-green) 0%, #4ade80 100%);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
 /* --- 게임 상세 (game_detail.html) 요소 --- */
 .cover-img { width: 100%; height: 260px; object-fit: cover; display: block; }
 .cover-header { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; z-index: 10; padding-top: max(20px, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; }
