@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>게임 상세 - Squishy Cat</title>
+  <title>게임 상세 - Fate War</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,18 +25,18 @@
 
   <div class="app-container" style="padding-bottom: 0; min-height: auto;">
     <div class="test-panel"><span>🛠 프로토타입 테스트</span><div><button class="test-btn" id="btn-reset-game">이 게임 초기화</button></div></div>
-    
+
     <div style="position: relative;">
       <div class="cover-header"><a href="javascript:void(0);" onclick="history.back();" class="back-btn-white">&lt;</a></div>
-      <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat Cover" class="cover-img">
+      <img src="https://obs.line-scdn.net:443/0hpQI6sFZpL350TzERNhtQKS4aIQ8YPjZrDXk9BgkKJRJHLTMpDVYrTQwwLRceLA1xC1ZjHBcaAyUSHg5pDlY4c1AuF08FKg0pAUJiZxEccykcAGtUSVUraBc0LRRRAxg" alt="Fate War Cover" class="cover-img">
     </div>
 
     <div class="game-info-container">
       <div class="flex-between">
-        <h1 class="font-black text-main" style="font-size: 28px;">Squishy Cat</h1>
+        <h1 class="font-black text-main" style="font-size: 28px;">Fate War</h1>
         <span style="font-size: 24px; color: #ddd; cursor: pointer;">♡</span>
       </div>
-      <p class="text-sub mt-10 font-semibold" style="font-size: 13px;">Game · 320명 참여 중</p>
+      <p class="text-sub mt-10 font-semibold" style="font-size: 13px;">Game · 280명 참여 중</p>
 
       <div class="flex-between mt-40 mb-20">
         <h3 class="font-extrabold text-main" style="font-size: 18px;">일일 미션</h3>
@@ -49,28 +49,26 @@
       </div>
 
       <div class="mission-card">
-        <div class="mission-item" id="mission-1"><div class="flex-row"><div class="mission-icon" style="background:#fff3e0;">🐱<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">고양이 합치기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/30</span></div></div><button class="btn-status sub-action-btn">진행 중</button></div>
-        <div class="mission-item" id="mission-2"><div class="flex-row"><div class="mission-icon" style="background:#e0f2f1;">🐟<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">물고기 먹이기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/50</span></div></div><button class="btn-status sub-action-btn">시작</button></div>
-        <div class="mission-item" id="mission-3"><div class="flex-row"><div class="mission-icon" style="background:#fce4ec;">📦<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">박스 파괴하기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/100</span></div></div><button class="btn-status sub-action-btn">시작</button></div>
+        <div class="mission-item" id="mission-1"><div class="flex-row"><div class="mission-icon" style="background:#fff3e0;">⚔️<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">전투 승리하기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/25</span></div></div><button class="btn-status sub-action-btn">진행 중</button></div>
+        <div class="mission-item" id="mission-2"><div class="flex-row"><div class="mission-icon" style="background:#e0f2f1;">🛡️<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">장비 강화하기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/10</span></div></div><button class="btn-status sub-action-btn">시작</button></div>
+        <div class="mission-item" id="mission-3"><div class="flex-row"><div class="mission-icon" style="background:#fce4ec;">👑<div class="check-badge">✓</div></div><div class="flex-col"><span class="font-semibold text-main" style="font-size: 14px;">보스 처치하기</span><span class="font-extrabold text-main progress-txt" style="font-size: 15px; margin-top: 4px;">0/5</span></div></div><button class="btn-status sub-action-btn">시작</button></div>
         <button id="main-reward-btn" class="btn-play" style="margin-top: 24px; padding: 16px 0; border-radius: 20px; font-size: 15px; font-weight: 800; transition: all 0.2s;">2 USDT 받기</button>
       </div>
 
       <h3 class="font-extrabold text-main mt-40 mb-20" style="font-size: 18px;">게임 소개</h3>
       <div class="mission-card" style="box-shadow: none; border: 1px solid var(--border-color);">
-        <h4 class="font-extrabold text-main" style="font-size: 16px; margin-bottom: 12px; line-height: 1.4;">귀여운 고양이를 합칠수록<br>점점 더 커지는 재미!</h4>
-        <p class="text-sub" style="font-size: 13px; line-height: 1.6;">귀여운 캐릭터를 하나씩 합쳐보세요! 점점 더 특별한 모습으로 변해가는 재미를 느낄 수 있어요. 누구나 쉽게 즐길 수 있는 힐링 게임입니다.</p>
-        <div class="tag-list"><span class="tag">#캐주얼</span><span class="tag">#심플</span><span class="tag">#큐트</span></div>
+        <h4 class="font-extrabold text-main" style="font-size: 16px; margin-bottom: 12px; line-height: 1.4;">운명을 바꿀 전투가<br>지금 시작됩니다!</h4>
+        <p class="text-sub" style="font-size: 13px; line-height: 1.6;">전략적 RPG 전투 시스템으로 강력한 적들과 맞서 싸우세요. 다양한 장비와 스킬을 활용해 최강의 전사가 되어보세요!</p>
+        <div class="tag-list"><span class="tag">#RPG</span><span class="tag">#전략</span><span class="tag">#판타지</span></div>
       </div>
     </div>
   </div>
 
   <div class="bottom-fixed"><button class="btn-line" onclick="location.href='https://line.me/R/ti/p/@045hipdc'"><span style="color:#00c300; font-size: 18px; line-height: 1;">💬</span> 공식 계정</button><a href="apps.html" style="flex: 2; text-decoration: none;"><button class="btn-play-game" style="width: 100%;">플레이</button></a></div>
 
-  <div id="heart-toast" class="toast-notification">
-    <div class="toast-content">
-      <span style="font-size: 20px; margin-right: 8px;">❤️</span>
-      <span class="font-semibold text-main">하트 10개 받았어요</span>
-    </div>
+  <!-- 하트 받기 토스트 알림 -->
+  <div id="heart-toast" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 16px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; max-width: 480px; width: calc(100% - 40px);">
+    하트 10개 받았어요
   </div>
 
   <div id="usdt-reward-overlay" class="blur-overlay">
@@ -80,11 +78,11 @@
   </div>
 
   <script>
-    const GAME_INDEX = 0; 
-    function getGlobalState() { const stored = localStorage.getItem('unifi_state'); let state = stored ? JSON.parse(stored) : null; if (!state || !state.gameStates) { state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0], heartStates: [false, false, false, false, false, false] }, state || {}); localStorage.setItem('unifi_state', JSON.stringify(state)); } if (!state.heartStates) { state.heartStates = [false, false, false, false, false, false]; localStorage.setItem('unifi_state', JSON.stringify(state)); } return state; }
+    const GAME_INDEX = 7;
+    function getGlobalState() { const stored = localStorage.getItem('unifi_state'); let state = stored ? JSON.parse(stored) : null; if (!state || !state.gameStates) { state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], heartStates: [false, false, false, false, false, false, false, false, false, false] }, state || {}); localStorage.setItem('unifi_state', JSON.stringify(state)); } if (!state.heartStates || state.heartStates.length < 10) { state.heartStates = [false, false, false, false, false, false, false, false, false, false]; localStorage.setItem('unifi_state', JSON.stringify(state)); } return state; }
     function saveGlobalState(state) { localStorage.setItem('unifi_state', JSON.stringify(state)); renderDetail(); }
     function addReward(amount) { let state = getGlobalState(); state.usdt += amount; const now = new Date(); const pad = n => n.toString().padStart(2, '0'); const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`; state.history.unshift({ title: '게임 미션 완료 보상', date: dateStr, amount: amount }); saveGlobalState(state); }
-    
+
     // LINE OA 메시지 로직
     let lineMessageTimer = null;
     function showLineMessage(desc) {
@@ -95,32 +93,35 @@
     window.closeLineMessage = function() { document.getElementById('line-notification').classList.remove('active'); };
 
     const uiConfig = {
-      0: { m1: { txt: "0/30", cls: "ing", btnTxt: "진행 중", done: false }, m2: { txt: "0/50", cls: "start", btnTxt: "시작", done: false }, m3: { txt: "0/100", cls: "start", btnTxt: "시작", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
-      1: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "15/50", cls: "ing", btnTxt: "진행 중", done: false }, m3: { txt: "0/100", cls: "start", btnTxt: "시작", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
-      2: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "45/100", cls: "ing", btnTxt: "진행 중", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
-      3: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "100/100", cls: "done", btnTxt: "완료", done: true }, reward: { disabled: false, text: "2 USDT 받기", pulse: true, bg: "#111", color: "#fff" }},
-      4: { m1: { txt: "30/30", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "50/50", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "100/100", cls: "done", btnTxt: "완료", done: true }, reward: { disabled: true, text: "2 USDT 받음", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }}
+      0: { m1: { txt: "0/25", cls: "ing", btnTxt: "진행 중", done: false }, m2: { txt: "0/10", cls: "start", btnTxt: "시작", done: false }, m3: { txt: "0/5", cls: "start", btnTxt: "시작", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
+      1: { m1: { txt: "25/25", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "3/10", cls: "ing", btnTxt: "진행 중", done: false }, m3: { txt: "0/5", cls: "start", btnTxt: "시작", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
+      2: { m1: { txt: "25/25", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "10/10", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "2/5", cls: "ing", btnTxt: "진행 중", done: false }, reward: { disabled: true, text: "2 USDT 받기", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }},
+      3: { m1: { txt: "25/25", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "10/10", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "5/5", cls: "done", btnTxt: "완료", done: true }, reward: { disabled: false, text: "2 USDT 받기", pulse: true, bg: "#111", color: "#fff" }},
+      4: { m1: { txt: "25/25", cls: "done", btnTxt: "완료", done: true }, m2: { txt: "10/10", cls: "done", btnTxt: "완료", done: true }, m3: { txt: "5/5", cls: "done", btnTxt: "완료", done: true }, reward: { disabled: true, text: "2 USDT 받음", pulse: false, bg: "var(--gray-bg)", color: "#a0a0a0" }}
     };
 
     function applyMissionUI(elementId, configData) { const el = document.getElementById(elementId); const icon = el.querySelector('.mission-icon'); const progressTxt = el.querySelector('.progress-txt'); const btn = el.querySelector('.sub-action-btn'); progressTxt.innerText = configData.txt; btn.className = `btn-status sub-action-btn ${configData.cls}`; btn.innerText = configData.btnTxt; if(configData.done) { icon.classList.add('is-done'); } else { icon.classList.remove('is-done'); } }
-    function renderDetail() { const state = getGlobalState(); let gState = state.gameStates[GAME_INDEX]; const config = uiConfig[gState]; applyMissionUI('mission-1', config.m1); applyMissionUI('mission-2', config.m2); applyMissionUI('mission-3', config.m3); const mainBtn = document.getElementById('main-reward-btn'); mainBtn.innerText = config.reward.text; mainBtn.style.backgroundColor = config.reward.bg; mainBtn.style.color = config.reward.color; mainBtn.disabled = config.reward.disabled; mainBtn.style.cursor = config.reward.disabled ? 'not-allowed' : 'pointer'; if(config.reward.pulse) { mainBtn.classList.add('pulse-anim'); } else { mainBtn.classList.remove('pulse-anim'); } 
+    function renderDetail() { const state = getGlobalState(); let gState = state.gameStates[GAME_INDEX]; const config = uiConfig[gState]; applyMissionUI('mission-1', config.m1); applyMissionUI('mission-2', config.m2); applyMissionUI('mission-3', config.m3); const mainBtn = document.getElementById('main-reward-btn'); mainBtn.innerText = config.reward.text; mainBtn.style.backgroundColor = config.reward.bg; mainBtn.style.color = config.reward.color; mainBtn.disabled = config.reward.disabled; mainBtn.style.cursor = config.reward.disabled ? 'not-allowed' : 'pointer'; if(config.reward.pulse) { mainBtn.classList.add('pulse-anim'); } else { mainBtn.classList.remove('pulse-anim'); }
       const heartBtn = document.getElementById('btn-receive-heart'); if(state.heartStates[GAME_INDEX]) { heartBtn.style.backgroundColor = "var(--gray-bg)"; heartBtn.style.color = "#a0a0a0"; heartBtn.innerText = "받음"; heartBtn.disabled = true; heartBtn.style.cursor = "not-allowed"; } else { heartBtn.style.backgroundColor = "#111"; heartBtn.style.color = "#fff"; heartBtn.innerText = "받기"; heartBtn.disabled = false; heartBtn.style.cursor = "pointer"; } }
 
     document.addEventListener('DOMContentLoaded', () => {
       renderDetail();
+      const heartToast = document.getElementById('heart-toast');
       document.getElementById('btn-receive-heart').addEventListener('click', () => {
         let state = getGlobalState();
         if(!state.heartStates[GAME_INDEX]) {
           state.heartStates[GAME_INDEX] = true;
           saveGlobalState(state);
-          const toast = document.getElementById('heart-toast');
-          toast.classList.add('show');
-          setTimeout(() => { toast.classList.remove('show'); }, 2000);
+          // 토스트 알림 표시
+          heartToast.style.opacity = '1';
+          setTimeout(() => {
+            heartToast.style.opacity = '0';
+          }, 2000);
         }
       });
       document.getElementById('btn-reset-game').addEventListener('click', () => { let state = getGlobalState(); state.gameStates[GAME_INDEX] = 0; state.heartStates[GAME_INDEX] = false; saveGlobalState(state); });
       document.querySelectorAll('.sub-action-btn').forEach(btn => { btn.addEventListener('click', () => { let state = getGlobalState(); if(state.gameStates[GAME_INDEX] < 3) { state.gameStates[GAME_INDEX]++; saveGlobalState(state); } }); });
-      
+
       const mainBtn = document.getElementById('main-reward-btn'); const usdtOverlay = document.getElementById('usdt-reward-overlay'); const btnOverlayX = document.getElementById('btn-overlay-x');
       function closeOverlay() { usdtOverlay.classList.remove('active'); } btnOverlayX.addEventListener('click', closeOverlay);
       mainBtn.addEventListener('click', () => { let state = getGlobalState(); if(state.gameStates[GAME_INDEX] === 3) { state.gameStates[GAME_INDEX] = 4; saveGlobalState(state); addReward(2); usdtOverlay.classList.add('active'); usdtOverlay.onclick = closeOverlay; showLineMessage('2 USDT 받았어요'); if(window.overlayTimer) clearTimeout(window.overlayTimer); window.overlayTimer = setTimeout(closeOverlay, 2500); } });
