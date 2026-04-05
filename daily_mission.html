@@ -644,6 +644,32 @@
         { text: "미션 완료", color: "var(--brand-green)" }
     ];
 
+    function applyHighlightToCompletedGames() {
+      console.log('하이라이트 적용 함수 호출');
+      const state = getGlobalState();
+
+      // 미션 완료 상태(상태 3)인 게임들 찾기
+      document.querySelectorAll('.game-row').forEach(row => {
+        const idx = parseInt(row.getAttribute('data-index'));
+        const gState = state.gameStates[idx] || 0;
+
+        if (gState === 3) {
+          console.log(`게임 ${idx} 하이라이트 적용`);
+          row.classList.add('highlight');
+
+          // 3초 후 하이라이트 제거
+          setTimeout(() => {
+            row.classList.remove('highlight');
+          }, 6000);
+        }
+      });
+
+      // URL에서 highlight 파라미터 제거
+      const url = new URL(window.location);
+      url.searchParams.delete('highlight');
+      window.history.replaceState({}, '', url);
+    }
+
     function renderPage() {
       console.log('renderPage 호출됨');
       const state = getGlobalState();
@@ -891,6 +917,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       console.log('DOM 로드 완료');
       renderPage();
+
+      // URL 파라미터 확인 후 하이라이트 적용
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('highlight') === 'true') {
+        applyHighlightToCompletedGames();
+      }
 
       // 프로토타입 테스트 버튼들 설정
       const resetStorageBtn = document.getElementById('btn-reset-storage');
