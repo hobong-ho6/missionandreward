@@ -27,7 +27,7 @@
     
     <div style="position: relative;">
       <div class="cover-header"><a href="javascript:void(0);" onclick="history.back();" class="back-btn-white">&lt;</a></div>
-      <img src="https://obs.line-scdn.net:443/0hw2VzBuiOKB1rAzdgChpXSjNWJmwHcjEIEjU6ZRZGInFYYTRKHg1lDE5oD14eYwYrUg08BAZ4KVFOYzA7VB44G0ZQFEZGUgo8FjA7LUpTE01DYCQ0CxkSCxJTEywA" alt="Rich Match Cover" class="cover-img">
+      <img src="https://obs.line-scdn.net:443/0hNXPmjfYCEXdtFA6qUZ5uIDdBHwYBZQhiFCIDDxBRGxtedg0gFA5dWEtEKiwFTAlCEiJdeQ5oFywLRTBgFw0Gekl1KUYccTMgGCIVehZ_TCwGWx1BGiJdQw5vEx1IWCY" alt="Rich Match Cover" class="cover-img">
     </div>
 
     <div class="game-info-container">
@@ -68,12 +68,10 @@
     <a href="apps.html" style="flex: 2; text-decoration: none;"><button class="btn-play-game" style="width: 100%;">플레이</button></a>
   </div>
 
-  <div id="heart-alert-overlay">
-    <div class="alert-box">
-      <div style="font-size: 44px; margin-bottom: 12px;">❤️</div>
-      <h3 class="font-black text-main" style="font-size: 18px; margin-bottom: 8px;">하트 10개를 받았습니다!</h3>
-      <p class="text-sub font-semibold" style="font-size: 13px; margin-bottom: 24px;">게임에서 확인해 주세요.</p>
-      <button id="btn-close-heart-alert" class="btn-black" style="width: 100%; padding: 14px 0; font-size: 15px;">확인</button>
+  <div id="heart-toast" class="toast-notification">
+    <div class="toast-content">
+      <span style="font-size: 20px; margin-right: 8px;">❤️</span>
+      <span class="font-semibold text-main">하트 10개 받았어요</span>
     </div>
   </div>
 
@@ -124,9 +122,16 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       renderDetail();
-      const heartAlertOverlay = document.getElementById('heart-alert-overlay');
-      document.getElementById('btn-receive-heart').addEventListener('click', () => { let state = getGlobalState(); if(!state.heartStates[GAME_INDEX]) { state.heartStates[GAME_INDEX] = true; saveGlobalState(state); heartAlertOverlay.classList.add('active'); } });
-      document.getElementById('btn-close-heart-alert').addEventListener('click', () => { heartAlertOverlay.classList.remove('active'); });
+      document.getElementById('btn-receive-heart').addEventListener('click', () => {
+        let state = getGlobalState();
+        if(!state.heartStates[GAME_INDEX]) {
+          state.heartStates[GAME_INDEX] = true;
+          saveGlobalState(state);
+          const toast = document.getElementById('heart-toast');
+          toast.classList.add('show');
+          setTimeout(() => { toast.classList.remove('show'); }, 2000);
+        }
+      });
       document.getElementById('btn-reset-game').addEventListener('click', () => { let state = getGlobalState(); state.gameStates[GAME_INDEX] = 0; state.heartStates[GAME_INDEX] = false; saveGlobalState(state); });
       document.querySelectorAll('.sub-action-btn').forEach(btn => { btn.addEventListener('click', () => { let state = getGlobalState(); if(state.gameStates[GAME_INDEX] < 3) { state.gameStates[GAME_INDEX]++; saveGlobalState(state); } }); });
       

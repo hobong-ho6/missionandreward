@@ -31,38 +31,90 @@
         <button class="test-btn" id="btn-complete-all">게임 미션 모두 완료</button>
         <button class="test-btn" id="btn-reset-storage" style="margin-left:4px;">전체 초기화</button>
       </div>
+      <div style="margin-top: 8px;">
+        <button class="test-btn" id="btn-test-day1">1일차 상태</button>
+        <button class="test-btn" id="btn-test-day3">3일차 상태</button>
+        <button class="test-btn" id="btn-test-complete">5일 완료</button>
+      </div>
     </div>
     
     <div class="mission-header-area">
       <a href="index.html" style="font-size: 24px; color: var(--text-main); text-decoration: none; display: inline-block; margin-bottom: 20px;">&lt;</a>
-      <p class="text-sub font-semibold" style="font-size: 13px;" id="countdown-timer">00:00:00 남음</p>
-      
-      <div class="flex-between mt-10">
-        <h1 class="font-black text-main" style="font-size: 28px;">일일 미션</h1>
-        <a href="reward_history.html" class="badge-pill" id="reward-badge">
-          <span style="color: #4a6b2c;">₮ <span id="val-usdt">0</span> USDT</span>
-          <span style="color: #d1a300;">🎟️ <span id="val-tickets">0</span>개</span>
-        </a>
+
+      <div style="display: flex; align-items: baseline; gap: 8px;">
+        <h1 class="font-black text-main" style="font-size: 28px; margin: 0;">일일 미션</h1>
+        <p class="text-sub font-semibold" style="font-size: 13px; margin: 0;" id="countdown-timer">12:30:59 남음</p>
+      </div>
+
+      <!-- 출석체크 배너 -->
+      <div class="daily-mission-banner" style="
+        background: white;
+        border: 1px solid #f0f0f0;
+        border-radius: 12px;
+        padding: 16px;
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+      ">
+        <img src="럭키볼.png" alt="럭키볼" style="width: 24px; height: 24px; margin-right: 12px;">
+        <span class="font-extrabold text-main" style="font-size: 15px;">출석 체크하고 럭키볼 최대 100만원 뽑기</span>
+      </div>
+
+      <!-- 리워드 정보 -->
+      <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+        <div style="
+          flex: 1;
+          background: white;
+          border-radius: 12px;
+          padding: 16px;
+          border: 1px solid #f0f0f0;
+          cursor: pointer;
+          transition: all 0.2s;
+        " onclick="location.href='reward_history.html'" onmouseover="this.style.backgroundColor='#f8f9fa'; this.style.transform='scale(1.02)'" onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'">
+          <p class="text-sub font-semibold" style="font-size: 12px; margin-bottom: 4px;">리워드</p>
+          <p class="font-black text-main" style="font-size: 18px;"><span id="val-usdt">9.50</span> USDT <span style="font-size: 16px;">></span></p>
+        </div>
+        <div id="lucky-ball-area" style="
+          flex: 1;
+          background: white;
+          border-radius: 12px;
+          padding: 16px;
+          border: 1px solid #f0f0f0;
+          cursor: pointer;
+          transition: all 0.2s;
+        " onclick="handleLuckyBallClick()" onmouseover="this.style.backgroundColor='#f8f9fa'; this.style.transform='scale(1.02)'" onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'">
+          <p class="text-sub font-semibold" style="font-size: 12px; margin-bottom: 4px;">럭키볼</p>
+          <p class="font-black" style="font-size: 18px;"><span id="val-tickets" style="color: var(--text-main);">4</span><span style="color: var(--text-main);">개</span> <span style="color: var(--brand-green);">뽑기</span></p>
+        </div>
       </div>
     </div>
 
-    <div class="card mt-20">
+    <div class="card">
       <div class="flex-between">
         <div>
           <h3 class="font-extrabold text-main" style="font-size: 18px;">출석 체크</h3>
-          <p class="text-sub mt-10" style="font-size: 13px;">5일 연속 출석 체크하고 USDT 뽑기권 받아요</p>
+          <p class="text-sub mt-10" style="font-size: 13px;">5일 연속 출석 체크하고 럭키볼 받아요</p>
         </div>
-        <button id="btn-activate-att" style="background: var(--mint-bg); color: var(--brand-green); font-size: 11px; font-weight: bold; padding: 6px 10px; border-radius: 12px; white-space: nowrap;">[테스트] 내일로</button>
+        <div style="position: relative;">
+          <button id="btn-activate-att" style="background: var(--mint-bg); color: var(--brand-green); font-size: 11px; font-weight: bold; padding: 6px 10px; border-radius: 12px; white-space: nowrap;">[테스트] 내일로</button>
+        </div>
       </div>
       
       <div class="step-container" id="attendance-steps">
         <div class="step-item" data-day="1"><div class="step-circle current"></div><span class="step-label" style="color: var(--text-main);">1일</span></div>
         <div class="step-item" data-day="2"><div class="step-circle"></div><span class="step-label">2일</span></div>
-        <div class="step-item" data-day="3"><div class="step-circle">★</div><span class="step-label">3일</span></div>
+        <div class="step-item" data-day="3">
+          <div class="step-circle" style="background: none; border: none; padding: 0; display: flex; align-items: center; justify-content: center;">
+            <img src="출첵 럭키볼.png" alt="3일 럭키볼" style="width: 40px; height: 40px;">
+          </div>
+          <span class="step-label">3일</span>
+        </div>
         <div class="step-item" data-day="4"><div class="step-circle"></div><span class="step-label">4일</span></div>
         <div class="step-item" data-day="5">
-          <div class="tooltip-top">뽑기권 3개</div>
-          <div class="step-circle reward-big" style="background-color: #ffcc00; border-color: #ffcc00; color: #fff;">🎟️</div>
+          <div class="tooltip-top">럭키볼 3개</div>
+          <div class="step-circle" style="background: none; border: none; padding: 0; display: flex; align-items: center; justify-content: center;">
+            <img src="출첵 5일 럭키볼.png" alt="5일 럭키볼" style="width: 40px; height: 40px;">
+          </div>
           <span class="step-label">5일</span>
         </div>
       </div>
@@ -70,89 +122,260 @@
     </div>
 
     <div class="card">
-      <h3 class="font-extrabold text-main" style="font-size: 18px;">게임 미션</h3>
-      <p class="text-sub mt-10" style="font-size: 13px;">게임 3개 미션 완료하고 USDT 뽑기권 받아요</p>
+      <div class="flex-between">
+        <div>
+          <h3 class="font-extrabold text-main" style="font-size: 18px;">게임 미션</h3>
+          <p class="text-sub mt-10" style="font-size: 13px;">게임 3개 미션 완료하고 럭키볼 받아요</p>
+        </div>
+        <div style="position: relative;">
+        </div>
+      </div>
 
       <div class="game-progress-container">
         <div class="game-progress-line"></div>
         <div class="game-progress-fill" id="game-progress-fill"></div>
         
         <div class="game-step">
-          <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat" id="game-step-1">
+          <div class="step-circle" id="game-step-1" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #e0e0e0; background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 12px;">1</div>
           <span class="step-label mt-10" id="game-label-1" style="color: var(--text-main);">게임 1개</span>
         </div>
         <div class="game-step">
-          <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello" id="game-step-2">
+          <div class="step-circle" id="game-step-2" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #e0e0e0; background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 12px;">2</div>
           <span class="step-label mt-10" id="game-label-2">게임 2개</span>
         </div>
         <div class="game-step">
-          <div class="tooltip-top">뽑기권 3개</div>
-          <div class="reward-box" id="game-step-3">★</div>
+          <div class="tooltip-top">럭키볼 3개</div>
+          <div class="reward-box" id="game-step-3" style="background: none; border: none; padding: 0; display: flex; align-items: center; justify-content: center;">
+            <img src="출첵 5일 럭키볼.png" alt="게임 3개 럭키볼" style="width: 40px; height: 40px;">
+          </div>
           <span class="step-label mt-10" id="game-label-3">게임 3개</span>
         </div>
       </div>
 
       <div class="game-list" id="game-list-container">
-        <a href="game_detail_squishy_cat.html" class="game-list-item game-row" data-index="0">
+        <div class="game-list-item game-row" data-index="0" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+" onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_squishy_cat.html'">
           <div class="flex-row">
-            <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat">
+            <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Squishy Cat</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Squishy Cat</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold mt-10" style="font-size: 12px; color: var(--brand-green);">미션 완료</span>
             </div>
           </div>
           <div class="action-area"></div>
-        </a>
-        <a href="game_detail_tab_tab_jello.html" class="game-list-item game-row" data-index="1">
+        </div>
+        <div class="game-list-item game-row" data-index="1" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_tab_tab_jello.html'">
           <div class="flex-row">
-            <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello">
+            <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Tab Tab Jello</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Tab Tab Jello</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold mt-10" style="font-size: 12px; color: var(--brand-green);">미션 완료</span>
             </div>
           </div>
           <div class="action-area"></div>
-        </a>
-        <a href="game_detail_merge_cat.html" class="game-list-item game-row" data-index="2">
+        </div>
+        <div class="game-list-item game-row" data-index="2" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_merge_cat.html'">
           <div class="flex-row">
-            <img src="https://obs.line-scdn.net:443/0hmpC2SfwtMl9-Sy2JQ-5NCCYePC4SOitKB30gJwMOODNNKS4IQ38IUgQjbwsaExNACVImYBswMxNbKyp5QVYiWVMYDgRTGhB-AVILQVsbNwwSKD51QVEISQcbCW4V" alt="Merge Cat">
+            <img src="https://obs.line-scdn.net:443/0hmpC2SfwtMl9-Sy2JQ-5NCCYePC4SOitKB30gJwMOODNNKS4IQ38IUgQjbwsaExNACVImYBswMxNbKyp5QVYiWVMYDgRTGhB-AVILQVsbNwwSKD51QVEISQcbCW4V" alt="Merge Cat" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Merge Cat</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Merge Cat</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">2/3 미션 진행 중</span>
             </div>
           </div>
           <div class="action-area"></div>
-        </a>
-        <a href="game_detail_hook_and_gold.html" class="game-list-item game-row" data-index="3">
+        </div>
+        <div class="game-list-item game-row" data-index="3" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_hook_and_gold.html'">
           <div class="flex-row">
-            <img src="https://obs.line-scdn.net:443/0hmnTX50qRMkFpIS2cVbZNFjF0PDAFUCtUEBcgORRkOC1aQy4WEC8bfglzFRIeQi5OHDkEX09aMw1MQSpnVjwiR0RyDhpEcBBgFjghfhNJJygBQj5oFiw2VxBxCXAC" alt="Hook & Gold">
+            <img src="https://obs.line-scdn.net:443/0hmnTX50qRMkFpIS2cVbZNFjF0PDAFUCtUEBcgORRkOC1aQy4WEC8bfglzFRIeQi5OHDkEX09aMw1MQSpnVjwiR0RyDhpEcBBgFjghfhNJJygBQj5oFiw2VxBxCXAC" alt="Hook & Gold" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Hook & Gold</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Hook & Gold</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">2/3 미션 진행 중</span>
             </div>
           </div>
           <div class="action-area"></div>
-        </a>
-        <a href="game_detail_rich_match.html" class="game-list-item game-row" data-index="4">
+        </div>
+        <div class="game-list-item game-row" data-index="4" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_rich_match.html'">
           <div class="flex-row">
-            <img src="https://obs.line-scdn.net:443/0hNXPmjfYCEXdtFA6qUZ5uIDdBHwYBZQhiFCIDDxBRGxtedg0gFA5dWEtEKiwFTAlCEiJdeQ5oFywLRTBgFw0Gekl1KUYccTMgGCIVehZ_TCwGWx1BGiJdQw5vEx1IWCY" alt="Rich Match">
+            <img src="https://obs.line-scdn.net:443/0hNXPmjfYCEXdtFA6qUZ5uIDdBHwYBZQhiFCIDDxBRGxtedg0gFA5dWEtEKiwFTAlCEiJdeQ5oFywLRTBgFw0Gekl1KUYccTMgGCIVehZ_TCwGWx1BGiJdQw5vEx1IWCY" alt="Rich Match" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Rich Match</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Rich Match</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">1/3 미션 진행 전</span>
             </div>
           </div>
           <div class="action-area"></div>
-        </a>
-        <a href="game_detail_soda_king.html" class="game-list-item game-row" data-index="5">
+        </div>
+        <div class="game-list-item game-row" data-index="5" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_soda_king.html'">
           <div class="flex-row">
-            <img src="https://obs.line-scdn.net:443/0h8Ve2YmoXZ3lYS3ikZLwYLgIeaQg0On5sIX11ASUObRVrKXsuIVEraCA3UDYqE39TZ35BfH4bcSI-GkZuIlJwdHwqX0gpLkUuLX1jdCMgch9xEEYmL39zbzswZRN9B1A" alt="Soda King">
+            <img src="https://obs.line-scdn.net:443/0h8Ve2YmoXZ3lYS3ikZLwYLgIeaQg0On5sIX11ASUObRVrKXsuIVEraCA3UDYqE39TZ35BfH4bcSI-GkZuIlJwdHwqX0gpLkUuLX1jdCMgch9xEEYmL39zbzswZRN9B1A" alt="Soda King" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
             <div class="flex-col">
-              <div class="flex-row"><span class="font-extrabold text-main" style="font-size: 15px;">Soda King</span><button class="test-cycle-btn" onclick="cycleGameState(this, event)">상태변경</button></div>
-              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;"></span>
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Soda King</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">1/3 미션 진행 전</span>
             </div>
           </div>
           <div class="action-area"></div>
-        </a>
+        </div>
+
+        <!-- 추가 게임들 -->
+        <div class="game-list-item game-row" data-index="6" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_cash_pang.html'">
+          <div class="flex-row">
+            <img src="https://obs.line-scdn.net:443/0hxTE3b46CJ3t4SjiRKiFYLCIfKQoUOz5uAXw1AwUPLRdLKDssAVAORBsYegoNKWMsDH4eHR4aGyAeGwZsAlMwdlwrH0oJLwUsDXw3Zh0iEDgVETwkRURrTxQxJRFdBhA" alt="Cash Pang" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
+            <div class="flex-col">
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Cash Pang</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+            </div>
+          </div>
+          <div class="action-area"></div>
+        </div>
+
+        <div class="game-list-item game-row" data-index="7" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_fate_war.html'">
+          <div class="flex-row">
+            <img src="https://obs.line-scdn.net:443/0hpQI6sFZpL350TzERNhtQKS4aIQ8YPjZrDXk9BgkKJRJHLTMpDVYrTQwwLRceLA1xC1ZjHBcaAyUSHg5pDlY4c1AuF08FKg0pAUJiZxEccykcAGtUSVUraBc0LRRRAxg" alt="Fate War" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
+            <div class="flex-col">
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Fate War</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+            </div>
+          </div>
+          <div class="action-area"></div>
+        </div>
+
+        <div class="game-list-item game-row" data-index="8" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          border-bottom: 1px solid #f0f0f0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_magic_squad.html'">
+          <div class="flex-row">
+            <img src="https://obs.line-scdn.net:443/0h-txmM0v3cltFFG1aVB4NDB9BfCopZWtOPCJgIzhReDd2dm4MPA12Xj9ERQ9qdkx9MSdheGBqTgAjRVNMPw1lVmF1Smo0cVAMMCJhZyZEcABpW0NxeCA-byZvcDFgWEU" alt="Magic Squad" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
+            <div class="flex-col">
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Magic Squad</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+            </div>
+          </div>
+          <div class="action-area"></div>
+        </div>
+
+        <div class="game-list-item game-row" data-index="9" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          cursor: pointer;
+        " onclick="if(event.target.classList.contains('btn-receive')) return; location.href='game_detail_battle_ship.html'">
+          <div class="flex-row">
+            <img src="https://obs.line-scdn.net:443/0h1Qc8s4vCbn5eQXEjL-kRKQYUYA8yMHdrJ3d8BiMEZBJtI3IpYHRqTT4pazZzDipUY1hYfyE6bzJ7IXZYYVx-eHMSUiVzEExfIlgiYz0TbAcuImJMZ0xqaCcRVU81" alt="Battle Ship" style="width: 48px; height: 48px; border-radius: 50%; margin-right: 12px;">
+            <div class="flex-col">
+              <div class="flex-row">
+                <span class="font-extrabold text-main" style="font-size: 15px;">Battle Ship</span>
+                <button class="test-cycle-btn" onclick="cycleGameState(this, event)" style="margin-left: 8px;">상태변경</button>
+              </div>
+              <span class="game-status font-semibold text-sub mt-10" style="font-size: 12px;">0/3 미션 진행 전</span>
+            </div>
+          </div>
+          <div class="action-area"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apps 둘러보기 섹션 -->
+    <div class="card" style="
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    " onclick="window.open('https://www.unifi.me/apps', '_blank')" onmouseover="this.style.backgroundColor='#f8f9fa'; this.style.transform='scale(1.02)'" onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'">
+      <div class="flex-between" style="align-items: center;">
+        <h3 class="font-extrabold text-main" style="font-size: 18px;">Apps 둘러보기</h3>
+        <div class="flex-row" style="align-items: center;">
+          <div style="display: flex; margin-right: 8px;">
+            <div style="width: 20px; height: 20px; background: #ff6b6b; border-radius: 50%; margin-right: -4px; border: 2px solid white;"></div>
+            <div style="width: 20px; height: 20px; background: #4ecdc4; border-radius: 50%; margin-right: -4px; border: 2px solid white;"></div>
+            <div style="width: 20px; height: 20px; background: #a855f7; border-radius: 50%; border: 2px solid white;"></div>
+          </div>
+          <span style="font-size: 16px; color: var(--text-sub);">></span>
+        </div>
       </div>
     </div>
   </div>
@@ -160,23 +383,51 @@
   <div id="dim-bg" class="dim-bg"></div>
 
   <div id="ticket-bottom-sheet" class="bottom-sheet">
-    <div class="sheet-close" id="btn-close-sheet">&times;</div>
-    <h2 class="font-extrabold text-main" style="font-size: 24px; line-height: 1.4; margin-top: 10px;">축하합니다!<br>USDT 뽑기권 <span id="sheet-ticket-amount">3</span>개 받았어요</h2>
-    <p class="text-sub mt-10" style="font-size: 14px;">최대 500 USDT 뽑을 수 있어요</p>
-    <div class="ticket-visual">
-      <span class="confetti" style="top: -20px; left: -30px; color: #ff3b30;">🎉</span>
-      <span class="confetti" style="bottom: -10px; right: -20px; color: #3b82f6;">✨</span>
-      <span class="confetti" style="top: 20px; right: -40px; color: #00c880;">🎊</span>
+    <div class="sheet-close" id="btn-close-sheet" style="position: absolute; top: 20px; right: 20px; font-size: 24px; color: #666; cursor: pointer; z-index: 10;">&times;</div>
+    <h2 class="font-extrabold text-main" style="font-size: 24px; line-height: 1.4; margin-top: 30px; margin-bottom: 8px;">축하합니다!<br>럭키볼 <span id="sheet-ticket-amount">3</span>개 받았어요</h2>
+    <p class="text-sub" style="font-size: 14px; color: #666; margin-bottom: 40px;">최대 100만원 뽑을 수 있어요</p>
+
+    <div class="lucky-ball-illustration" style="
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 60px auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">
+      <img src="바텀시트 럭키볼.png" alt="럭키볼" style="width: 180px; height: 180px;">
     </div>
-    <button id="btn-draw-ticket" class="btn-black" style="width: 100%; padding: 18px 0; font-size: 16px;">뽑기</button>
+
+    <button id="btn-draw-ticket" class="btn-black" style="width: 100%; padding: 18px 0; font-size: 16px; border-radius: 12px;">뽑기</button>
   </div>
 
   <div id="usdt-reward-overlay" class="blur-overlay">
     <div class="overlay-close" id="btn-overlay-x">&times;</div>
-    <div class="usdt-glow-circle"><span>₮</span></div>
-    <h1 class="font-black text-main" id="reward-amount-text" style="font-size: 32px; z-index: 10;">1 USDT 받았어요</h1>
-    <p class="text-sub font-semibold mt-10" id="reward-sub-text" style="z-index: 10; margin-bottom: 20px;">내일도 출석 체크하고 보상 받으세요</p>
-    
+
+    <!-- USDT 아이콘 -->
+    <div style="
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #4CAF50 0%, #45A049 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 40px auto;
+      box-shadow: 0 20px 40px rgba(76, 175, 80, 0.3);
+    ">
+      <span style="
+        color: white;
+        font-size: 48px;
+        font-weight: bold;
+        font-family: 'Arial', sans-serif;
+      ">₮</span>
+    </div>
+
+    <h1 class="font-black text-main" id="reward-amount-text" style="font-size: 32px; z-index: 10; margin-bottom: 16px;">2 USDT 받았어요</h1>
+    <p class="text-sub font-semibold" id="reward-sub-text" style="z-index: 10; margin-bottom: 40px; font-size: 16px; color: #666;">게임 미션 보상을 받았습니다</p>
+
     <div id="draw-again-container" style="display: none; position: relative; z-index: 10; margin-top: 40px; width: 100%; max-width: 320px;">
        <div class="tooltip-top" id="draw-again-tooltip" style="bottom: 100%; margin-bottom: 8px;">X번 더 뽑을 수 있어요!</div>
        <button id="btn-draw-again" class="btn-black" style="width: 100%; padding: 18px; font-size: 16px;">더 뽑기</button>
@@ -185,11 +436,38 @@
   </div>
 
   <script>
-    const DEFAULT_STATE = { usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0], ticketClaimed: false };
+    const DEFAULT_STATE = {
+      usdt: 9.50,
+      tickets: 4,
+      history: [],
+      gameStates: [0, 1, 2, 3, 0, 0, 0, 0, 0, 0],
+      gameMissionCompleted: false,
+      completionTimes: { 3: 1640995200000 } // Hook & Gold는 2022년 1월 1일 완료로 설정 (항상 첫 번째)
+    };
     
-    function getGlobalState() { 
-      const stored = localStorage.getItem('unifi_state'); 
-      return stored ? JSON.parse(stored) : DEFAULT_STATE; 
+    function getGlobalState() {
+      const stored = localStorage.getItem('unifi_state');
+      let state = stored ? JSON.parse(stored) : DEFAULT_STATE;
+
+      // 기존 사용자의 gameStates가 10개 미만인 경우 확장
+      if (state.gameStates && state.gameStates.length < 10) {
+        while (state.gameStates.length < 10) {
+          state.gameStates.push(0);
+        }
+        localStorage.setItem('unifi_state', JSON.stringify(state));
+      }
+
+      // completionTimes 초기화 및 Hook & Gold 완료 시각 설정
+      if (!state.completionTimes) {
+        state.completionTimes = {};
+      }
+      // Hook & Gold(인덱스 3)가 미션 완료 상태인데 완료 시각이 없는 경우 설정
+      if (state.gameStates[3] >= 3 && !state.completionTimes[3]) {
+        state.completionTimes[3] = 1640995200000; // 2022년 1월 1일
+        localStorage.setItem('unifi_state', JSON.stringify(state));
+      }
+
+      return state;
     }
     
     function saveGlobalState(state) { 
@@ -223,26 +501,176 @@
       document.getElementById('line-notification').classList.remove('active');
     };
 
+    // --- 2 USDT 받기 버튼 처리 함수 ---
+    function handleRewardButtonClick(idx) {
+      console.log('handleRewardButtonClick 호출됨, 게임 인덱스:', idx);
+
+      let state = getGlobalState();
+      console.log('현재 상태:', state.gameStates[idx]);
+
+      // 상태를 4(수령완료)로 변경
+      state.gameStates[idx] = 4;
+      saveGlobalState(state);
+
+      // 2 USDT 보상 지급
+      addReward('usdt', 2, '게임 미션 완료 보상');
+
+      // 오버레이 표시
+      const usdtOverlay = document.getElementById('usdt-reward-overlay');
+      document.getElementById('reward-amount-text').innerText = `2 USDT 받았어요`;
+      document.getElementById('reward-sub-text').innerText = "게임 미션 보상을 받았습니다";
+
+      // 더 뽑기 관련 요소들 숨기기
+      const drawAgainContainer = document.getElementById('draw-again-container');
+      const btnOverlayClose = document.getElementById('btn-overlay-close');
+      const btnOverlayX = document.getElementById('btn-overlay-x');
+
+      if (drawAgainContainer) drawAgainContainer.style.display = 'none';
+      if (btnOverlayClose) {
+        btnOverlayClose.style.display = 'block';
+        btnOverlayClose.innerText = '확인';
+        btnOverlayClose.style.backgroundColor = '#111';
+        btnOverlayClose.style.color = 'white';
+        btnOverlayClose.style.border = 'none';
+      }
+      if (btnOverlayX) btnOverlayX.style.display = 'none';
+
+      usdtOverlay.classList.add('active');
+      showLineMessage('2 USDT 받았어요');
+
+      // 자동 닫기 설정
+      const closeOverlay = () => usdtOverlay.classList.remove('active');
+      usdtOverlay.onclick = closeOverlay;
+      if(window.overlayTimer) clearTimeout(window.overlayTimer);
+      window.overlayTimer = setTimeout(closeOverlay, 2500);
+
+      console.log('보상 처리 완료');
+    }
+
+    // --- 럭키볼 뽑기 함수 ---
+    window.handleLuckyBallClick = function() {
+      console.log('럭키볼 영역 클릭됨');
+      let state = getGlobalState();
+
+      if (state.tickets <= 0) {
+        alert('럭키볼이 부족합니다! 출석체크나 게임 미션을 완료해서 럭키볼을 받아보세요.');
+        return;
+      }
+
+      performDraw();
+    };
+
+    function performDraw() {
+      // 럭키볼 하나 차감
+      addReward('ticket', -1, '');
+
+      // 1-3 USDT 랜덤 보상
+      const randomReward = Math.floor(Math.random() * 3) + 1;
+      addReward('usdt', randomReward, 'USDT 뽑기 보상');
+
+      // 현재 상태 다시 가져오기 (차감 후)
+      let updatedState = getGlobalState();
+      const remainingTickets = updatedState.tickets;
+
+      // 오버레이 표시
+      const usdtOverlay = document.getElementById('usdt-reward-overlay');
+      const drawAgainContainer = document.getElementById('draw-again-container');
+      const drawAgainTooltip = document.getElementById('draw-again-tooltip');
+      const btnDrawAgain = document.getElementById('btn-draw-again');
+      const btnOverlayClose = document.getElementById('btn-overlay-close');
+
+      document.getElementById('reward-amount-text').innerText = `${randomReward} USDT 받았어요`;
+      document.getElementById('reward-sub-text').innerText = `럭키볼 ${remainingTickets}개 남았어요`;
+
+      // 남은 티켓이 있으면 더 뽑기 버튼 표시
+      if (remainingTickets > 0) {
+        drawAgainTooltip.innerText = `${remainingTickets}번 더 뽑을 수 있어요!`;
+        btnDrawAgain.innerText = '더 뽑기';
+        drawAgainContainer.style.display = 'block';
+        btnOverlayClose.style.display = 'block';
+        btnOverlayClose.innerText = '나중에 뽑기';
+
+        // "나중에 뽑기" 버튼 스타일을 투명 배경으로 변경
+        btnOverlayClose.style.backgroundColor = 'transparent';
+        btnOverlayClose.style.color = '#333';
+        btnOverlayClose.style.border = 'none';
+
+        // 창닫기 버튼(×) 숨기기
+        const btnOverlayX = document.getElementById('btn-overlay-x');
+        if (btnOverlayX) {
+          btnOverlayX.style.display = 'none';
+        }
+
+        // 자동 닫기 비활성화
+        usdtOverlay.onclick = null;
+        if(window.overlayTimer) {
+          clearTimeout(window.overlayTimer);
+          window.overlayTimer = null;
+        }
+      } else {
+        // 티켓이 없으면 기본 확인 버튼만 표시
+        drawAgainContainer.style.display = 'none';
+        btnOverlayClose.style.display = 'block';
+        btnOverlayClose.innerText = '확인';
+
+        // 확인 버튼은 기본 스타일로 복원
+        btnOverlayClose.style.backgroundColor = '#111';
+        btnOverlayClose.style.color = 'white';
+        btnOverlayClose.style.border = 'none';
+
+        // 창닫기 버튼(×) 숨기기
+        const btnOverlayX = document.getElementById('btn-overlay-x');
+        if (btnOverlayX) {
+          btnOverlayX.style.display = 'none';
+        }
+
+        // 자동 닫기 활성화
+        usdtOverlay.onclick = () => usdtOverlay.classList.remove('active');
+        if(window.overlayTimer) clearTimeout(window.overlayTimer);
+        window.overlayTimer = setTimeout(() => usdtOverlay.classList.remove('active'), 2500);
+      }
+
+      usdtOverlay.classList.add('active');
+
+      // LINE 메시지 표시
+      showLineMessage(`${randomReward} USDT 받았어요`);
+    }
+
     const gameConfig = [
         { text: "0/3 미션 진행 전", color: "var(--text-sub)" },
         { text: "1/3 미션 진행 중", color: "var(--text-sub)" },
         { text: "2/3 미션 진행 중", color: "var(--text-sub)" },
-        { text: "미션 완료", color: "var(--brand-green)" }, 
+        { text: "미션 완료", color: "var(--brand-green)" },
         { text: "미션 완료", color: "var(--brand-green)" }
     ];
 
     function renderPage() {
+      console.log('renderPage 호출됨');
       const state = getGlobalState();
-      
+      console.log('현재 게임 상태들:', state.gameStates);
+
       // 상단 배지 동기화
       document.getElementById('val-usdt').innerText = state.usdt.toFixed(2).replace(/\.00$/, '');
       document.getElementById('val-tickets').innerText = state.tickets;
-      const badgeEl = document.getElementById('reward-badge');
-      badgeEl.classList.add('highlight');
-      setTimeout(() => badgeEl.classList.remove('highlight'), 300);
 
-      // 게임 리스트 동기화
-      let claimedCount = 0;
+      // 게임 로고 이미지 배열
+      const gameLogos = [
+        "https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw", // Squishy Cat
+        "https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM", // Tab Tab Jello
+        "https://obs.line-scdn.net:443/0hmpC2SfwtMl9-Sy2JQ-5NCCYePC4SOitKB30gJwMOODNNKS4IQ38IUgQjbwsaExNACVImYBswMxNbKyp5QVYiWVMYDgRTGhB-AVILQVsbNwwSKD51QVEISQcbCW4V", // Merge Cat
+        "https://obs.line-scdn.net:443/0hmnTX50qRMkFpIS2cVbZNFjF0PDAFUCtUEBcgORRkOC1aQy4WEC8bfglzFRIeQi5OHDkEX09aMw1MQSpnVjwiR0RyDhpEcBBgFjghfhNJJygBQj5oFiw2VxBxCXAC", // Hook & Gold
+        "https://obs.line-scdn.net:443/0hNXPmjfYCEXdtFA6qUZ5uIDdBHwYBZQhiFCIDDxBRGxtedg0gFA5dWEtEKiwFTAlCEiJdeQ5oFywLRTBgFw0Gekl1KUYccTMgGCIVehZ_TCwGWx1BGiJdQw5vEx1IWCY", // Rich Match
+        "https://obs.line-scdn.net:443/0h8Ve2YmoXZ3lYS3ikZLwYLgIeaQg0On5sIX11ASUObRVrKXsuIVEraCA3UDYqE39TZ35BfH4bcSI-GkZuIlJwdHwqX0gpLkUuLX1jdCMgch9xEEYmL39zbzswZRN9B1A", // Soda King
+        "https://obs.line-scdn.net:443/0hxTE3b46CJ3t4SjiRKiFYLCIfKQoUOz5uAXw1AwUPLRdLKDssAVAORBsYegoNKWMsDH4eHR4aGyAeGwZsAlMwdlwrH0oJLwUsDXw3Zh0iEDgVETwkRURrTxQxJRFdBhA", // Cash Pang
+        "https://obs.line-scdn.net:443/0hpQI6sFZpL350TzERNhtQKS4aIQ8YPjZrDXk9BgkKJRJHLTMpDVYrTQwwLRceLA1xC1ZjHBcaAyUSHg5pDlY4c1AuF08FKg0pAUJiZxEccykcAGtUSVUraBc0LRRRAxg", // Fate War
+        "https://obs.line-scdn.net:443/0h-txmM0v3cltFFG1aVB4NDB9BfCopZWtOPCJgIzhReDd2dm4MPA12Xj9ERQ9qdkx9MSdheGBqTgAjRVNMPw1lVmF1Smo0cVAMMCJhZyZEcABpW0NxeCA-byZvcDFgWEU", // Magic Squad
+        "https://obs.line-scdn.net:443/0h1Qc8s4vCbn5eQXEjL-kRKQYUYA8yMHdrJ3d8BiMEZBJtI3IpYHRqTT4pazZzDipUY1hYfyE6bzJ7IXZYYVx-eHMSUiVzEExfIlgiYz0TbAcuImJMZ0xqaCcRVU81"  // Battle Ship
+      ];
+
+      // 완료 시각 기준으로 정렬된 완료 게임 목록 생성
+      let completedCount = 0;
+      let completedGamesData = []; // {idx: 게임인덱스, completionTime: 완료시각} 배열
+
       document.querySelectorAll('.game-row').forEach(row => {
         let idx = parseInt(row.getAttribute('data-index'));
         let gState = state.gameStates[idx] || 0;
@@ -250,17 +678,69 @@
 
         row.querySelector('.game-status').innerText = config.text;
         row.querySelector('.game-status').style.color = config.color;
-        
+
         const actionArea = row.querySelector('.action-area');
         if(gState === 4) {
-          actionArea.innerHTML = `<span class="text-disabled">2 USDT 받음</span>`;
-          claimedCount++;
+          // 리워드 받음 상태
+          actionArea.innerHTML = `<span style="color: var(--text-sub); font-size: 12px; font-weight: 600;">2 USDT 받음</span>`;
+          completedCount++;
+          // 완료 시각이 있는 경우에만 추가
+          if (state.completionTimes && state.completionTimes[idx]) {
+            completedGamesData.push({
+              idx: idx,
+              completionTime: state.completionTimes[idx]
+            });
+          }
         } else if (gState === 3) {
-          actionArea.innerHTML = `<button class="btn btn-small btn-receive pulse-anim" data-index="${idx}">2 USDT 받기</button>`;
+          // 미션 완료 상태 - 2 USDT 받기 버튼
+          actionArea.innerHTML = `<button class="btn-receive" data-index="${idx}" style="
+            background: var(--text-main);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+          ">2 USDT 받기</button>`;
+
+          // 버튼에 직접 이벤트 리스너 연결
+          const button = actionArea.querySelector('.btn-receive');
+          if (button) {
+            button.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('2 USDT 받기 버튼 클릭됨 - 직접 이벤트');
+
+              handleRewardButtonClick(idx);
+            });
+          }
+
+          completedCount++;
+          // 완료 시각이 있는 경우에만 추가
+          if (state.completionTimes && state.completionTimes[idx]) {
+            completedGamesData.push({
+              idx: idx,
+              completionTime: state.completionTimes[idx]
+            });
+          }
         } else {
+          // 진행 전, 진행 중 상태
           actionArea.innerHTML = ``;
         }
       });
+
+      // 완료 시각 순서로 정렬
+      completedGamesData.sort((a, b) => a.completionTime - b.completionTime);
+      let completedGames = completedGamesData.map(item => item.idx);
+      console.log('완료 순서:', completedGames);
+
+      // Hook & Gold(인덱스 3)가 첫 번째인지 확인
+      if (completedGames.length > 0 && completedGames[0] === 3) {
+        console.log('✅ Hook & Gold가 프로그레스 바 1번째 게임으로 설정됨');
+      } else if (completedGames.length > 0) {
+        console.log('⚠️ 프로그레스 바 1번째 게임:', completedGames[0]);
+      }
 
       // 상단 프로그레스 바 연동
       const fillBar = document.getElementById('game-progress-fill');
@@ -271,26 +751,100 @@
       const lbl2 = document.getElementById('game-label-2');
       const lbl3 = document.getElementById('game-label-3');
 
-      step1.classList.remove('active'); step2.classList.remove('active');
-      step3.style.backgroundColor = '#ffcc00'; step3.style.borderColor = '#ffcc00'; step3.innerHTML = '★';
-      lbl1.style.color = 'var(--text-sub)'; lbl2.style.color = 'var(--text-sub)'; lbl3.style.color = 'var(--text-sub)';
+      // 기본 상태로 초기화
+      step1.classList.remove('active');
+      step2.classList.remove('active');
+      step3.style.background = 'none';
+      step3.style.border = 'none';
+      step3.style.padding = '0';
+      step3.innerHTML = '<img src="출첵 5일 럭키볼.png" alt="게임 3개 럭키볼" style="width: 40px; height: 40px;">';
+      step3.style.display = 'flex';
+      step3.style.alignItems = 'center';
+      step3.style.justifyContent = 'center';
+      lbl1.style.color = 'var(--text-sub)';
+      lbl2.style.color = 'var(--text-sub)';
+      lbl3.style.color = 'var(--text-sub)';
 
-      if (claimedCount === 0) { fillBar.style.width = '0%'; lbl1.style.color = 'var(--text-main)'; }
-      else if (claimedCount === 1) { fillBar.style.width = '33%'; step1.classList.add('active'); lbl2.style.color = 'var(--text-main)'; }
-      else if (claimedCount === 2) { fillBar.style.width = '66%'; step1.classList.add('active'); step2.classList.add('active'); lbl3.style.color = 'var(--text-main)'; }
-      else if (claimedCount >= 3) {
-        fillBar.style.width = '100%'; 
-        step1.classList.add('active'); step2.classList.add('active'); 
-        step3.style.backgroundColor = 'var(--brand-green)'; step3.style.borderColor = 'var(--brand-green)'; step3.innerHTML = '✓';
+      // step1, step2를 기본 플레이스홀더 상태로 초기화
+      step1.innerHTML = '1';
+      step1.style.width = '40px';
+      step1.style.height = '40px';
+      step1.style.borderRadius = '50%';
+      step1.style.border = '2px solid #e0e0e0';
+      step1.style.background = '#f5f5f5';
+      step1.style.display = 'flex';
+      step1.style.alignItems = 'center';
+      step1.style.justifyContent = 'center';
+      step1.style.color = '#ccc';
+      step1.style.fontSize = '12px';
+
+      step2.innerHTML = '2';
+      step2.style.width = '40px';
+      step2.style.height = '40px';
+      step2.style.borderRadius = '50%';
+      step2.style.border = '2px solid #e0e0e0';
+      step2.style.background = '#f5f5f5';
+      step2.style.display = 'flex';
+      step2.style.alignItems = 'center';
+      step2.style.justifyContent = 'center';
+      step2.style.color = '#ccc';
+      step2.style.fontSize = '12px';
+
+      if (completedCount === 0) {
+        fillBar.style.width = '0%';
+        lbl1.style.color = 'var(--text-main)';
+        // 기본 플레이스홀더 상태 유지
+      }
+      else if (completedCount === 1) {
+        fillBar.style.width = '33%';
+        // step1에 완료된 게임 로고 표시
+        step1.innerHTML = `<img src="${gameLogos[completedGames[0]]}" alt="완료된 게임" style="width: 40px; height: 40px; border-radius: 50%;">`;
+        step1.style.border = '2px solid var(--brand-green)';
+        step1.style.background = 'white';
+        step1.classList.add('active');
+        lbl2.style.color = 'var(--text-main)';
+        // step2는 플레이스홀더 상태 유지
+      }
+      else if (completedCount === 2) {
+        fillBar.style.width = '66%';
+        // step1, step2에 완료된 게임 로고 표시
+        step1.innerHTML = `<img src="${gameLogos[completedGames[0]]}" alt="완료된 게임" style="width: 40px; height: 40px; border-radius: 50%;">`;
+        step1.style.border = '2px solid var(--brand-green)';
+        step1.style.background = 'white';
+        step2.innerHTML = `<img src="${gameLogos[completedGames[1]]}" alt="완료된 게임" style="width: 40px; height: 40px; border-radius: 50%;">`;
+        step2.style.border = '2px solid var(--brand-green)';
+        step2.style.background = 'white';
+        step1.classList.add('active');
+        step2.classList.add('active');
         lbl3.style.color = 'var(--text-main)';
-        
-        if(!state.ticketClaimed) {
-          state.ticketClaimed = true;
+      }
+      else if (completedCount >= 3) {
+        fillBar.style.width = '100%';
+        // step1, step2에 완료된 게임 로고 표시
+        step1.innerHTML = `<img src="${gameLogos[completedGames[0]]}" alt="완료된 게임" style="width: 40px; height: 40px; border-radius: 50%;">`;
+        step1.style.border = '2px solid var(--brand-green)';
+        step1.style.background = 'white';
+        step2.innerHTML = `<img src="${gameLogos[completedGames[1]]}" alt="완료된 게임" style="width: 40px; height: 40px; border-radius: 50%;">`;
+        step2.style.border = '2px solid var(--brand-green)';
+        step2.style.background = 'white';
+        step1.classList.add('active');
+        step2.classList.add('active');
+        step3.style.background = 'none';
+        step3.style.border = 'none';
+        step3.style.padding = '0';
+        step3.innerHTML = '<img src="출첵 5일 럭키볼.png" alt="게임 3개 완료" style="width: 40px; height: 40px;">';
+        step3.style.display = 'flex';
+        step3.style.alignItems = 'center';
+        step3.style.justifyContent = 'center';
+        lbl3.style.color = 'var(--text-main)';
+
+        if(!state.gameMissionCompleted) {
+          state.gameMissionCompleted = true;
           saveGlobalState(state);
-          setTimeout(() => { 
-              addReward('ticket', 3, ''); 
-              showTicketReward(3); 
-              showLineMessage('3 뽑기권을 받았어요');
+          setTimeout(() => {
+              addReward('ticket', 3, '게임 미션 3개 완료 보상');
+              showTicketReward(3);
+              showLineMessage('럭키볼 3개를 받았어요');
           }, 600);
         }
       }
@@ -314,40 +868,82 @@
     dimBg.addEventListener('click', closeBottomSheet);
     btnOverlayX.addEventListener('click', closeOverlay);
 
-    document.getElementById('btn-draw-ticket').addEventListener('click', () => { 
-      closeBottomSheet(); 
+    // 더 뽑기 버튼 이벤트 리스너
+    document.getElementById('btn-draw-again').addEventListener('click', () => {
+      console.log('더 뽑기 버튼 클릭');
+      performDraw();
+    });
+
+    // 나중에 뽑기 / 확인 버튼 이벤트 리스너
+    document.getElementById('btn-overlay-close').addEventListener('click', () => {
+      console.log('나중에 뽑기/확인 버튼 클릭');
+      closeOverlay();
+    });
+
+    document.getElementById('btn-draw-ticket').addEventListener('click', () => {
+      closeBottomSheet();
       setTimeout(() => {
-        let state = getGlobalState();
-        if(state.tickets > 0) {
-          addReward('ticket', -1, ''); 
-          const randomReward = Math.floor(Math.random() * 3) + 1;
-          addReward('usdt', randomReward, 'USDT 뽑기 보상');
-          
-          document.getElementById('reward-amount-text').innerText = `${randomReward} USDT 받았어요`;
-          document.getElementById('reward-sub-text').innerText = `USDT 뽑기권 ${state.tickets - 1}개 남았어요`;
-          usdtOverlay.classList.add('active');
-          showLineMessage(`${randomReward} USDT 받았어요`);
-          
-          usdtOverlay.onclick = closeOverlay;
-          if(window.overlayTimer) clearTimeout(window.overlayTimer);
-          window.overlayTimer = setTimeout(closeOverlay, 2500);
-        }
-      }, 400); 
+        performDraw();
+      }, 400);
     });
 
 
     document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM 로드 완료');
       renderPage();
-      
-      document.getElementById('btn-reset-storage').addEventListener('click', () => {
-        localStorage.removeItem('unifi_state'); renderPage(); location.reload();
-      });
+
+      // 프로토타입 테스트 버튼들 설정
+      const resetStorageBtn = document.getElementById('btn-reset-storage');
+      const completeAllBtn = document.getElementById('btn-complete-all');
+      const testDay1Btn = document.getElementById('btn-test-day1');
+      const testDay3Btn = document.getElementById('btn-test-day3');
+      const testCompleteBtn = document.getElementById('btn-test-complete');
+
+      console.log('테스트 버튼들 찾기:', { resetStorageBtn, completeAllBtn, testDay1Btn, testDay3Btn, testCompleteBtn });
+
+      if (resetStorageBtn) {
+        resetStorageBtn.addEventListener('click', () => {
+          console.log('전체 초기화 버튼 클릭');
+          localStorage.setItem('unifi_state', JSON.stringify(DEFAULT_STATE));
+          renderPage();
+          location.reload();
+        });
+        console.log('전체 초기화 버튼 리스너 추가됨');
+      } else {
+        console.error('전체 초기화 버튼을 찾을 수 없음');
+      }
+
+      if (completeAllBtn) {
+        completeAllBtn.addEventListener('click', () => {
+          console.log('게임 미션 모두 완료 버튼 클릭');
+          let state = getGlobalState();
+          if (!state.completionTimes) state.completionTimes = {};
+
+          let completionTime = Date.now();
+          for(let i=0; i<10; i++) {
+            if(state.gameStates[i] < 3) {
+              state.gameStates[i] = 3;
+              // Hook & Gold(인덱스 3)는 기존 시각 유지, 나머지만 새로 설정
+              if (i !== 3) {
+                // 순차적으로 1초씩 간격을 두어 완료 시각 설정 (테스트용)
+                state.completionTimes[i] = completionTime + (i * 1000);
+              }
+            }
+          }
+          saveGlobalState(state);
+        });
+        console.log('게임 미션 모두 완료 버튼 리스너 추가됨');
+      } else {
+        console.error('게임 미션 모두 완료 버튼을 찾을 수 없음');
+      }
 
       // 이벤트 위임
       document.addEventListener('click', (e) => {
+        console.log('클릭된 요소:', e.target, '클래스:', e.target.classList);
+
         // [테스트] 상태 변경 버튼
         if (e.target.classList.contains('test-cycle-btn')) {
-          e.preventDefault(); 
+          e.preventDefault();
           let idx = parseInt(e.target.closest('.game-row').getAttribute('data-index'));
           let state = getGlobalState();
           if (state.gameStates[idx] >= 4) return;
@@ -355,97 +951,251 @@
           saveGlobalState(state);
         }
 
-        // 게임 보상 2 USDT 받기 버튼
-        if (e.target.classList.contains('btn-receive')) {
-          e.preventDefault(); 
-          let idx = parseInt(e.target.getAttribute('data-index'));
-          let state = getGlobalState();
-          
-          state.gameStates[idx] = 4; // 4 = 수령완료
-          saveGlobalState(state);
-          
-          addReward('usdt', 2, '게임 미션 완료 보상');
-          
-          document.getElementById('reward-amount-text').innerText = `2 USDT 받았어요`;
-          document.getElementById('reward-sub-text').innerText = "게임 미션 보상을 받았습니다";
-          usdtOverlay.classList.add('active');
-          
-          showLineMessage('2 USDT 받았어요');
-
-          usdtOverlay.onclick = closeOverlay;
-          if(window.overlayTimer) clearTimeout(window.overlayTimer);
-          window.overlayTimer = setTimeout(closeOverlay, 2500);
-        }
+        // 게임 보상 2 USDT 받기 버튼 처리는 이제 직접 이벤트 리스너로 처리됨
       });
 
-      // [테스트] 모든 미션 완료 처리
-      document.getElementById('btn-complete-all').addEventListener('click', () => {
+      // cycleGameState 함수 - 전역으로 정의
+      window.cycleGameState = function(btn, event) {
+        event.stopPropagation();
+        let idx = parseInt(btn.closest('.game-row').getAttribute('data-index'));
         let state = getGlobalState();
-        for(let i=0; i<6; i++) {
-          if(state.gameStates[i] < 3) state.gameStates[i] = 3;
+
+        if (!state.completionTimes) state.completionTimes = {};
+
+        if (state.gameStates[idx] >= 4) {
+          state.gameStates[idx] = 0;
+          // 초기화시 완료 시각도 삭제
+          delete state.completionTimes[idx];
+        } else {
+          let previousState = state.gameStates[idx];
+          state.gameStates[idx]++;
+
+          // 상태가 3(미션 완료)이 될 때 완료 시각 저장
+          if (previousState === 2 && state.gameStates[idx] === 3) {
+            state.completionTimes[idx] = Date.now();
+            console.log(`게임 ${idx} 완료 시각 저장:`, new Date(state.completionTimes[idx]));
+          }
         }
         saveGlobalState(state);
-      });
+      };
+
+      // --- 타이머 로직 ---
+      function updateTimer() {
+        const now = new Date();
+        const midnight = new Date();
+        midnight.setDate(midnight.getDate() + 1);
+        midnight.setHours(0, 0, 0, 0);
+
+        const timeDiff = midnight.getTime() - now.getTime();
+
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        const hoursStr = hours.toString().padStart(2, '0');
+        const minutesStr = minutes.toString().padStart(2, '0');
+        const secondsStr = seconds.toString().padStart(2, '0');
+
+        const timerElement = document.getElementById('countdown-timer');
+        if (timerElement) {
+          timerElement.textContent = `${hoursStr}:${minutesStr}:${secondsStr} 남음`;
+        }
+
+        console.log('타이머:', `${hoursStr}:${minutesStr}:${secondsStr} 남음`);
+      }
+
+      // 타이머 즉시 시작
+      updateTimer();
+      setInterval(updateTimer, 1000);
 
       // --- 출석체크 로직 ---
-      function updateTimer() {
-        const now = new Date(), midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0), diff = midnight - now;
-        const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0'), m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0'), s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
-        document.getElementById('countdown-timer').innerText = `${h}:${m}:${s} 남음`;
-      }
-      setInterval(updateTimer, 1000); updateTimer();
+      let currentDay = 1, canAttend = true;
+      const attBtn = document.getElementById('btn-attend');
+      const stepItems = document.querySelectorAll('#attendance-steps .step-item');
 
-      let currentDay = 1, canAttend = true;    
-      const attBtn = document.getElementById('btn-attend'), stepItems = document.querySelectorAll('#attendance-steps .step-item');
-      const rewards = { 1: { type: 'usdt', amount: 1, text: '1 USDT' }, 2: { type: 'usdt', amount: 1, text: '1 USDT' }, 3: { type: 'ticket', amount: 1, text: '뽑기권 1개' }, 4: { type: 'usdt', amount: 1, text: '1 USDT' }, 5: { type: 'ticket', amount: 3, text: '뽑기권 3개' } };
+      console.log('출석 버튼 요소:', attBtn);
+      console.log('step 요소들:', stepItems);
+      const rewards = { 1: { type: 'usdt', amount: 1, text: '1 USDT' }, 2: { type: 'usdt', amount: 1, text: '1 USDT' }, 3: { type: 'ticket', amount: 1, text: 'USDT 럭키볼' }, 4: { type: 'usdt', amount: 1, text: '1 USDT' }, 5: { type: 'ticket', amount: 3, text: 'USDT 럭키볼' } };
 
       function renderAttendance() {
         stepItems.forEach((item, index) => {
           const circle = item.querySelector('.step-circle'), label = item.querySelector('.step-label'), day = index + 1;
           circle.className = 'step-circle'; label.style.color = 'var(--text-sub)';
-          circle.innerHTML = day === 3 ? '★' : day === 5 ? '🎟️' : '';
-          if (day === 5) { circle.style.backgroundColor = '#ffcc00'; circle.style.borderColor = '#ffcc00'; circle.style.color = '#fff'; circle.classList.add('reward-big'); }
-          if (day < currentDay || (day === currentDay && !canAttend)) {
-            circle.className = 'step-circle checked'; circle.innerHTML = '✓'; circle.style.backgroundColor = 'var(--brand-green)'; circle.style.borderColor = 'var(--brand-green)'; circle.style.color = '#fff'; label.style.color = 'var(--text-main)';
-          } else if (day === currentDay && canAttend) {
-            circle.classList.add('current'); label.style.color = 'var(--text-main)';
-            if(day !== 5) { circle.style.backgroundColor = '#fff'; circle.style.borderColor = 'var(--brand-green)'; circle.style.color = (day === 3) ? '#ffcc00' : '#ccc'; }
+
+          // 기본 아이콘 설정
+          if (day === 3) {
+            circle.innerHTML = '<img src="출첵 럭키볼.png" alt="3일 럭키볼" style="width: 40px; height: 40px;">';
+            circle.style.background = 'none';
+            circle.style.border = 'none';
+            circle.style.padding = '0';
+            circle.style.display = 'flex';
+            circle.style.alignItems = 'center';
+            circle.style.justifyContent = 'center';
+          } else if (day === 5) {
+            circle.innerHTML = '<img src="출첵 5일 럭키볼.png" alt="5일 럭키볼" style="width: 40px; height: 40px;">';
+            circle.style.background = 'none';
+            circle.style.border = 'none';
+            circle.style.padding = '0';
+            circle.style.display = 'flex';
+            circle.style.alignItems = 'center';
+            circle.style.justifyContent = 'center';
           } else {
-            if(day !== 5) { circle.style.backgroundColor = '#fff'; circle.style.borderColor = '#e0e0e0'; circle.style.color = (day === 3) ? '#ffcc00' : '#ccc'; }
+            circle.innerHTML = '';
+          }
+
+          // 상태별 스타일 적용
+          if (day < currentDay || (day === currentDay && !canAttend)) {
+            // 완료된 상태
+            circle.className = 'step-circle checked';
+            if (day === 3) {
+              // 3일차는 완료되어도 이미지 유지
+              circle.innerHTML = '<img src="출첵 럭키볼.png" alt="3일 럭키볼 완료" style="width: 40px; height: 40px;">';
+              circle.style.background = 'none';
+              circle.style.border = 'none';
+              circle.style.padding = '0';
+            } else if (day === 5) {
+              // 5일차는 완료되어도 이미지 유지
+              circle.innerHTML = '<img src="출첵 5일 럭키볼.png" alt="5일 럭키볼 완료" style="width: 40px; height: 40px;">';
+              circle.style.background = 'none';
+              circle.style.border = 'none';
+              circle.style.padding = '0';
+            } else {
+              circle.innerHTML = '✓';
+              circle.style.background = 'var(--brand-green)';
+              circle.style.borderColor = 'var(--brand-green)';
+              circle.style.color = '#fff';
+            }
+            label.style.color = 'var(--text-main)';
+          } else if (day === currentDay && canAttend) {
+            // 현재 진행 상태
+            circle.classList.add('current');
+            label.style.color = 'var(--text-main)';
+            if (day !== 3 && day !== 5) {
+              circle.style.background = '#fff';
+              circle.style.borderColor = 'var(--brand-green)';
+              circle.style.color = '#ccc';
+            }
+            // 3일, 5일차는 이미 이미지가 설정되어 있으므로 추가 스타일링 불필요
+          } else {
+            // 미진행 상태
+            if (day !== 3 && day !== 5) {
+              circle.style.background = '#fff';
+              circle.style.borderColor = '#e0e0e0';
+              circle.style.color = '#ccc';
+            }
+            // 3일, 5일차는 이미 이미지가 설정되어 있으므로 추가 스타일링 불필요
           }
         });
-        if (!canAttend) { attBtn.disabled = true; attBtn.innerText = '출석 완료'; }
-        else if (currentDay <= 5) { attBtn.disabled = false; attBtn.innerText = `출석하고 ${rewards[currentDay].text} 받기`; }
-        else { attBtn.disabled = true; attBtn.innerText = '모든 출석 완료'; }
+
+        if (!canAttend) {
+          attBtn.disabled = true;
+          attBtn.innerText = '출석 완료';
+        } else if (currentDay <= 5) {
+          attBtn.disabled = false;
+          const reward = rewards[currentDay];
+          if (reward.type === 'ticket') {
+            attBtn.innerText = '럭키볼 받기';
+          } else {
+            attBtn.innerText = `출석하고 ${reward.text} 받기`;
+          }
+        } else {
+          attBtn.disabled = true;
+          attBtn.innerText = '모든 출석 완료';
+        }
       }
       renderAttendance();
 
-      attBtn.addEventListener('click', () => {
-        if (!canAttend || currentDay > 5) return;
-        const reward = rewards[currentDay];
-        if (reward.type === 'usdt') { 
-          addReward('usdt', reward.amount, '출석 체크 보상'); 
-          document.getElementById('reward-amount-text').innerText = `${reward.amount} USDT 받았어요`;
-          document.getElementById('reward-sub-text').innerText = "내일도 출석 체크하고 보상 받으세요";
-          usdtOverlay.classList.add('active');
-          usdtOverlay.onclick = closeOverlay;
-          showLineMessage(`${reward.amount} USDT 받았어요`);
-          if(window.overlayTimer) clearTimeout(window.overlayTimer);
-          window.overlayTimer = setTimeout(closeOverlay, 2500);
-        } 
-        else if (reward.type === 'ticket') { 
-          addReward('ticket', reward.amount, ''); 
-          showTicketReward(reward.amount); 
-          showLineMessage(`${reward.amount} 뽑기권을 받았어요`);
-        }
-        canAttend = false; renderAttendance();
-      });
+      // 출석 버튼 이벤트 리스너
+      if (attBtn) {
+        attBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log('출석 버튼 클릭됨', { canAttend, currentDay });
+          if (!canAttend || currentDay > 5) {
+            console.log('출석 조건 불만족:', { canAttend, currentDay });
+            return;
+          }
 
-      document.getElementById('btn-activate-att').addEventListener('click', () => {
-        if (canAttend) return alert("아직 오늘의 출석을 하지 않았습니다!");
-        if (currentDay >= 5) { alert("5일차 완료! 1일차로 리셋합니다."); currentDay = 1; } else { currentDay++; }
-        canAttend = true; renderAttendance();
-      });
+          const reward = rewards[currentDay];
+          console.log('출석 보상 처리:', reward);
+
+          if (reward.type === 'usdt') {
+            addReward('usdt', reward.amount, '출석 체크 보상');
+            document.getElementById('reward-amount-text').innerText = `${reward.amount} USDT 받았어요`;
+            document.getElementById('reward-sub-text').innerText = "내일도 출석 체크하고 보상 받으세요";
+            usdtOverlay.classList.add('active');
+            usdtOverlay.onclick = closeOverlay;
+            showLineMessage(`${reward.amount} USDT 받았어요`);
+            if(window.overlayTimer) clearTimeout(window.overlayTimer);
+            window.overlayTimer = setTimeout(closeOverlay, 2500);
+          }
+          else if (reward.type === 'ticket') {
+            addReward('ticket', reward.amount, '');
+            showTicketReward(reward.amount);
+            showLineMessage(`${reward.amount} 럭키볼을 받았어요`);
+          }
+
+          canAttend = false;
+          console.log('출석 처리 완료, canAttend:', canAttend);
+          renderAttendance();
+        });
+        console.log('출석 버튼 리스너 추가됨');
+      } else {
+        console.error('출석 버튼을 찾을 수 없음');
+      }
+
+      // [테스트] 내일로 버튼
+      const activateAttBtn = document.getElementById('btn-activate-att');
+      if (activateAttBtn) {
+        activateAttBtn.addEventListener('click', () => {
+          console.log('[테스트] 내일로 버튼 클릭', { canAttend, currentDay });
+          if (canAttend) {
+            alert("아직 오늘의 출석을 하지 않았습니다!");
+            return;
+          }
+          if (currentDay >= 5) {
+            alert("5일차 완료! 1일차로 리셋합니다.");
+            currentDay = 1;
+          } else {
+            currentDay++;
+          }
+          canAttend = true;
+          renderAttendance();
+        });
+        console.log('[테스트] 내일로 버튼 리스너 추가됨');
+      } else {
+        console.error('[테스트] 내일로 버튼을 찾을 수 없음');
+      }
+
+      // 테스트 버튼들
+      if (testDay1Btn) {
+        testDay1Btn.addEventListener('click', () => {
+          console.log('1일차 상태 버튼 클릭');
+          currentDay = 1; canAttend = true; renderAttendance();
+        });
+        console.log('1일차 상태 버튼 리스너 추가됨');
+      } else {
+        console.error('1일차 상태 버튼을 찾을 수 없음');
+      }
+
+      if (testDay3Btn) {
+        testDay3Btn.addEventListener('click', () => {
+          console.log('3일차 상태 버튼 클릭');
+          currentDay = 3; canAttend = true; renderAttendance();
+        });
+        console.log('3일차 상태 버튼 리스너 추가됨');
+      } else {
+        console.error('3일차 상태 버튼을 찾을 수 없음');
+      }
+
+      if (testCompleteBtn) {
+        testCompleteBtn.addEventListener('click', () => {
+          console.log('5일 완료 버튼 클릭');
+          currentDay = 6; canAttend = false; renderAttendance();
+        });
+        console.log('5일 완료 버튼 리스너 추가됨');
+      } else {
+        console.error('5일 완료 버튼을 찾을 수 없음');
+      }
     });
   </script>
 </body>

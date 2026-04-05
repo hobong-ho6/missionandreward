@@ -27,7 +27,11 @@
     
     <div class="test-panel">
       <span>🛠 프로토타입 테스트</span>
-      <div><button class="test-btn" id="btn-reset-home">상태 초기화</button></div>
+      <div>
+        <button class="test-btn" id="btn-reset-home">상태 초기화</button>
+        <button class="test-btn" id="btn-test-complete">첫 번째 게임 완료</button>
+        <button class="test-btn" id="btn-test-reward">첫 번째 게임 리워드받음</button>
+      </div>
     </div>
 
     <header class="header flex-between">
@@ -53,26 +57,38 @@
 
     <section class="action-list">
       <div class="action-item"><div class="flex-row"><div class="action-icon">💰</div><div class="flex-col"><span class="text-sub mb-10" style="font-size: 12px;">USDT 더 많이 보유하고</span><span class="font-extrabold text-main" style="font-size: 15px;">최대 연 8% 이율 적용 받기</span></div></div><span class="text-sub font-semibold">></span></div>
+
+      <!-- 특별 혜택 배너 -->
+      <div class="special-banner" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 12px; padding: 12px 16px; margin: 12px 0;">
+        <div class="flex-between">
+          <span class="font-extrabold" style="color: #0369a1; font-size: 13px;">최대 연 5% + 3% 추가 혜택</span>
+          <span class="font-bold" style="color: #0ea5e9; font-size: 11px; background: #fff; padding: 2px 8px; border-radius: 8px;">기간한정</span>
+        </div>
+      </div>
+
       <div class="action-item"><div class="flex-row"><div class="action-icon">🔄</div><div class="flex-col"><span class="text-sub mb-10" style="font-size: 12px;">다른 토큰 USDT로 교환하고</span><span class="font-extrabold text-main mb-10" style="font-size: 15px;">더 많은 이자 받기</span><span class="text-sub" style="font-size: 12px;"><span class="font-semibold text-main">60.20 USDT</span>로 교환 가능한 토큰이 있어요</span></div></div><span class="text-sub font-semibold">></span></div>
+      <div class="action-item"><div class="flex-row"><div class="action-icon" style="background: linear-gradient(45deg, #22c55e, #16a34a); color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px;">💎</div><div class="flex-col"><span class="text-sub mb-10" style="font-size: 12px;">새로운 스테이킹 코인 투자방법</span><span class="font-extrabold text-main" style="font-size: 15px;">Unifi 혜택 한눈에 보기</span></div></div><span class="text-sub font-semibold">></span></div>
     </section>
 
     <section class="mt-30">
-      <h2 class="font-extrabold text-main px-20 mb-20" style="font-size: 18px;">매일 혜택 받기</h2>
+      <div class="flex-between px-20 mb-20">
+        <h2 class="font-extrabold text-main" style="font-size: 18px;">일일 미션</h2>
+        <span id="mission-timer" class="font-semibold text-sub" style="font-size: 13px;">12:30:59 남음</span>
+      </div>
       
-      <a href="daily_mission.html" class="daily-banner" style="text-decoration: none;">
+      <div class="daily-banner" style="text-decoration: none;">
         <div class="flex-row" style="position: relative;">
-          <span style="font-size: 20px; margin-right: 8px;">⭐</span>
+          <img src="럭키볼.png" alt="럭키볼" style="width: 20px; height: 20px; margin-right: 8px;">
           <div class="rolling-wrapper">
             <div class="rolling-list">
-              <div class="rolling-item font-extrabold text-main" style="font-size: 14px;">출석 체크<span style="font-weight: 600;">하고 USDT 뽑기권 받기</span></div>
-              <div class="rolling-item font-extrabold text-main" style="font-size: 14px;">게임 미션<span style="font-weight: 600;">하고 USDT 뽑기권 받기</span></div>
-              <div class="rolling-item font-extrabold text-main" style="font-size: 14px;">출석 체크<span style="font-weight: 600;">하고 USDT 뽑기권 받기</span></div>
+              <div class="rolling-item font-extrabold text-main" style="font-size: 14px;">출석 체크하고 럭키볼 <span style="font-weight: 600;">최대 100만원 뽑기</span></div>
+              <div class="rolling-item font-extrabold text-main" style="font-size: 14px;">출석 체크하고 럭키볼 최대 100만원 뽑기 <span style="font-weight: 600;"></span></div>
+              <div class="rolling-item font-extrabold text-main" style="font-size: 14px;">게임 미션하고 럭키볼 <span style="font-weight: 600;">최대 100만원 뽑기</span></div>
             </div>
           </div>
           <span class="red-dot" style="margin-left: 6px; transform: translateY(-6px);"></span>
         </div>
-        <span class="font-semibold text-sub">></span>
-      </a>
+      </div>
 
       <div class="game-carousel mt-10" id="home-game-list">
         
@@ -80,6 +96,7 @@
           <a href="game_detail_squishy_cat.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
             <img src="https://obs.line-scdn.net:443/0hDcqSN6NCG0xMKgSacZ1kGxZ_FT0gWwJZNRwJNDFvESB_SAcbNTMidypCRhckTzp9LTIhUSp5JxcqezpbNjMMQWhLI309TzkbORwfSTFVIykpSQBIOzMPWi9RGSZpZiw" alt="Squishy Cat" class="game-img">
             <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Squishy Cat</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
             <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
             <div class="progress-container"><div class="progress-bar"></div></div>
           </a>
@@ -90,6 +107,7 @@
           <a href="game_detail_tab_tab_jello.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
             <img src="https://obs.line-scdn.net:443/0hkv6lhvyZNFkLFSuPNoxLDlFAOihnZC1MciMmIXZQPjU4dygOcgwgXHNFAw58WjhvfgwwTHBHCAJtRBVOcQwjVC90DGh6cBYOfiMwXHZqDA5kdyhvNhsnbWhuNjMuWQM" alt="Tab Tab Jello" class="game-img">
             <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Tab Tab Jello</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
             <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
             <div class="progress-container"><div class="progress-bar"></div></div>
           </a>
@@ -100,6 +118,7 @@
           <a href="game_detail_merge_cat.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
             <img src="https://obs.line-scdn.net:443/0hmpC2SfwtMl9-Sy2JQ-5NCCYePC4SOitKB30gJwMOODNNKS4IQ38IUgQjbwsaExNACVImYBswMxNbKyp5QVYiWVMYDgRTGhB-AVILQVsbNwwSKD51QVEISQcbCW4V" alt="Merge Cat" class="game-img">
             <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Merge Cat</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
             <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
             <div class="progress-container"><div class="progress-bar"></div></div>
           </a>
@@ -110,6 +129,7 @@
           <a href="game_detail_hook_and_gold.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
             <img src="https://obs.line-scdn.net:443/0hmnTX50qRMkFpIS2cVbZNFjF0PDAFUCtUEBcgORRkOC1aQy4WEC8bfglzFRIeQi5OHDkEX09aMw1MQSpnVjwiR0RyDhpEcBBgFjghfhNJJygBQj5oFiw2VxBxCXAC" alt="Hook & Gold" class="game-img">
             <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Hook & Gold</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
             <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
             <div class="progress-container"><div class="progress-bar"></div></div>
           </a>
@@ -120,6 +140,7 @@
           <a href="game_detail_rich_match.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
             <img src="https://obs.line-scdn.net:443/0hNXPmjfYCEXdtFA6qUZ5uIDdBHwYBZQhiFCIDDxBRGxtedg0gFA5dWEtEKiwFTAlCEiJdeQ5oFywLRTBgFw0Gekl1KUYccTMgGCIVehZ_TCwGWx1BGiJdQw5vEx1IWCY" alt="Rich Match" class="game-img">
             <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Rich Match</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
             <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
             <div class="progress-container"><div class="progress-bar"></div></div>
           </a>
@@ -130,6 +151,51 @@
           <a href="game_detail_soda_king.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
             <img src="https://obs.line-scdn.net:443/0h8Ve2YmoXZ3lYS3ikZLwYLgIeaQg0On5sIX11ASUObRVrKXsuIVEraCA3UDYqE39TZ35BfH4bcSI-GkZuIlJwdHwqX0gpLkUuLX1jdCMgch9xEEYmL39zbzswZRN9B1A" alt="Soda King" class="game-img">
             <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Soda King</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
+            <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
+            <div class="progress-container"><div class="progress-bar"></div></div>
+          </a>
+          <div class="btn-wrap" style="width: 100%; margin-top: auto; position: relative; min-height: 40px; display: flex; align-items: flex-end;"></div>
+        </div>
+
+        <div class="game-card" data-index="6">
+          <a href="game_detail_cash_pang.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <img src="https://obs.line-scdn.net:443/0hxTE3b46CJ3t4SjiRKiFYLCIfKQoUOz5uAXw1AwUPLRdLKDssAVAORBsYegoNKWMsDH4eHR4aGyAeGwZsAlMwdlwrH0oJLwUsDXw3Zh0iEDgVETwkRURrTxQxJRFdBhA" alt="Cash Pang" class="game-img">
+            <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Cash Pang</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
+            <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
+            <div class="progress-container"><div class="progress-bar"></div></div>
+          </a>
+          <div class="btn-wrap" style="width: 100%; margin-top: auto; position: relative; min-height: 40px; display: flex; align-items: flex-end;"></div>
+        </div>
+
+        <div class="game-card" data-index="7">
+          <a href="game_detail_fate_war.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <img src="https://obs.line-scdn.net:443/0hpQI6sFZpL350TzERNhtQKS4aIQ8YPjZrDXk9BgkKJRJHLTMpDVYrTQwwLRceLA1xC1ZjHBcaAyUSHg5pDlY4c1AuF08FKg0pAUJiZxEccykcAGtUSVUraBc0LRRRAxg" alt="Fate War" class="game-img">
+            <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Fate War</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
+            <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
+            <div class="progress-container"><div class="progress-bar"></div></div>
+          </a>
+          <div class="btn-wrap" style="width: 100%; margin-top: auto; position: relative; min-height: 40px; display: flex; align-items: flex-end;"></div>
+        </div>
+
+        <div class="game-card" data-index="8">
+          <a href="game_detail_magic_squad.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <img src="https://obs.line-scdn.net:443/0h-txmM0v3cltFFG1aVB4NDB9BfCopZWtOPCJgIzhReDd2dm4MPA12Xj9ERQ9qdkx9MSdheGBqTgAjRVNMPw1lVmF1Smo0cVAMMCJhZyZEcABpW0NxeCA-byZvcDFgWEU" alt="Magic Squad" class="game-img">
+            <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Magic Squad</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
+            <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
+            <div class="progress-container"><div class="progress-bar"></div></div>
+          </a>
+          <div class="btn-wrap" style="width: 100%; margin-top: auto; position: relative; min-height: 40px; display: flex; align-items: flex-end;"></div>
+        </div>
+
+        <div class="game-card" data-index="9">
+          <a href="game_detail_battle_ship.html" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <img src="https://obs.line-scdn.net:443/0h1Qc8s4vCbn5eQXEjL-kRKQYUYA8yMHdrJ3d8BiMEZBJtI3IpYHRqTT4pazZzDipUY1hYfyE6bzJ7IXZYYVx-eHMSUiVzEExfIlgiYz0TbAcuImJMZ0xqaCcRVU81" alt="Battle Ship" class="game-img">
+            <p class="font-semibold text-main mb-10" style="font-size: 13px; width: 100%; text-align: center;">Battle Ship</p>
+            <p class="font-semibold" style="font-size: 11px; width: 100%; text-align: center; color: var(--brand-green);">2 USDT 받기</p>
             <p class="status-text font-semibold mb-10" style="font-size: 11px; width: 100%; text-align: center; margin-top: 4px;"></p>
             <div class="progress-container"><div class="progress-bar"></div></div>
           </a>
@@ -137,6 +203,21 @@
         </div>
 
       </div>
+
+      <!-- 일일 미션하고 USDT 받기 버튼 -->
+      <a href="daily_mission.html" class="daily-mission-btn" style="
+        display: block;
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        color: white;
+        text-decoration: none;
+        padding: 16px;
+        margin: 20px;
+        border-radius: 16px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 16px;
+        box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+      ">일일 미션하고 USDT 받기</a>
     </section>
 
     <section class="mt-40 mb-20">
@@ -145,11 +226,71 @@
       <div class="edu-card gray"><div class="flex-col"><span class="text-sub font-semibold mb-10" style="font-size: 12px;">비수탁 지갑 알아보기</span><span class="font-extrabold text-main" style="font-size: 15px;">안전하게 내 자산 보관하기</span></div><div class="edu-icon lime" style="font-size: 20px;">⬡</div></div>
     </section>
 
+    <!-- 플로팅 보상 받기 배너 -->
+    <div id="reward-available-banner" style="
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 440px;
+      background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 16px;
+      z-index: 1000;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    ">
+      <div class="flex-between" style="align-items: center; position: relative; z-index: 2;">
+        <div>
+          <div style="display: flex; align-items: center; margin-bottom: 4px;">
+            <span class="font-black" style="font-size: 16px; margin-right: 8px;" id="reward-amount">2 USDT 리워드 받으세요</span>
+            <span style="font-size: 16px;">🎉</span>
+          </div>
+          <p style="font-size: 13px; color: #d1d5db; font-weight: 600; margin: 0;">일일 미션 리워드 놓치지 마세요</p>
+        </div>
+        <button id="btn-claim-rewards" style="
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 24px;
+          font-size: 14px;
+          font-weight: 800;
+          cursor: pointer;
+          box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+          min-width: 60px;
+        ">받기</button>
+      </div>
+    </div>
+
     <nav class="bottom-nav">
-      <div class="nav-item active"><span class="nav-icon text-main">🏠</span><span>Home</span></div>
-      <div class="nav-item"><span class="nav-icon">🕹️</span><span>Apps</span></div>
-      <div class="nav-item"><span class="nav-icon">📈</span><span>Trade</span></div>
-      <div class="nav-item"><span class="nav-icon-green">🟢</span><span style="color: var(--brand-green);">My</span></div>
+      <div class="nav-item active">
+        <span class="nav-icon text-main">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+        </span>
+        <span>Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+          </svg>
+        </span>
+        <span>Assets</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon-green">
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="var(--brand-green)"/>
+          </svg>
+        </span>
+        <span style="color: var(--brand-green);">My</span>
+      </div>
     </nav>
   </div>
 
@@ -161,11 +302,30 @@
   </div>
 
   <script>
-    function getGlobalState() { 
-      const stored = localStorage.getItem('unifi_state'); 
+    function getGlobalState() {
+      const stored = localStorage.getItem('unifi_state');
       let state = stored ? JSON.parse(stored) : null;
-      if (!state || !state.gameStates) { state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0] }, state || {}); localStorage.setItem('unifi_state', JSON.stringify(state)); }
-      return state; 
+      if (!state || !state.gameStates) {
+        state = Object.assign({ usdt: 5.5, tickets: 3, history: [], gameStates: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completionTimes: {} }, state || {});
+        localStorage.setItem('unifi_state', JSON.stringify(state));
+      }
+      // 기존 사용자의 gameStates가 10개 미만인 경우 확장
+      if (state.gameStates && state.gameStates.length < 10) {
+        while (state.gameStates.length < 10) {
+          state.gameStates.push(0);
+        }
+        localStorage.setItem('unifi_state', JSON.stringify(state));
+      }
+      // completionTimes 초기화
+      if (!state.completionTimes) {
+        state.completionTimes = {};
+      }
+      // Hook & Gold(인덱스 3)가 미션 완료 상태인데 완료 시각이 없는 경우 설정
+      if (state.gameStates[3] >= 3 && !state.completionTimes[3]) {
+        state.completionTimes[3] = 1640995200000; // 2022년 1월 1일
+        localStorage.setItem('unifi_state', JSON.stringify(state));
+      }
+      return state;
     }
     function saveGlobalState(state) { localStorage.setItem('unifi_state', JSON.stringify(state)); renderHome(); }
     
@@ -187,67 +347,165 @@
 
     function renderHome() {
       const state = getGlobalState();
-      const baseUsdt = 2353.55; const currentTotal = baseUsdt + state.usdt;
+      const baseUsdt = 2353.55;
+      const currentTotal = baseUsdt + state.usdt;
       document.getElementById('val-usdt-home').innerText = currentTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
+      // 미션 완료 상태(상태 3) 게임 개수 확인
+      let completedMissionsCount = 0;
+      for (let i = 0; i < state.gameStates.length; i++) {
+        if (state.gameStates[i] === 3) {
+          completedMissionsCount++;
+        }
+      }
+
+      // 보상 받기 배너 표시/숨김
+      const rewardBanner = document.getElementById('reward-available-banner');
+      const rewardAmountText = document.getElementById('reward-amount');
+
+      if (completedMissionsCount > 0) {
+        const totalReward = completedMissionsCount * 2;
+        rewardAmountText.innerText = `${totalReward} USDT 리워드 받으세요`;
+
+        if (rewardBanner.style.display === 'none' || !rewardBanner.style.display) {
+          // 배너가 숨겨져 있었다면 애니메이션과 함께 표시
+          rewardBanner.style.display = 'block';
+          rewardBanner.style.transform = 'translateX(-50%) translateY(100%)';
+          rewardBanner.style.opacity = '0';
+
+          setTimeout(() => {
+            rewardBanner.style.transition = 'all 0.3s ease-out';
+            rewardBanner.style.transform = 'translateX(-50%) translateY(0)';
+            rewardBanner.style.opacity = '1';
+          }, 10);
+        }
+      } else {
+        if (rewardBanner.style.display !== 'none') {
+          // 배너가 표시되어 있었다면 애니메이션과 함께 숨김
+          rewardBanner.style.transition = 'all 0.3s ease-in';
+          rewardBanner.style.transform = 'translateX(-50%) translateY(100%)';
+          rewardBanner.style.opacity = '0';
+
+          setTimeout(() => {
+            rewardBanner.style.display = 'none';
+          }, 300);
+        }
+      }
+
       const stateConfigs = [
-        { text: "0/3 미션 진행 전", color: "var(--text-sub)", bar: "0%" }, { text: "1/3 미션 진행 중", color: "var(--text-sub)", bar: "33%" },
-        { text: "2/3 미션 진행 중", color: "var(--text-sub)", bar: "66%" }, { text: "미션 완료", color: "var(--brand-green)", bar: "100%" }, { text: "미션 완료", color: "var(--brand-green)", bar: "100%" }
+        { text: "미션 진행전", color: "var(--text-sub)", bar: "0%" },
+        { text: "1/3 미션 진행 중", color: "var(--text-sub)", bar: "33%" },
+        { text: "2/3 미션 진행 중", color: "var(--text-sub)", bar: "66%" },
+        { text: "미션 완료", color: "var(--brand-green)", bar: "100%" },
+        { text: "리워드 받음", color: "var(--brand-green)", bar: "100%" }
       ];
 
       document.querySelectorAll('.game-card').forEach((card) => {
-        let idx = parseInt(card.getAttribute('data-index')); let gState = state.gameStates[idx] || 0; const config = stateConfigs[gState];
+        let idx = parseInt(card.getAttribute('data-index'));
+        let gState = state.gameStates[idx] || 0;
+        const config = stateConfigs[gState];
         const statusText = card.querySelector('.status-text'), progressBar = card.querySelector('.progress-bar'), btnWrap = card.querySelector('.btn-wrap');
-        if(statusText) { statusText.innerText = config.text; statusText.style.color = config.color; }
-        if(progressBar) progressBar.style.width = config.bar;
-        
+
+        if(statusText) {
+          statusText.innerText = config.text;
+          statusText.style.color = config.color;
+        }
+
+        if(progressBar) {
+          progressBar.style.width = config.bar;
+          progressBar.style.backgroundColor = (gState >= 3) ? 'var(--brand-green)' : '#ddd';
+        }
+
         if(btnWrap) {
-            if (gState === 4) {
-              btnWrap.innerHTML = `<button class="btn-play btn-progress" data-index="${idx}">게임하기</button>`;
-            } else if (gState === 3) {
-              // 미션 완료 시 버튼은 게임하기로 남겨두고 툴팁으로 리워드 안내
-              btnWrap.innerHTML = `
-                <button class="btn-play btn-progress" data-index="${idx}">게임하기</button>
-                <div style="position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); background-color: #fff; border: 2px solid #111; color: #111; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 800; white-space: nowrap; z-index: 10; pointer-events: none;">
-                  2 USDT 받기
-                  <div style="position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px; background-color: #fff; border-top: 2px solid #111; border-left: 2px solid #111;"></div>
-                </div>
-              `;
-            } else {
-              btnWrap.innerHTML = `<button class="btn-play btn-progress" data-index="${idx}">게임하기</button>`;
-            }
+          if (gState === 3) {
+            // 미션 완료 시 툴팁과 함께 게임하기 버튼 표시
+            btnWrap.innerHTML = `
+              <button class="btn-play btn-progress" data-index="${idx}">게임하기</button>
+              <div class="btn-reward-tooltip">리워드 받기</div>
+            `;
+          } else {
+            btnWrap.innerHTML = `<button class="btn-play btn-progress" data-index="${idx}">게임하기</button>`;
+          }
         }
       });
     }
 
+    // 일일 미션 타이머 업데이트 함수
+    function updateMissionTimer() {
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+
+      const timeDiff = tomorrow - now;
+      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      const timerElement = document.getElementById('mission-timer');
+      if (timerElement) {
+        timerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} 남음`;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       renderHome();
+      updateMissionTimer();
+      setInterval(updateMissionTimer, 1000); // 1초마다 타이머 업데이트
       const usdtOverlay = document.getElementById('usdt-reward-overlay');
       const btnOverlayX = document.getElementById('btn-overlay-x');
       function closeOverlay() { usdtOverlay.classList.remove('active'); } btnOverlayX.addEventListener('click', closeOverlay);
 
       document.getElementById('btn-reset-home').addEventListener('click', () => {
-        let state = getGlobalState(); state.gameStates = [0, 0, 0, 0, 0, 0]; saveGlobalState(state); alert('모든 게임 미션 상태가 초기화되었습니다.');
+        let state = getGlobalState();
+        // Hook & Gold(인덱스 3)는 미션 완료 상태로 유지
+        state.gameStates = [0, 1, 2, 3, 0, 0, 0, 0, 0, 0];
+        // Hook & Gold는 가장 먼저 완료된 것으로 설정
+        state.completionTimes = { 3: 1640995200000 };
+        saveGlobalState(state);
+        alert('모든 게임 미션 상태가 초기화되었습니다.');
+      });
+
+      document.getElementById('btn-test-complete').addEventListener('click', () => {
+        let state = getGlobalState();
+        state.gameStates[0] = 3; // 첫 번째 게임을 미션 완료 상태로 설정
+        saveGlobalState(state);
+        alert('첫 번째 게임이 미션 완료 상태로 설정되었습니다.');
+      });
+
+      document.getElementById('btn-test-reward').addEventListener('click', () => {
+        let state = getGlobalState();
+        state.gameStates[0] = 4; // 첫 번째 게임을 리워드 받음 상태로 설정
+        saveGlobalState(state);
+        alert('첫 번째 게임이 리워드 받음 상태로 설정되었습니다.');
+      });
+
+      // 보상 받기 버튼 클릭 이벤트
+      document.getElementById('btn-claim-rewards').addEventListener('click', () => {
+        console.log('보상 받기 버튼 클릭 - daily_mission.html로 이동');
+        location.href = 'daily_mission.html';
       });
 
       document.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-progress')) {
-          e.preventDefault(); let idx = parseInt(e.target.getAttribute('data-index')); let state = getGlobalState();
-          if(state.gameStates[idx] < 3) { state.gameStates[idx]++; saveGlobalState(state); }
+          e.preventDefault();
+          let idx = parseInt(e.target.getAttribute('data-index'));
+          let state = getGlobalState();
+
+          if(state.gameStates[idx] < 4) {
+            let previousState = state.gameStates[idx];
+            state.gameStates[idx]++;
+
+            // 상태가 3(미션 완료)이 될 때 완료 시각 저장
+            if (!state.completionTimes) state.completionTimes = {};
+            if (previousState === 2 && state.gameStates[idx] === 3) {
+              state.completionTimes[idx] = Date.now();
+              console.log(`게임 ${idx} 완료 시각 저장:`, new Date(state.completionTimes[idx]));
+            }
+
+            saveGlobalState(state);
+          }
         }
-        
-        /* // [기능 비활성화] 사용자가 홈 화면(index.html)에서 직접 리워드를 수령하는 방식이 제외되었습니다.
-        // 상세 페이지(game_detail)로 진입하여 수령해야 하므로 이벤트를 주석 처리하여 동작하지 않도록 합니다.
-        
-        if (e.target.classList.contains('btn-receive')) {
-          e.preventDefault(); let idx = parseInt(e.target.getAttribute('data-index')); let state = getGlobalState();
-          state.gameStates[idx] = 4; saveGlobalState(state); addReward('usdt', 2, '게임 미션 완료 보상');
-          
-          usdtOverlay.classList.add('active'); usdtOverlay.onclick = closeOverlay;
-          showLineMessage('2 USDT 받았어요');
-          if(window.overlayTimer) clearTimeout(window.overlayTimer); window.overlayTimer = setTimeout(closeOverlay, 2500);
-        }
-        */
       });
     });
   </script>

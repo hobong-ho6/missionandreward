@@ -5,6 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>리워드 내역</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .dim-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .dim-bg.active {
+      opacity: 1;
+    }
+    .bottom-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      background: white;
+      border-radius: 20px 20px 0 0;
+      padding: 20px;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      max-height: 80vh;
+      overflow-y: auto;
+      width: 100%;
+      max-width: 480px;
+    }
+    .bottom-sheet.active {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
 </head>
 <body style="background-color: var(--app-bg);">
 
@@ -32,25 +66,23 @@
       <p class="text-sub mt-10" style="font-size: 13px;" id="val-krw">≈₩0</p>
     </div>
 
+    <!-- USDT 뽑기권 영역 제거됨 - 뽑기 기능은 daily_mission.html에서만 제공
     <div class="card mt-20" style="box-shadow: none; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 16px 20px;">
-      <div class="flex-row">
-        <div style="width: 40px; height: 40px; background-color: #fff8e1; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 20px; margin-right: 12px;">🎟️</div>
-        <div class="flex-col">
-          <span class="text-sub font-semibold" style="font-size: 12px;">USDT 뽑기권</span>
-          <span class="font-extrabold text-main mt-10" style="font-size: 15px;"><span id="val-tickets">0</span>개</span>
-        </div>
+      <div class="flex-col">
+        <span class="text-sub font-semibold" style="font-size: 12px;">USDT 뽑기권</span>
+        <span class="font-extrabold text-main mt-10" style="font-size: 15px;"><span id="val-tickets">0</span>개</span>
       </div>
       <button id="btn-draw-direct" class="btn btn-black" style="padding: 8px 16px; width: auto; font-size: 13px; border-radius: 20px;">뽑기</button>
     </div>
+    -->
 
     <hr style="border: none; border-top: 8px solid var(--gray-bg); margin: 30px 0;">
 
     <div style="padding: 0 20px;">
       <div class="flex-between">
         <h3 class="font-extrabold text-main" style="font-size: 16px;">나의 리워드 내역</h3>
-        <button id="btn-clear-history" style="font-size: 11px; color: #999; text-decoration: underline;">내역 지우기</button>
       </div>
-      <p class="text-sub mt-10" style="font-size: 12px;">최근 내역 ∨</p>
+      <p class="text-sub mt-10" style="font-size: 12px; cursor: pointer;" id="btn-open-filter">1개월 내역 (최신순) ∨</p>
 
       <div class="history-list mt-20" id="history-container">
       </div>
@@ -58,19 +90,62 @@
 
   </div>
 
+  <!-- 필터 바텀시트 -->
+  <div id="filter-overlay" class="dim-bg" style="display: none;"></div>
+  <div id="filter-bottom-sheet" class="bottom-sheet" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h2 class="font-extrabold text-main" style="font-size: 18px;">조회 조건 설정</h2>
+      <button id="btn-close-filter" style="font-size: 24px; color: #666; background: none; border: none; cursor: pointer;">&times;</button>
+    </div>
+
+    <!-- 조회 기간 -->
+    <div style="margin-bottom: 30px;">
+      <h3 class="font-extrabold text-main" style="font-size: 14px; margin-bottom: 16px;">조회 기간</h3>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="period-btn selected" data-period="1" style="flex: 1; padding: 12px; border: 2px solid #111; background: white; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">1개월</button>
+        <button class="period-btn" data-period="3" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">3개월</button>
+        <button class="period-btn" data-period="6" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">6개월</button>
+        <button class="period-btn" data-period="custom" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">직접입력</button>
+      </div>
+    </div>
+
+    <!-- 직접입력 캘린더 영역 -->
+    <div id="custom-date-area" style="display: none; margin-bottom: 30px;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <input type="date" id="start-date" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+        <span style="color: #666;">~</span>
+        <input type="date" id="end-date" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+      </div>
+    </div>
+
+    <!-- 거래내역 정렬 -->
+    <div style="margin-bottom: 40px;">
+      <h3 class="font-extrabold text-main" style="font-size: 14px; margin-bottom: 16px;">거래내역 정렬</h3>
+      <div style="display: flex; gap: 8px;">
+        <button class="sort-btn selected" data-sort="latest" style="flex: 1; padding: 12px; border: 2px solid #111; background: white; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">최신순</button>
+        <button class="sort-btn" data-sort="oldest" style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; background: white; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">과거순</button>
+      </div>
+    </div>
+
+    <!-- 확인 버튼 -->
+    <button id="btn-apply-filter" style="width: 100%; padding: 16px; background: #111; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer;">확인</button>
+  </div>
+
+  <!-- 뽑기 관련 오버레이 제거됨 - 뽑기 기능은 daily_mission.html에서만 제공
   <div id="usdt-reward-overlay" class="blur-overlay">
     <div class="overlay-close" id="btn-overlay-x">&times;</div>
-    
+
     <div class="usdt-glow-circle"><span>₮</span></div>
     <h1 class="font-black text-main" id="reward-amount-text" style="font-size: 32px; z-index: 10;">1 USDT 받았어요</h1>
     <p class="text-sub font-semibold mt-10" id="reward-sub-text" style="z-index: 10; margin-bottom: 20px;">USDT 뽑기권 X개 남았어요</p>
-    
+
     <div id="draw-again-container" style="display: none; position: relative; z-index: 10; margin-top: 40px; width: 100%; max-width: 320px;">
        <div class="tooltip-top" id="draw-again-tooltip" style="bottom: 100%; margin-bottom: 8px;">X번 더 뽑을 수 있어요!</div>
        <button id="btn-draw-again" class="btn-black" style="width: 100%; padding: 18px; font-size: 16px;">더 뽑기</button>
     </div>
     <button id="btn-overlay-close" class="btn-black" style="display: none; z-index: 10; margin-top: 40px; width: 100%; max-width: 320px; padding: 18px; font-size: 16px;">확인</button>
   </div>
+  -->
 
   <script>
     const DEFAULT_STATE = { usdt: 5.5, tickets: 3, history: [] };
@@ -107,23 +182,224 @@
       const state = getGlobalState();
       document.getElementById('val-usdt').innerText = state.usdt.toFixed(2).replace(/\.00$/, '');
       document.getElementById('val-krw').innerText = `≈₩${(state.usdt * 1350).toLocaleString('ko-KR', {maximumFractionDigits: 0})}`;
-      document.getElementById('val-tickets').innerText = state.tickets;
-      
+      // 뽑기 기능 제거로 티켓 표시 비활성화
+      // document.getElementById('val-tickets').innerText = state.tickets;
+
+      // 필터가 적용된 내역 렌더링
+      renderFilteredHistory();
+    }
+
+    // 필터 상태 관리
+    let filterState = {
+      period: 1, // 기본 1개월
+      sort: 'latest', // 기본 최신순
+      startDate: null,
+      endDate: null
+    };
+
+    function applyFilters(history) {
+      let filtered = [...history];
+
+      // 기간 필터링
+      if (filterState.period !== 'custom') {
+        const now = new Date();
+        const monthsAgo = new Date();
+        monthsAgo.setMonth(now.getMonth() - filterState.period);
+
+        filtered = filtered.filter(item => {
+          const itemDate = new Date(item.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1/$2/$3'));
+          return itemDate >= monthsAgo;
+        });
+      } else if (filterState.startDate && filterState.endDate) {
+        const startDate = new Date(filterState.startDate);
+        const endDate = new Date(filterState.endDate);
+        endDate.setHours(23, 59, 59, 999); // 종료일 끝까지 포함
+
+        filtered = filtered.filter(item => {
+          const itemDate = new Date(item.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1/$2/$3'));
+          return itemDate >= startDate && itemDate <= endDate;
+        });
+      }
+
+      // 정렬
+      if (filterState.sort === 'latest') {
+        filtered.sort((a, b) => new Date(b.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1/$2/$3')) - new Date(a.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1/$2/$3')));
+      } else {
+        filtered.sort((a, b) => new Date(a.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1/$2/$3')) - new Date(b.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1/$2/$3')));
+      }
+
+      return filtered;
+    }
+
+    function renderFilteredHistory() {
+      const state = getGlobalState();
+      const filteredHistory = applyFilters(state.history);
+
       const historyContainer = document.getElementById('history-container');
       historyContainer.innerHTML = '';
-      if(state.history.length === 0) { historyContainer.innerHTML = '<p class="text-sub" style="text-align: center; padding: 20px 0;">아직 리워드 내역이 없습니다.</p>'; return; }
 
-      state.history.forEach(item => {
-        const row = document.createElement('div'); row.className = 'history-item';
-        row.innerHTML = `<div class="flex-row"><div class="icon-down" style="background-color:#e0f9eb;">↓</div><div class="flex-col"><span class="font-extrabold text-main" style="font-size: 14px;">${item.title}</span><span class="text-sub" style="font-size: 11px; margin-top: 4px;">${item.date}</span></div></div><div class="flex-col" style="text-align: right;"><span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">${item.amount} USDT</span><span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩${(item.amount * 1350).toLocaleString('ko-KR', {maximumFractionDigits: 0})}</span></div>`;
+      if(filteredHistory.length === 0) {
+        historyContainer.innerHTML = '<p class="text-sub" style="text-align: center; padding: 20px 0;">조회 조건에 맞는 내역이 없습니다.</p>';
+        return;
+      }
+
+      filteredHistory.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'history-item';
+        row.style.cursor = 'pointer';
+        row.innerHTML = `<div class="flex-row"><div class="icon-down" style="background-color:#e0f9eb;">↓</div><div class="flex-col"><span class="font-extrabold text-main" style="font-size: 14px;">USDT 리워드 지급</span><span class="text-sub" style="font-size: 11px; margin-top: 4px;">${item.date}</span></div></div><div class="flex-col" style="text-align: right;"><span class="font-extrabold" style="color: var(--brand-blue); font-size: 14px;">${item.amount} USDT</span><span class="text-sub" style="font-size: 11px; margin-top: 4px;">≈₩${(item.amount * 1350).toLocaleString('ko-KR', {maximumFractionDigits: 0})}</span></div>`;
+
+        // 클릭 이벤트 추가 - 상세 페이지로 이동
+        row.addEventListener('click', () => {
+          const params = new URLSearchParams({
+            title: item.title,
+            date: item.date,
+            amount: item.amount
+          });
+          window.location.href = `reward_history_detail.html?${params.toString()}`;
+        });
+
         historyContainer.appendChild(row);
       });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       renderPage();
-      document.getElementById('btn-clear-history').addEventListener('click', () => { let state = getGlobalState(); state.history = []; saveGlobalState(state); });
 
+      // 필터 바텀시트 관련 요소들
+      const filterOverlay = document.getElementById('filter-overlay');
+      const filterBottomSheet = document.getElementById('filter-bottom-sheet');
+      const btnOpenFilter = document.getElementById('btn-open-filter');
+      const btnCloseFilter = document.getElementById('btn-close-filter');
+      const btnApplyFilter = document.getElementById('btn-apply-filter');
+      const customDateArea = document.getElementById('custom-date-area');
+      const startDateInput = document.getElementById('start-date');
+      const endDateInput = document.getElementById('end-date');
+
+      // 필터 바텀시트 열기
+      function openFilterSheet() {
+        filterOverlay.style.display = 'block';
+        filterBottomSheet.style.display = 'block';
+        setTimeout(() => {
+          filterOverlay.classList.add('active');
+          filterBottomSheet.classList.add('active');
+        }, 10);
+      }
+
+      // 필터 바텀시트 닫기
+      function closeFilterSheet() {
+        filterOverlay.classList.remove('active');
+        filterBottomSheet.classList.remove('active');
+        setTimeout(() => {
+          filterOverlay.style.display = 'none';
+          filterBottomSheet.style.display = 'none';
+        }, 300);
+      }
+
+      // 필터 UI 업데이트
+      function updateFilterUI() {
+        // 조회기간 버튼 업데이트
+        document.querySelectorAll('.period-btn').forEach(btn => {
+          btn.classList.remove('selected');
+          btn.style.border = '2px solid #e0e0e0';
+          if (btn.dataset.period == filterState.period) {
+            btn.classList.add('selected');
+            btn.style.border = '2px solid #111';
+          }
+        });
+
+        // 직접입력 영역 표시/숨김
+        if (filterState.period === 'custom') {
+          customDateArea.style.display = 'block';
+        } else {
+          customDateArea.style.display = 'none';
+        }
+
+        // 정렬 버튼 업데이트
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+          btn.classList.remove('selected');
+          btn.style.border = '2px solid #e0e0e0';
+          if (btn.dataset.sort === filterState.sort) {
+            btn.classList.add('selected');
+            btn.style.border = '2px solid #111';
+          }
+        });
+      }
+
+      // 이벤트 리스너들
+      btnOpenFilter.addEventListener('click', openFilterSheet);
+      btnCloseFilter.addEventListener('click', closeFilterSheet);
+      filterOverlay.addEventListener('click', closeFilterSheet);
+
+      // 조회기간 버튼들
+      document.querySelectorAll('.period-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterState.period = btn.dataset.period === 'custom' ? 'custom' : parseInt(btn.dataset.period);
+
+          // 직접입력 선택시 기본 날짜 설정
+          if (filterState.period === 'custom') {
+            const today = new Date();
+            const oneMonthAgo = new Date();
+            oneMonthAgo.setMonth(today.getMonth() - 1);
+
+            startDateInput.value = oneMonthAgo.toISOString().split('T')[0];
+            endDateInput.value = today.toISOString().split('T')[0];
+            filterState.startDate = startDateInput.value;
+            filterState.endDate = endDateInput.value;
+          }
+
+          updateFilterUI();
+        });
+      });
+
+      // 정렬 버튼들
+      document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterState.sort = btn.dataset.sort;
+          updateFilterUI();
+        });
+      });
+
+      // 날짜 입력 필드들
+      startDateInput.addEventListener('change', () => {
+        filterState.startDate = startDateInput.value;
+      });
+
+      endDateInput.addEventListener('change', () => {
+        filterState.endDate = endDateInput.value;
+      });
+
+      // 필터 적용 버튼
+      btnApplyFilter.addEventListener('click', () => {
+        renderFilteredHistory();
+        closeFilterSheet();
+
+        // 필터 상태에 따라 표시 텍스트 업데이트
+        let filterText = '1개월 내역';
+        if (filterState.period === 'custom') {
+          filterText = '기간별 내역';
+        } else if (filterState.period === 1) {
+          filterText = '1개월 내역';
+        } else if (filterState.period === 3) {
+          filterText = '3개월 내역';
+        } else if (filterState.period === 6) {
+          filterText = '6개월 내역';
+        }
+
+        if (filterState.sort === 'oldest') {
+          filterText += ' (과거순)';
+        } else {
+          filterText += ' (최신순)';
+        }
+
+        btnOpenFilter.textContent = filterText + ' ∨';
+      });
+
+      // 초기 필터 UI 설정
+      updateFilterUI();
+
+      // 뽑기 기능 제거로 관련 코드 주석처리
+      /*
       const usdtOverlay = document.getElementById('usdt-reward-overlay');
       const drawAgainContainer = document.getElementById('draw-again-container');
       const btnCloseOverlay = document.getElementById('btn-overlay-close');
@@ -148,8 +424,8 @@
       function executeDraw() {
         let state = getGlobalState();
         if(state.tickets > 0) {
-          addReward('ticket', -1, ''); 
-          const randomReward = Math.floor(Math.random() * 3) + 1; 
+          addReward('ticket', -1, '');
+          const randomReward = Math.floor(Math.random() * 3) + 1;
           addReward('usdt', randomReward, 'USDT 뽑기 리워드');
           showUsdtReward(randomReward);
           showLineMessage(`${randomReward} USDT 받았어요`); // LINE 푸시 알림 실행
@@ -160,6 +436,7 @@
       document.getElementById('btn-draw-again').addEventListener('click', () => { closeOverlay(); setTimeout(executeDraw, 300); });
       btnCloseOverlay.addEventListener('click', closeOverlay);
       btnOverlayX.addEventListener('click', closeOverlay); // 도중 닫기 연동
+      */
     });
   </script>
 </body>
